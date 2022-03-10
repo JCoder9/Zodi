@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "zodi": "apps/zodi",
+    "zodi-e2e": "apps/zodi-e2e"
+  }
+}
