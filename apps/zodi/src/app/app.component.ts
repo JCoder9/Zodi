@@ -1,10 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UsersService } from '@jrepos/users';
 
 @Component({
-  selector: 'jrepos-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+    selector: 'zodi-root',
+    templateUrl: './app.component.html',
 })
-export class AppComponent {
-  title = 'zodi';
+export class AppComponent implements OnInit {
+    title = 'zodi';
+    constructor(private usersService: UsersService) {}
+
+    ngOnInit(): void {
+        this.usersService.initAppSession();
+    }
 }

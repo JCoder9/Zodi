@@ -1,0 +1,55 @@
+.banner {
+    // height: 280px;
+    // width: 130%;
+    // margin-left: -140px;
+    width: 100%;
+    // background-color: #D7EFFB;
+    background-image: url('/assets/images/zodi-exterior-clean.jpg');;
+    // border-radius: 15px;
+  background-position: 50% 0px;
+  background-size: 80%;
+  border: 3px solid white;
+
+
+    &-text {
+        color: var(--surface-900);
+        margin-top: 50px;
+        text-shadow: 2px 2px  white;
+        h1 {
+            margin: 0;
+            font-size: 3em;
+            font-weight: 400;
+        }
+        h2 {
+            margin: 0;
+            font-size: 2em;
+            font-weight: 300;
+        }
+    }
+
+    &-image {
+        padding: 0px 100px 0px 0px;
+        text-align: center;
+        margin-top: -10px;
+    
+
+        img {
+            padding: 0;
+            margin: 0;
+            width: 280px;
+        }
+    }
+
+    &-button {
+        background-color: var(--surface-0);
+        color: $primary-color;
+        border: 0;
+        border-radius: 13px;
+
+        &:enabled:hover {
+            background-color: var(--surface-0);
+            color: $primary-color;
+            border: 0;
+        }
+    }
+}

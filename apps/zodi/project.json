@@ -1,88 +1,91 @@
 {
-  "projectType": "application",
-  "root": "apps/zodi",
-  "sourceRoot": "apps/zodi/src",
-  "prefix": "jrepos",
-  "targets": {
-    "build": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/apps/zodi",
-        "index": "apps/zodi/src/index.html",
-        "main": "apps/zodi/src/main.ts",
-        "polyfills": "apps/zodi/src/polyfills.ts",
-        "tsConfig": "apps/zodi/tsconfig.app.json",
-        "inlineStyleLanguage": "scss",
-        "assets": ["apps/zodi/src/favicon.ico", "apps/zodi/src/assets"],
-        "styles": ["apps/zodi/src/styles.scss"],
-        "scripts": []
-      },
-      "configurations": {
-        "production": {
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+    "projectType": "application",
+    "root": "apps/zodi",
+    "sourceRoot": "apps/zodi/src",
+    "prefix": "zodi",
+    "targets": {
+        "build": {
+            "executor": "@angular-devkit/build-angular:browser",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+                "outputPath": "dist/apps/zodi",
+                "index": "apps/zodi/src/index.html",
+                "main": "apps/zodi/src/main.ts",
+                "polyfills": "apps/zodi/src/polyfills.ts",
+                "tsConfig": "apps/zodi/tsconfig.app.json",
+                "inlineStyleLanguage": "scss",
+                "assets": ["apps/zodi/src/favicon.ico", "apps/zodi/src/assets"],
+                "styles": ["apps/zodi/src/styles.scss"],
+                "scripts": []
             },
-            {
-              "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
-            }
-          ],
-          "fileReplacements": [
-            {
-              "replace": "apps/zodi/src/environments/environment.ts",
-              "with": "apps/zodi/src/environments/environment.prod.ts"
-            }
-          ],
-          "outputHashing": "all"
+            "configurations": {
+                "production": {
+                    "budgets": [
+                        {
+                            "type": "initial",
+                            "maximumWarning": "500kb",
+                            "maximumError": "1mb"
+                        },
+                        {
+                            "type": "anyComponentStyle",
+                            "maximumWarning": "2kb",
+                            "maximumError": "4kb"
+                        }
+                    ],
+                    "fileReplacements": [
+                        {
+                            "replace": "apps/zodi/src/environments/environment.ts",
+                            "with": "apps/zodi/src/environments/environment.prod.ts"
+                        }
+                    ],
+                    "outputHashing": "all"
+                },
+                "development": {
+                    "buildOptimizer": false,
+                    "optimization": false,
+                    "vendorChunk": true,
+                    "extractLicenses": false,
+                    "sourceMap": true,
+                    "namedChunks": true
+                }
+            },
+            "defaultConfiguration": "production"
         },
-        "development": {
-          "buildOptimizer": false,
-          "optimization": false,
-          "vendorChunk": true,
-          "extractLicenses": false,
-          "sourceMap": true,
-          "namedChunks": true
-        }
-      },
-      "defaultConfiguration": "production"
-    },
-    "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
-      "configurations": {
-        "production": {
-          "browserTarget": "zodi:build:production"
+        "serve": {
+            "executor": "@angular-devkit/build-angular:dev-server",
+            "configurations": {
+                "production": {
+                    "browserTarget": "zodi:build:production"
+                },
+                "development": {
+                    "browserTarget": "zodi:build:development"
+                }
+            },
+            "defaultConfiguration": "development"
         },
-        "development": {
-          "browserTarget": "zodi:build:development"
+        "extract-i18n": {
+            "executor": "@angular-devkit/build-angular:extract-i18n",
+            "options": {
+                "browserTarget": "zodi:build"
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "options": {
+                "lintFilePatterns": [
+                    "apps/zodi/src/**/*.ts",
+                    "apps/zodi/src/**/*.html"
+                ]
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": ["coverage/apps/zodi"],
+            "options": {
+                "jestConfig": "apps/zodi/jest.config.js",
+                "passWithNoTests": true
+            }
         }
-      },
-      "defaultConfiguration": "development"
     },
-    "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
-      "options": {
-        "browserTarget": "zodi:build"
-      }
-    },
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["apps/zodi/src/**/*.ts", "apps/zodi/src/**/*.html"]
-      }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/zodi"],
-      "options": {
-        "jestConfig": "apps/zodi/jest.config.js",
-        "passWithNoTests": true
-      }
-    }
-  },
-  "tags": []
+    "tags": []
 }
