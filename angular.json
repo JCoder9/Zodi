@@ -1,5 +1,5 @@
 {
-    "version": 2,
+    "version": 1,
     "projects": {
         "adminzodi": "apps/adminzodi",
         "adminzodi-e2e": "apps/adminzodi-e2e",
