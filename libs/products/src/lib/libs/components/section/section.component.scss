@@ -1,0 +1,84 @@
+
+
+.section-container {
+    // background-color: #fdfdff;
+    // background-color: #62929e;
+    // background-color: #d6b9b1;
+    // background-color: #f9f6e4;
+    // background-color: rgb(240, 240, 240);
+    background-color: #dee2e6;
+
+    margin: 0;
+    padding: 0;
+    border: 1px solid white;
+    // display: flex;
+    
+    // height: 100vh;
+    
+    height: calc(100vh - 80px);
+    // width: calc(100vw + 5px);
+
+}
+
+.flex-item {
+    margin: 0;
+    padding: 0;
+    border: 1px solid white;
+    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+  
+    // flex: 1;
+}
+
+
+  
+.flex-item-1 {
+    background-image: url('/assets/images/shoe.png');
+        background-size: 50%;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    border: 1px solid white;
+    transition: flex-grow 1s, box-shadow 1s, background-image 1s;
+
+
+    flex-grow: 1;
+}
+.flex-item-2 {
+    background-image: url('/assets/images/handbagFilled.png');
+    background-size: 50%;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+
+    border: 1px solid white;
+    transition: flex-grow 1s, box-shadow 1s, background-image 1s;
+
+
+    flex-grow: 1;
+}
+
+.flex-item-1:hover {
+    flex-grow: 2;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    // filter: blur(3px);
+    background-image: url('/assets/images/shoeWithBackground.png');
+    background-size: 50%;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+
+  }
+  
+.flex-item-2:hover {
+    flex-grow: 2;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    // filter: blur(3px);
+    background-image: url('/assets/images/handbagWithBackground.png');
+    background-size: 50%;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+  }
+  

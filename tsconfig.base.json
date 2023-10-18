@@ -14,7 +14,15 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@env/*": ["environments/*"],
+      "@zodi/libs/orders": ["libs/orders/src/index.ts"],
+      "@zodi/libs/products": ["libs/products/src/index.ts"],
+      "@zodi/libs/testing": ["libs/testing/src/index.ts"],
+      "@zodi/libs/ui": ["libs/ui/src/index.ts"],
+      "@zodi/libs/users": ["libs/users/src/index.ts"],
+      "@zodi/orders": ["orders/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

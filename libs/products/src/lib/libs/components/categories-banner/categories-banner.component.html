@@ -1,0 +1,184 @@
+<div class="categories-banner">
+  <h3>Categories</h3>
+  <div class="grid">
+    <div class="col">
+      <div class="grid">
+        <div
+          class="col-4 shelf"
+          *ngFor="let category of categories; let i = index"
+        >
+          <div
+            *ngIf="i % 2 === 0; else oddCategory"
+            class="category col-6 shelf-item"
+            [routerLink]="'/category/' + category.id"
+            [ngStyle]="{ backgroundColor: category.color }"
+          >
+            <div class="category-icon">
+              <i class="pi pi-{{ category.icon }}"></i>
+            </div>
+            <div class="category-name">{{ category.name }}</div>
+          </div>
+          <ng-template #oddCategory>
+            <div
+              class="category col-9 shelf-item"
+              [routerLink]="'/category/' + category.id"
+              [ngStyle]="{ backgroundColor: category.color }"
+            >
+              <div class="category-icon">
+                <i class="pi pi-{{ category.icon }}"></i>
+              </div>
+              <div class="category-name">{{ category.name }}</div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <div class="col category-type-image"></div>
+
+    <!-- <div
+    class="flex flex-container flex-wrap justify-content-around align-content-around"
+  >
+    <div class="flex" *ngFor="let category of categories; let i = index">
+      <div
+        *ngIf="i % 2 === 0; else oddCategory"
+        class="category flex flex-1"
+        [routerLink]="'/category/' + category.id"
+        [ngStyle]="{ backgroundColor: category.color, width: '30%' }"
+      >
+        <div class="category-icon">
+          <i class="pi pi-{{ category.icon }}"></i>
+        </div>
+        <div class="category-name">{{ category.name }}</div>
+      </div>
+      <ng-template #oddCategory>
+        <div
+          class="category flex flex-1"
+          [routerLink]="'/category/' + category.id"
+          [ngStyle]="{ backgroundColor: category.color, width: '50%' }"
+        >
+          <div class="category-icon">
+            <i class="pi pi-{{ category.icon }}"></i>
+          </div>
+          <div class="category-name">{{ category.name }}</div>
+        </div>
+      </ng-template>
+    </div> -->
+
+    <!-- <div class="col"> -->
+    <!-- Handbag Categories -->
+    <!-- <div *ngFor="let category of categories" class="col-6">
+        <div class="category" [routerLink]="'/category/' + category.id"> -->
+    <!-- <div
+          class="category"
+          [routerLink]="'/category/' + category.id"
+          [ngStyle]="{ backgroundColor: category.color }"
+        > -->
+    <!-- <div class="category-icon">
+            <i class="pi pi-{{ category.icon }}"></i>
+          </div>
+          <div class="category-name">{{ category.name }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+    <!-- <div class="categories-banner">
+  <h3>Categories</h3>
+  <div class="grid">
+    <div class="col">
+      <div *ngFor="let category of categories" class="col-6">
+        <div class="category" [routerLink]="'/category/' + category.id">
+          <div class="category-icon">
+            <i class="pi pi-{{ category.icon }}"></i>
+          </div>
+          <div class="category-name">{{ category.name }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div *ngFor="let category of categories" class="col-6">
+        <div class="category" [routerLink]="'/category/' + category.id">
+          <div class="category-icon">
+            <i class="pi pi-{{ category.icon }}"></i>
+          </div>
+          <div class="category-name">{{ category.name }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+    <!-- <div class="new-categories-banner">
+  <h3>Categories</h3>
+  <div class="grid">
+    <div class="col-6">
+      <div class="grid">
+        <div class="col-3 cubby-rim">
+          <div class="cubby one-space">one</div>
+        </div>
+        <div class="col-6 cubby-rim">
+          <div class="two-space cubby">two</div>
+        </div>
+
+        <div class="col-3 cubby-rim">
+          <div class="cubby low-heel one-space"></div>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="col-6">
+          <div class="col-12 two-space high-heel cubby"></div>
+          <div class="grid">
+            <div class="col-6">
+              <div class="col-12 one-space cubby">SEVEN</div>
+              <div hidden class="col-12 one-space cubby">EIGHT</div>
+            </div>
+            <div class="col-6">
+              <div class="long-space ankle-boot cubby">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="grid">
+            <div class="col-6">
+              <div class="col one-space cubby">FIVE</div>
+              <div class="col one-space cubby">TEN</div>
+              <div class="col one-space cubby">ELEVEN</div>
+            </div>
+            <div class="col-6">
+              <div class="very-long-space high-boot cubby"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6"></div>
+  </div>
+</div> -->
+
+    <!-- <div class="card">
+  <div class="card-container blue-container overflow-hidden">
+    <div class="flex"> -->
+    <!-- <div class="flex-initial flex align-items-center justify-content-center bg-blue-500 font-bold text-white m-2 px-5 py-3 border-round" *ngFor="">Prime</div> -->
+    <!-- <div *ngFor="let category of categories" class="col-6">
+        <div class="category" [routerLink]="'/category/' + category.id">
+          <div
+            class="category"
+            [routerLink]="'/category/' + category.id"
+            [ngStyle]="{ backgroundColor: category.color }"
+          >
+            <div class="category-icon">
+              <i class="pi pi-{{ category.icon }}"></i>
+            </div>
+            <div class="category-name">{{ category.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+  </div>
+</div>
