@@ -1,9 +1,9 @@
 <div class="product-page" *ngIf="product">
-  <div class="grid">
-    <div class="col-6" *ngIf="product.images">
-      <zodi-gallery [images]="product.images"></zodi-gallery>
+  <div class="overview">
+    <div class="image" *ngIf="product.images">
+      <zodi-gallery class="gallery" [images]="product.images"></zodi-gallery>
     </div>
-    <div class="col-6 product">
+    <div class="product">
       <h2 class="product-name">{{ product.name }}</h2>
       <p class="product-description">
         {{ product.description }}

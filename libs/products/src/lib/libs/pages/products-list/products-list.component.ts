@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { Category } from '../../models/category.model';
@@ -16,8 +16,12 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   categories: Category[] = [];
   endSubs$: Subject<void> = new Subject();
   isCategoryPage = false;
+  isProductsPage = false;
+
+  isSectionVisible = true;
 
   constructor(
+    private renderer: Renderer2,
     private productsService: ProductsService,
     private categoriesService: CategoriesService,
     private route: ActivatedRoute
@@ -34,6 +38,13 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       }
     });
     this._getCategories();
+
+    // Check if URL ends with '/products'
+    this.route.url.subscribe((urlSegments) => {
+      this.isProductsPage =
+        urlSegments[urlSegments.length - 1].path === 'products';
+      this.applyResponsiveStyles(); // Apply styles initially
+    });
   }
 
   ngOnDestroy(): void {
@@ -58,6 +69,35 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       });
   }
 
+  applyResponsiveStyles() {
+    if (this.isProductsPage && window.innerWidth <= 700) {
+      // Apply styles for URL ending with '/products' and screen less than 700px
+      this.renderer.addClass(document.body, 'responsive-styles');
+    } else {
+      this.renderer.removeClass(document.body, 'responsive-styles');
+    }
+  }
+
+  onCategorySelected(category: Event) {
+    const selectedCategory = category as Category; // Assuming Category is the correct type
+    this.toggleCategorySelection(selectedCategory);
+    // Trigger the categoryFilter method with the selected category
+
+    this.categoryFilter();
+  }
+
+  onShowSectionChange(value: boolean) {
+    this.isSectionVisible = value;
+  }
+
+  toggleCategorySelection(category: Category) {
+    category.checked = !category.checked;
+    // Optionally, you can also call the categoryFilter method here
+    // if it's needed immediately after the selection changes.
+    // this.categoryFilter();
+  }
+
+  //this method just checks to see what categories have checked in db, u need this to run whenever a cageegories banner div is clicked, this may need to go in a service
   categoryFilter() {
     const selectedCategories = this.categories
       .filter((category) => category.checked && category.id !== undefined)

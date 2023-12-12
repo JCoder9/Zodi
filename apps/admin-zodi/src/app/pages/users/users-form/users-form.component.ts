@@ -19,7 +19,7 @@ export class UsersFormComponent implements OnInit, OnDestroy {
   isSubmitted = false;
   editMode = false;
   currentUserId!: string;
-  countries: unknown = [];
+  countries: any = [];
   endSubs$: Subject<void> = new Subject();
 
   constructor(

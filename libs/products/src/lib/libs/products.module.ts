@@ -11,11 +11,14 @@ import { FeaturedProductsComponent } from './components/featured-products/featur
 import { ProductsListComponent } from './pages/products-list/products-list.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 
+import { RippleModule } from 'primeng/ripple';
+
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RatingModule } from 'primeng/rating';
 import { UiModule } from '@zodi/libs/ui';
+import { ProductFilterComponent } from './components/product-filter/product-filter.component';
 
 const routes: Routes = [
   {
@@ -42,6 +45,7 @@ const routes: Routes = [
     RatingModule,
     InputNumberModule,
     UiModule,
+    RippleModule,
   ],
   declarations: [
     ProductsSearchComponent,
@@ -51,6 +55,7 @@ const routes: Routes = [
     ProductsListComponent,
     ProductPageComponent,
     SectionComponent,
+    ProductFilterComponent,
   ],
   exports: [
     ProductsSearchComponent,
@@ -60,6 +65,7 @@ const routes: Routes = [
     ProductsListComponent,
     ProductPageComponent,
     SectionComponent,
+    ProductFilterComponent,
   ],
 })
 export class ProductsModule {}

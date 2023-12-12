@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+
 import { AccordionModule } from 'primeng/accordion';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -22,12 +25,18 @@ import { OrdersModule } from '@zodi/libs/orders';
 import { JwtInterceptor, UsersModule } from '@zodi/libs/users';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { GoogleMapsModule } from '@angular/google-maps';
+
+import { RippleModule } from 'primeng/ripple';
+import { ButtonModule } from 'primeng/button';
 
 import { NgxStripeModule } from 'ngx-stripe';
 import { TestingComponent } from './pages/testing/testing.component';
+import { ContactComponent } from './pages/contact/contact.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
+  { path: 'contact', component: ContactComponent },
   { path: 'testing', component: TestingComponent },
 ];
 
@@ -40,6 +49,7 @@ const routes: Routes = [
     NavComponent,
     MessagesComponent,
     TestingComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +65,12 @@ const routes: Routes = [
     OrdersModule,
     ToastModule,
     UsersModule,
+    RippleModule,
+    ButtonModule,
+    GoogleMapsModule,
+    provideFirebaseApp(() => initializeApp({})),
+    provideFirestore(() => getFirestore()),
+
     NgxStripeModule.forRoot(
       'pk_test_51LNGHcCT1CiSMWZ7U1neRYnXdZnIlUtU1xPtNgTf4iCzc1QJcXU051AzVjoALw53LGsCOkRjmQ1M8zYvH9BSAhah00VSq3MsMy'
     ),
@@ -64,6 +80,6 @@ const routes: Routes = [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
-  exports: [],
+  exports: [ContactComponent],
 })
 export class AppModule {}

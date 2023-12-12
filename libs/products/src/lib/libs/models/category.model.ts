@@ -3,6 +3,6 @@ export class Category {
   name?: string;
   icon?: string;
   color?: string;
-  url?: string;
+  image?: string;
   checked?: boolean;
 }

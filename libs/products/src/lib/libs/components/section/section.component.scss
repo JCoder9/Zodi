@@ -15,7 +15,7 @@
     
     // height: 100vh;
     
-    height: calc(100vh - 80px);
+    height: calc(100vh - 110px);
     // width: calc(100vw + 5px);
 
 }
@@ -63,7 +63,8 @@
     flex-grow: 2;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     // filter: blur(3px);
-    background-image: url('/assets/images/shoeWithBackground.png');
+    // background-image: url('/assets/images/shoeWithBackground.png');
+    background-image: url('/assets/images/boutique1.png');
     background-size: 50%;
     background-position: center center;
     background-repeat: no-repeat;
@@ -75,7 +76,8 @@
     flex-grow: 2;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     // filter: blur(3px);
-    background-image: url('/assets/images/handbagWithBackground.png');
+    // background-image: url('/assets/images/handbagWithBackground.png');
+    background-image: url('/assets/images/boutique2.png');
     background-size: 50%;
     background-position: center center;
     background-repeat: no-repeat;

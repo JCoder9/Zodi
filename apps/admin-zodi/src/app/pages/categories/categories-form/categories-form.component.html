@@ -45,6 +45,26 @@
               >
             </div>
             <div class="field col">
+              <label for="image">Main Image</label>
+              <br />
+              <input
+                class="p-inputtext"
+                type="file"
+                accept="image/*"
+                (change)="onImageUpload($event)"
+              />
+              <br />
+              <small
+                *ngIf="categoryForm['image'].invalid && isSubmitted"
+                class="p-error"
+                >Image is required</small
+              >
+              <div class="col-2 mt-2 pl-0">
+                <img style="width: 100%" [src]="imageDisplay" alt="" />
+              </div>
+            </div>
+
+            <div class="field col">
               <label for="icon">Icon</label>
               <input
                 formControlName="icon"

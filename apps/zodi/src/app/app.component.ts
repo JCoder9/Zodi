@@ -1,5 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+} from '@angular/router';
+import { LoadingIndicatorService } from '@zodi/libs/ui';
 import { UsersService } from '@zodi/libs/users';
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'zodi-root',
@@ -8,9 +17,33 @@ import { UsersService } from '@zodi/libs/users';
 })
 export class AppComponent implements OnInit {
   title = 'zodi';
-  constructor(private usersService: UsersService) {}
+  loading = false;
+
+  constructor(
+    private usersService: UsersService,
+    private primengConfig: PrimeNGConfig,
+    private router: Router,
+    private loadingIndicatorService: LoadingIndicatorService
+  ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        loadingIndicatorService.show();
+      } else if (
+        event instanceof NavigationEnd ||
+        event instanceof NavigationCancel ||
+        event instanceof NavigationError
+      ) {
+        this.loadingIndicatorService.hide();
+      }
+    });
+
+    loadingIndicatorService.loading$.subscribe((loading) => {
+      this.loading = loading;
+    });
+  }
 
   ngOnInit(): void {
     this.usersService.initAppSession();
+    this.primengConfig.ripple = true;
   }
 }

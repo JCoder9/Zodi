@@ -1,7 +1,10 @@
 .product-item {
     &-wrapper {
-        background-color: var(--surface-200);
+        // background-color: var(--surface-200);
         border: 1px solid var(--surface-300);
+
+            box-shadow: inset 10px 10px 20px rgba(0, 0, 0, 0.3); /* Inner drop shadow */
+
         border-radius: 15px;
         display: flex;
         align-items: center;

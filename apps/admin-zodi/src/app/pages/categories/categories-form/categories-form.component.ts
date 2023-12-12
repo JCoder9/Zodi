@@ -19,6 +19,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
   editMode = false;
   currentCategoryId = '';
   endSubs$: Subject<void> = new Subject();
+  imageDisplay = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,6 +34,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
       name: ['', Validators.required],
       icon: ['', Validators.required],
       color: ['#fff'],
+      image: [''],
     });
 
     this._checkEditMode();
@@ -48,17 +50,16 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       return;
     }
-    const category: Category = {
-      id: this.currentCategoryId,
-      name: this.categoryForm['name'].value,
-      icon: this.categoryForm['icon'].value,
-      color: this.categoryForm['color'].value,
-    };
+
+    const categoryFormData = new FormData();
+    Object.keys(this.categoryForm).map((key) => {
+      categoryFormData.append(key, this.categoryForm[key].value);
+    });
 
     if (this.editMode) {
-      this._updateCategory(category);
+      this._updateCategory(categoryFormData);
     } else {
-      this._createCategory(category);
+      this._createCategory(categoryFormData);
     }
   }
 
@@ -78,14 +79,15 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
             this.categoryForm['name'].setValue(category.name);
             this.categoryForm['icon'].setValue(category.icon);
             this.categoryForm['color'].setValue(category.color);
+            this.categoryForm['image'].setValue(category.image);
           });
       }
     });
   }
 
-  private _updateCategory(category: Category) {
+  private _updateCategory(categoryFormData: FormData) {
     this.categoriesService
-      .updateCategory(category)
+      .updateCategory(categoryFormData, this.currentCategoryId)
       .pipe(takeUntil(this.endSubs$))
       .subscribe({
         next: () => {
@@ -108,9 +110,9 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  private _createCategory(category: Category) {
+  private _createCategory(categoryFormData: FormData) {
     this.categoriesService
-      .createCategory(category)
+      .createCategory(categoryFormData)
       .pipe(takeUntil(this.endSubs$))
       .subscribe({
         next: (category: Category) => {
@@ -131,6 +133,21 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
           });
         },
       });
+  }
+
+  onImageUpload(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    const imageControl = this.form.get('image');
+
+    if (file && imageControl) {
+      imageControl.patchValue(file);
+      imageControl.updateValueAndValidity();
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        this.imageDisplay = fileReader.result as string;
+      };
+      fileReader.readAsDataURL(file);
+    }
   }
 
   get categoryForm() {

@@ -40,40 +40,49 @@
 
 
 header {
-    div {
-        // border: 1px solid black;
-    }
-
     width: 100%;
     height: 100%;
-    // margin-bottom: 25px;
-    // background-color: #62929e;
-    // background-color: #fdfdff;
-    // background-color: #6c757c;
-    // background-color: #d6b9b1;
-    background-color: #bcb0bd;
-
+    background: linear-gradient(180deg, rgba(188, 176, 189, 1) 0%, rgba(164, 122, 180, 1) 100%);
+    // background: linear-gradient(180deg, rgba(188, 176, 189, 1) 0%, rgba(164, 122, 180, 1) 100%),
+    //             url('/assets/images/crumpled-paper.png');
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: 1px solid #9a56b2;
+    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.3);
+  
     .logo {
-        text-align: center;
-        img {
-            width: 120px;
-            padding-top: 0;
-        }
-    }
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      padding-left: 40px;
 
+          /* Ensure the container takes full height */
+      // height: 1vh; /* Adjust based on the parent's height */
+      /* If the parent needs to fill the available space */
+      /* You might need to check the parent's dimensions as well */
+
+
+
+      img {
+        width: clamp(70px, 10vw, 120px);
+        padding-top: 0;
+      }
+    }
+  
     .tools {
-        // padding-top: 38px;
-        .pi {
-            // margin-right: 10px;
-        }
+      .pi {
+        // margin-right: 10px;
+      } 
     }
-
+  
     .search {
-        // padding-top: 25px;
+      // padding-top: 25px;
     }
-
+  
     .navigation {
-        // padding-top: 23px;
+      // padding-top: 23px;
     }
-
-}
+  }
+  

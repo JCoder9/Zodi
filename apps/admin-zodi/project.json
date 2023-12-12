@@ -19,7 +19,7 @@
           "apps/admin-zodi/src/favicon.ico",
           "apps/admin-zodi/src/assets"
         ],
-        "styles": ["apps/admin-zodi/src/styles.sass", "node_modules/primeflex/primeflex.css"
+        "styles": ["apps/admin-zodi/src/styles.scss", "node_modules/primeflex/primeflex.css"
       ],
         "scripts": []
       },
@@ -28,8 +28,8 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
             },
             {
               "type": "anyComponentStyle",

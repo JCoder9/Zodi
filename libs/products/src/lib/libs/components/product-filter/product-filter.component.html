@@ -1,0 +1,57 @@
+<div class="product-filter-container" #productFilter>
+  <div class="section-categories" [hidden]="showSection">
+    <!-- Back button to go back to the Section component -->
+    <button
+      pButton
+      type="button"
+      class="p-button-rounded"
+      icon="pi pi-arrow-left"
+      (click)="showSection = true; checkSectionLayout()"
+    ></button>
+    <zodi-categories-banner [categories]="categories"></zodi-categories-banner>
+  </div>
+  <div class="section" [hidden]="!showSection">
+    <div class="section-container" #sectionDiv>
+      <div
+        class="flex-item-1 shoe animate__animated animate__pulse animate__infinite"
+        (click)="onShoeClick()"
+      ></div>
+      <div
+        class="flex-item-2 bag animate__animated animate__pulse animate__infinite"
+        (click)="onBagClick()"
+      ></div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="product-filter-container">
+  <div *ngIf="!showSection">
+    <button
+      pButton
+      type="button"
+      class="p-button-rounded"
+      icon="pi pi-arrow-left"
+      (click)="showSection = true"
+    ></button>
+    <zodi-categories-banner [categories]="categories"></zodi-categories-banner>
+  </div>
+  <div *ngIf="showSection">
+    <div
+      [ngClass]="{ 'flex-column': isProductsPage }"
+      class="flex flex-column-reverse md:flex-row section-container"
+    >
+      <div
+        class="flex flex-item-1 text-white font-bold align-items-center justify-content-center shoe"
+        (click)="onShoeClick()"
+      >
+        Shoe
+      </div>
+      <div
+        class="flex flex-item-2 text-white font-bold align-items-center justify-content-center bag"
+        (click)="onBagClick()"
+      >
+        Bag
+      </div>
+    </div>
+  </div>
+</div> -->

@@ -12,7 +12,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class OrdersListComponent implements OnInit, OnDestroy {
   orders: Order[] = [];
-  orderStatus = ORDER_STATUS;
+  orderStatus: any = ORDER_STATUS;
   endSubs$: Subject<void> = new Subject();
 
   constructor(

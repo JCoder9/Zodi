@@ -1,5 +1,12 @@
 footer {
-    background-color: var(--yellow-100);
+    // background-color: var(--yellow-100);
+//     background: rgb(188,176,189);
+// background: linear-gradient(180deg, rgb(41, 41, 41) 0%, rgb(111, 18, 18) 100%);
+
+background: rgb(188,176,189);
+background: linear-gradient(180deg, rgba(188,176,189,1) 0%, rgba(164,122,180,1) 100%);
+
+
     min-height: 50px;
     padding: 10px 25px;
     width: 100%;

@@ -66,6 +66,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
   getCountryName(countryKey: string) {
     if (countryKey) return this.usersService.getCountry(countryKey);
+    return '';
   }
 
   private _getUsers() {
