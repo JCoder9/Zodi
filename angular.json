@@ -1,0 +1,13 @@
+{
+    "version": 1,
+    "projects": {
+        "adminzodi": "apps/adminzodi",
+        "adminzodi-e2e": "apps/adminzodi-e2e",
+        "orders": "libs/orders",
+        "products": "libs/products",
+        "ui": "libs/ui",
+        "users": "libs/users",
+        "zodi": "apps/zodi",
+        "zodi-e2e": "apps/zodi-e2e"
+    }
+}
