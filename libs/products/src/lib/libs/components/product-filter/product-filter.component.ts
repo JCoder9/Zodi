@@ -57,6 +57,11 @@ export class ProductFilterComponent implements AfterViewInit {
     });
   }
 
+  handleButtonClick() {
+    this.showSection = true;
+    this.showSectionChange.emit(true);
+  }
+
   checkSectionLayout() {
     // if (this.sectionDiv.nativeElement.clientWidth) {
     //   this.sectionWidth = this.sectionDiv.nativeElement.clientWidth;

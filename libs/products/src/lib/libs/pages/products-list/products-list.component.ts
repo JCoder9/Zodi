@@ -84,10 +84,15 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     // Trigger the categoryFilter method with the selected category
 
     this.categoryFilter();
+    this.isSectionVisible = true;
   }
 
   onShowSectionChange(value: boolean) {
-    this.isSectionVisible = value;
+    if (value === true) {
+      this.isSectionVisible = true;
+    } else {
+      this.isSectionVisible = false;
+    }
   }
 
   toggleCategorySelection(category: Category) {

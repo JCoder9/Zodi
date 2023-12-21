@@ -6,7 +6,7 @@
       type="button"
       class="p-button-rounded"
       icon="pi pi-arrow-left"
-      (click)="showSection = true; checkSectionLayout()"
+      (click)="handleButtonClick(); checkSectionLayout()"
     ></button>
     <zodi-categories-banner [categories]="categories"></zodi-categories-banner>
   </div>

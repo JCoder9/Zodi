@@ -1,10 +1,10 @@
 .product-filter-container {
-    height: calc(100vh - 110px);
+    height: calc(100vh - 98px);
 }
 
 .section-container {
     // background-color: #dee2e6;
-
+overflow: hidden;
     display: flex;
     flex-direction: row;
 

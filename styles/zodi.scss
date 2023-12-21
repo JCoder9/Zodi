@@ -31,6 +31,7 @@
 body {
     margin: 0;
     padding: 0;
+    width: 100vw;
     // background-color: var(--surface-200);
     // background-color: #62929e;
     // background-color: #6c757c;
@@ -64,7 +65,7 @@ background: linear-gradient(180deg, #f8d1eb 0%, #ffb6bd 100%);
 
 }
 .container {
-    width: calc(80vw + 5px);
+    width: 80vw;
     // width: 100vw;
     // height: 100vh;
     display: flex;
@@ -172,7 +173,7 @@ background: linear-gradient(180deg, #f8d1eb 0%, #ffb6bd 100%);
 
 @media (min-width: 300px) and (max-width: 768px) {
   .container {
-    width: calc(95vw + 5px);
+    width: 90%;
   }
   
 }
@@ -180,7 +181,7 @@ background: linear-gradient(180deg, #f8d1eb 0%, #ffb6bd 100%);
 @media screen and (max-width: 300px) {
   .container {
     // justify-items: center;
-    width: calc(115vw + 5px);
+    width: 100%;
   }
   
 }
