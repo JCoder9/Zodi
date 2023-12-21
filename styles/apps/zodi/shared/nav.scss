@@ -1,5 +1,14 @@
 .nav-container {
     color: white;
+    width: 100%;
+
+    .cart {
+        // height: clamp(.5rem, 1rem, 1rem);
+        // max-width: 20px;    
+        font-size: 5px;
+        
+    }
+
     .nav-item {
         color: white !important;
         // border: 1px solid black;

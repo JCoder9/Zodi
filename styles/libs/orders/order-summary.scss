@@ -6,9 +6,16 @@
     .summary-price {
         display: flex;
         margin: 15px 0;
+        flex-direction: column;
+        // flex-wrap: wrap;
+        // overflow-wrap:;
+
+        justify-content: space-around;
+
         span {
-            display: block;
-            width: 80%;
+            padding-left: 5px;
+            // display: block;
+            // width: 80%;
 
             &:last-child {
                 width: 20%;
@@ -26,4 +33,18 @@
             width: 100%;
         }
     }
+}
+
+@media screen and (max-width: 768px) {
+    .order-summary{
+        .summary-price {
+            display: flex;
+    
+            flex-direction: row;
+    
+            justify-content: space-between;
+    
+        }
+    }
+    
 }
