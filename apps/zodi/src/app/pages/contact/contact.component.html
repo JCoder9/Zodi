@@ -1,0 +1,39 @@
+<div class="contact-container">
+  <div class="left-column">
+    <div
+      class="left-item-1"
+      (mouseenter)="selectedSocialMedia = 'instagram'"
+      (mouseleave)="selectedSocialMedia = null"
+    ></div>
+    <div
+      class="left-item-2"
+      (mouseenter)="selectedSocialMedia = 'facebook'"
+      (mouseleave)="selectedSocialMedia = null"
+    ></div>
+  </div>
+  <div class="right-column">
+    <div class="right-item">
+      <google-map
+        height="400px"
+        width="100%"
+        [zoom]="zoom"
+        [center]="center"
+        [options]="options"
+      >
+        <map-marker
+          #markerElem
+          *ngFor="let marker of markers"
+          [position]="marker.position"
+          [label]="marker.label"
+          [title]="marker.title"
+          [options]="marker.options"
+        >
+        </map-marker>
+      </google-map>
+      <div class="zoom">
+        <p-button (click)="zoomIn()">+</p-button>
+        <p-button (click)="zoomOut()">-</p-button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,179 @@
+.product-filter-container {
+    height: calc(100vh - 98px);
+}
+
+.section-container {
+    // background-color: #dee2e6;
+overflow: hidden;
+    display: flex;
+    flex-direction: row;
+
+    margin: 0;
+    padding: 0;
+    // border: 1px solid white;
+    
+    height: calc(100vh - 110px);
+
+}
+
+
+
+.flex-item {
+    margin: 0;
+    padding: 0;
+    // border: 1px solid white;
+    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+
+    color: white;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+  
+    // flex: 1;
+}
+
+.borderDiv {
+    border: 1px solid white;
+}
+  
+.flex-item-1 {
+    background-image: url('/assets/images/shoe-shadow.png');
+        background-size: 80%;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    // border-top: 1px solid white;
+    // border-left: 1px solid lightgrey;
+    // border-bottom: 1px solid white;
+
+    // border: 1px solid white ;
+    // border: 1px solid #9a56b2 ;
+    // border: 1px solid lightcyan ;
+    // border: 1px solid rgb(181, 152, 193) ;
+    // border: 2px solid rgb(164, 122, 180) ;
+    // border: 1px solid rgb(140, 140, 140);
+    // box-shadow: inset 5px 5px 10px 0 rgba(0, 0, 0, 0.3);
+    // border-radius: 10px;
+    transition: flex-grow 1s, box-shadow 1s, background-image 1s;
+
+
+
+    flex-grow: 1;
+
+    --animate-duration: 2s;
+}
+
+.flex-item-2 {
+
+    background-image: url('/assets/images/bag-shadow.png');
+    // box-shadow: inset 5px 5px 10px 0 rgba(0, 0, 0, 0.3);
+
+    background-size: 80%;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    // border-top: 1px solid white;
+    // border-right: 1px solid lightgrey;
+    // border-bottom: 1px solid white;
+    --animate-duration: 2.5s;
+
+
+
+
+
+    // border: 1px solid white;
+    // border: 1px solid #9a56b2;
+    // border: 1px solid lightcyan;
+    // border: 1px solid rgb(181, 152, 193) ;
+    // border: 2px solid rgb(164, 122, 180) ;
+    // border: 1px solid rgb(140, 140, 140);
+    // border-radius: 10px;
+
+    transition: flex-grow 1s, box-shadow 1s, background-image 1s;
+
+    // animation: flickerAnimation 5s infinite; /* 5s duration, infinite loop */
+
+
+    flex-grow: 1;
+}
+
+
+// @keyframes flickerAnimation {
+//     0% { background-image: url('/assets/images/bag-shadow.png'); }
+//     80% { background-image: url('/assets/images/bag-shadow.png'); }
+//     82% { background-image: url('/assets/images/bagWithoutBoutique.png'); }
+//     84% { background-image: url('/assets/images/bag-shadow.png'); }
+//     86% { background-image: url('/assets/images/bagWithoutBoutique.png'); }
+//     91% { background-image: url('/assets/images/bagWithoutBoutique.png'); }
+//     93% { background-image: url('/assets/images/bag-shadow.png'); }
+//     95% { background-image: url('/assets/images/bagWithoutBoutique.png'); }
+//     100% { background-image: url('/assets/images/bag-shadow.png'); }
+//   }
+
+
+.flex-item-1:hover {
+    flex-grow: 2;
+    // box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    // filter: blur(3px);
+    // background-image: url('/assets/images/shoeWithBackground.png');
+    // background-image: url('/assets/images/shoeWithBoutique.png');
+    background-image: url('/assets/images/shoeWithLightBoutique.png');
+    background-size: 80%;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+
+  }
+  
+.flex-item-2:hover {
+    flex-grow: 2;
+    // box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    // filter: blur(3px);
+    // background-image: url('/assets/images/bagWithBoutique.png');
+    background-image: url('/assets/images/bagWithLightBoutique.png');
+
+
+    background-size: 80%;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+  }
+  
+
+  .column-layout  {
+    flex-direction: column;
+  }
+  .row-layout  {
+    flex-direction: row;
+  }
+
+  .reduce-height {
+    height: 200px
+  }
+
+  .view-height {
+    height: calc(100vh - 110px);    /* Or adjust this to your specific view height */
+  }
+  
+// @media screen and (max-width: 700px) {
+//     // .product-filter-container {
+//     //     height: 200px;
+//     // }
+
+//     // .section-container {
+//     //     height: 200px;
+//     // }
+//     .product-filter-container  {
+//         height: 200px;
+//         }
+//     .section-container  {
+//         height: 200px;
+//         }
+// }
+
+
+
+

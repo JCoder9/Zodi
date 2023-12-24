@@ -1,0 +1,42 @@
+.gallery {
+    // position: absolute;
+    // left: 10px;
+    // right: 0;
+    // transform: translateX(-50%);
+
+
+    .main-image {
+        // display: table-cell; 
+        // vertical-align: middle;
+        background-color: var(--surface-800);
+        line-height: 500px;
+        text-align: center;
+        margin-bottom: 15px;
+        height: 500px;
+        
+
+        img {
+            vertical-align: middle;
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
+
+    .images {
+        ul {
+            display: flex;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            // background-color: var(--surface-600);
+
+            li {
+                background-size: cover;
+                width: 100px;
+                height: 100px;
+                display: block;
+                margin-right: 15px;
+            }
+        }
+    }
+}

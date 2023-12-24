@@ -1,0 +1,187 @@
+//base
+@import '~normalize.css/normalize.css';
+@import './base/colors.scss';
+@import './base/fonts.scss';
+@import './base/mixins.scss';
+
+//External Libraries
+@import '~primeicons/primeicons.css';
+@import '~primeng/resources/themes/saga-blue/theme.css';
+@import '~primeng/resources/primeng.min.css';
+@import '~primeflex/primeflex.css';
+@import '~animate.css/animate.css';
+
+@import './base/configuration.scss';
+
+//pages
+@import './apps/zodi/pages/home-page.scss';
+@import './apps/zodi/pages/product-list-page.scss';
+
+//shared
+@import './apps/zodi/shared/header.scss';
+@import './apps/zodi/shared/footer.scss';
+@import './apps/zodi/shared/nav.scss';
+
+//libs
+@import './libs/ui/ui.scss';
+@import './libs/products/products.scss';
+@import './libs/users/users.scss';
+@import './libs/orders/orders.scss';
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    // background-color: var(--surface-200);
+    // background-color: #62929e;
+    // background-color: #6c757c;
+    // background-color: #393d3f;
+    // background-color: #d6b9b1;
+    // background-color: #d8d8d6;
+    // background-color: #E7A4A5;
+    // background-color: #efe4e6;
+
+//     background: rgb(188,176,189);
+// background: linear-gradient(180deg,rgb(111, 18, 18) 0%, #d486b9 100%);
+
+//     background: rgb(188,176,189);
+background: linear-gradient(180deg, #f8d1eb 0%, #ffb6bd 100%);
+// background: linear-gradient(180deg, #f8d1eb 0%, #ffb6bd 100%), url('/assets/images/boutique6.png');
+
+// background-blend-mode:overlay;
+//   background-size: 90%;
+//   background-position: center center;
+//   background-repeat: no-repeat;
+
+//     background: rgb(188,176,189);
+// background: linear-gradient(180deg, #d486b9 0%, rgb(111, 18, 18) 100%);
+//     background: rgb(188,176,189);
+// background: linear-gradient(180deg, rgb(41, 41, 41) 0%, rgb(111, 18, 18) 100%);
+//     background: rgb(188,176,189);
+// background: linear-gradient(180deg,  rgba(0,0,0,1) 0%, rgba(188,176,189,1) 100%);
+//     background: rgb(188,176,189);
+// background: linear-gradient(180deg, rgba(188,176,189,1) 0%, rgba(0,0,0,1) 100%);
+
+
+}
+.container {
+    width: 80vw;
+    // width: 100vw;
+    // height: 100vh;
+    display: flex;
+    flex-direction: column;
+    // flex-grow: 1;
+    padding: 0;
+    margin: 0 auto;
+    // background-color: var(--surface-400);
+    // background-color: #fff3fb;
+    // background: rgb(202, 177, 204);
+    background: linear-gradient(180deg,  #fff3fb  0%, #ffd6f1 100%);
+    // background: linear-gradient(180deg,  #e6aed2  0%, #7a7478 100%);
+    // background: linear-gradient(180deg, #7a7478 0%, #e6aed2  100%);
+    // background: rgb(202, 177, 204);
+    // background: linear-gradient(180deg, #fff3fb 0%, #ffebf8  100%);
+    
+    // background-color: #dee2e6;
+    // background-color: #ddb6c4;
+    // background-color: #FFD5C2;
+    // background-color: #62929e;
+
+    border: 1px solid lightgrey;
+    
+
+    // box-shadow: inset 1px 1px 2px rgba(1,1,1, 1); /* Inner drop shadow */
+    // box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5); /* Inner drop shadow */
+
+    // background-color: var(--surface-400);
+    // background-image: url('/assets/images/wall.png');
+
+    // background-size: cover;
+    // background-position: center center;
+    // background-repeat: no-repeat;
+
+    // background-image: url('/assets/images/wall.png');
+
+    // background-size: cover;
+    // background-position: center center;
+    // background-repeat: no-repeat;
+    // height: 100vh;
+}
+
+.image-container {
+    z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; /* Adjust this width if needed */
+  height: 100vh; /* Set the height to match the container's height */
+
+//   background: url('/assets/images/boutique6.png');
+  background: url('/assets/images/shoe-wall.png');
+  background-size: 40%; /* Cover the container with the image */
+  background-position: center; /* Center the background image */
+  background-repeat:repeat;
+  opacity: 30%;
+
+  --animate-duration: 10s;
+
+
+
+}
+// @keyframes kenburns-slide {
+//     0% {
+//       opacity: 0;
+//       transform: scale(0.5);
+//     }
+  
+//     20% {
+//       opacity: 0.3;
+//       transform: scale(0.7);
+//     }
+  
+//     40% {
+//       opacity: 0.7;
+//       transform: scale(1);
+//     }
+//     60% {
+//       opacity: 0.7;
+//       transform: scale(1);
+//     }
+//     80% {
+//       opacity: 0.3;
+//       transform: scale(0.7);
+//     }
+//     100% {
+//       opacity: 0;
+//       transform: scale(0.5);
+//     }
+   
+//   }
+  
+//   60% {
+//     opacity: 1;
+//     transform: scale(0);
+//   }
+//   80% {
+//     opacity: 1;
+//     transform: scale(0);
+//   }
+//   100% {
+//     opacity: 0;
+//     transform: scale(1);
+//   }
+
+@media (min-width: 300px) and (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+  
+}
+
+@media screen and (max-width: 300px) {
+  .container {
+    // justify-items: center;
+    width: 100%;
+  }
+  
+}

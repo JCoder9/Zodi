@@ -1,0 +1,114 @@
+<div class="categories-banner" #categoriesContainer>
+  <h3>Categories</h3>
+  <div class="grid">
+    <div class="col">
+      <div class="grid">
+        <div
+          class="col-4 shelf"
+          *ngFor="let category of categories; let i = index"
+        >
+          <div
+            *ngIf="i % 2 === 0; else oddCategory"
+            class="category-item col-3 shelf-item-even"
+            [ngStyle]="{
+              'background-color': category.checked ? 'blue' : 'none',
+              'box-shadow': category.checked ? '3px 3px 5px 6px #ccc' : 'none'
+            }"
+            (click)="onCategorySelected(category)"
+          >
+            <div class="category-icon">
+              <i class="pi pi-{{ category.icon }}"></i>
+            </div>
+            <img
+              [src]="category.image"
+              alt="Category Image"
+              [routerLink]="'/category/' + category.id"
+            />
+            <div class="category-name">{{ category.name }}</div>
+          </div>
+          <ng-template #oddCategory>
+            <div
+              class="category-item col-6 shelf-item-odd"
+              [ngStyle]="{
+                'background-color': category.checked ? 'blue' : 'none',
+                'box-shadow': category.checked ? '3px 3px 5px 6px #ccc' : 'none'
+              }"
+              (click)="onCategorySelected(category)"
+            >
+              <div class="category-icon">
+                <i class="pi pi-{{ category.icon }}"></i>
+              </div>
+              <img
+                [src]="category.image"
+                alt="Category Image"
+                [routerLink]="'/category/' + category.id"
+              />
+              <div class="category-name">{{ category.name }}</div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <div class="col category-type-image" #categoryImage></div>
+  </div>
+</div>
+
+<!-- <div class="categories-banner">
+  <h3>Categories</h3>
+  <div class="grid">
+    <div class="col">
+      <div class="grid">
+        <div
+          class="col-4 shelf"
+          *ngFor="let category of categories; let i = index"
+        >
+          <div
+            *ngIf="i % 2 === 0; else oddCategory"
+            class="category col-6 shelf-item"
+            [ngStyle]="{
+              backgroundColor: category.color,
+              color: category.checked ? 'blue' : 'black',
+              'box-shadow': category.checked ? '3px 3px 5px 6px #ccc' : 'none'
+            }"
+            (click)="onCategorySelected(category)"
+          >
+            <div class="category-icon">
+              <i class="pi pi-{{ category.icon }}"></i>
+            </div>
+            <img
+              [src]="category.image"
+              alt="Category Image"
+              [routerLink]="'/category/' + category.id"
+            />
+            <div class="category-name">{{ category.name }}</div>
+          </div>
+          <ng-template #oddCategory>
+            <div
+              class="category col-9 shelf-item"
+              [ngStyle]="{
+                backgroundColor: category.color,
+                color: category.checked ? 'blue' : 'black',
+                'box-shadow': category.checked ? '3px 3px 5px 6px #ccc' : 'none'
+              }"
+              (click)="onCategorySelected(category)"
+            >
+              <div class="category-icon">
+                <i class="pi pi-{{ category.icon }}"></i>
+              </div>
+              <img
+                [src]="category.image"
+                alt="Category Image"
+                [routerLink]="'/category/' + category.id"
+              />
+              <div class="category-name">{{ category.name }}</div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <div class="col category-type-image"></div>
+  </div>
+</div>
+ -->
