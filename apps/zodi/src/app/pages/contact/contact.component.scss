@@ -9,6 +9,18 @@
 
     }
   }
+
+.right-item {
+    width:100% !important;
+    height: 300px !important;
+
+    .map-container {
+      // width: 500px; 
+      // position: relative; 
+      // overflow: hidden;
+    }
+
+  }
   
   .left-column {
     flex: 3; /* Takes 3/12 of the available space */
