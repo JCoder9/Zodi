@@ -19,6 +19,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { RatingModule } from 'primeng/rating';
 import { UiModule } from '@zodi/libs/ui';
 import { ProductFilterComponent } from './components/product-filter/product-filter.component';
+import { AccordionModule } from 'primeng/accordion';
+import { SidebarModule } from 'primeng/sidebar';
 
 const routes: Routes = [
   {
@@ -41,6 +43,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ButtonModule,
     CheckboxModule,
+    SidebarModule,
+    AccordionModule,
     FormsModule,
     RatingModule,
     InputNumberModule,

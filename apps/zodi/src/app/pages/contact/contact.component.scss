@@ -3,7 +3,8 @@
 
 .contact-container {
     display: flex;
-    // flex: 1;
+    
+flex: 1;
     div {
         // border: 1px solid white;
 
@@ -32,21 +33,29 @@
   .left-item {
 
     &-1 {
+          display: flex;
+
       background-image: url('/assets/images/instagram-logo.png');
-      background-size: 50%;
+      background-size: 55%;
+        justify-content: center; /* horizontal center */
+  align-items: center;     /* vertical center */
     background-position: center center;
     background-repeat: no-repeat;
-    transition: box-shadow 1s, background-image 1s;
+    transition: box-shadow 1s;
 
       flex-grow: 1;
 
     }
     &-2 {
+          display: flex;
+        justify-content: center; /* horizontal center */
+  align-items: center;     /* vertical center */
+
       background-image: url('/assets/images/facebook-logo.png');
-      background-size: 50%;
+      background-size: 48%;
     background-position: center center;
     background-repeat: no-repeat;
-    transition: box-shadow 1s, background-image 1s;
+    transition: box-shadow 1s;
 
 
         flex-grow: 1;
@@ -67,10 +76,11 @@
     &-1:hover {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       // filter: blur(3px);
-      background-image: url('/assets/images/instagram-logo-fill.png');
-      background-size: 50%;
+      // background-image: url('/assets/images/instagram-logo-fill.png');
+      background-size: 55%;
       background-position: center center;
       background-repeat: no-repeat;
+      // transition: background-image 1s;
   
   
     }
@@ -78,16 +88,17 @@
     &-2:hover {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       // filter: blur(3px);
-      background-image: url('/assets/images/facebook-logo-fill.png');
-      background-size: 50%;
+      // background-image: url('/assets/images/facebook-logo-fill.png');
+      background-size: 48%;
       background-position: center center;
       background-repeat: no-repeat;
-  
+        transition: background-image 1s;
+
     }
     &-3:hover {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       // filter: blur(3px);
-      background-image: url('/assets/images/location-icon-fill.png');
+      // background-image: url('/assets/images/location-icon-fill.png');
       background-size: 50%;
       background-position: center center;
       background-repeat: no-repeat;
@@ -95,6 +106,7 @@
     }
   
   }
+
 
   .zoom {
     display: flex;

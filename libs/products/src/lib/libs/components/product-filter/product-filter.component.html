@@ -1,6 +1,5 @@
-<div class="product-filter-container" #productFilter>
+<!-- <div class="product-filter-container" #productFilter>
   <div class="section-categories" [hidden]="showSection">
-    <!-- Back button to go back to the Section component -->
     <button
       pButton
       type="button"
@@ -23,35 +22,112 @@
     </div>
   </div>
 </div>
+ -->
 
-<!-- <div class="product-filter-container">
-  <div *ngIf="!showSection">
-    <button
-      pButton
-      type="button"
-      class="p-button-rounded"
-      icon="pi pi-arrow-left"
-      (click)="showSection = true"
-    ></button>
-    <zodi-categories-banner [categories]="categories"></zodi-categories-banner>
+<!-- Filter Button (only shows on small screens) -->
+<div class="filterButton">
+  <button
+    pButton
+    icon="pi pi-filter"
+    class="p-button-text lg:hidden mb-3"
+    (click)="showSidebar = true"
+  >
+    Filter..
+  </button>
+</div>
+
+<div class="flex-1">
+  <!-- Sidebar for small screens -->
+  <p-sidebar [(visible)]="showSidebar" position="left" class="lg:hidden w-80">
+    <h3>Filters</h3>
+    <ng-container *ngTemplateOutlet="filters"></ng-container>
+  </p-sidebar>
+
+  <!-- Static sidebar for large screens -->
+  <div class="hidden lg:block">
+    <ng-container *ngTemplateOutlet="filters"></ng-container>
   </div>
-  <div *ngIf="showSection">
-    <div
-      [ngClass]="{ 'flex-column': isProductsPage }"
-      class="flex flex-column-reverse md:flex-row section-container"
-    >
-      <div
-        class="flex flex-item-1 text-white font-bold align-items-center justify-content-center shoe"
-        (click)="onShoeClick()"
-      >
-        Shoe
+</div>
+
+<!-- Template reused for both sidebar & static sidebar -->
+<ng-template #filters>
+  <p-accordion>
+    <!-- Size -->
+    <p-accordionTab header="Size">
+      <div *ngFor="let size of sizes">
+        <p-checkbox
+          name="size"
+          [value]="size"
+          [(ngModel)]="selectedSizes"
+          inputId="{{ size }}"
+        ></p-checkbox>
+        <label for="{{ size }}" class="ml-2">{{ size }}</label>
       </div>
-      <div
-        class="flex flex-item-2 text-white font-bold align-items-center justify-content-center bag"
-        (click)="onBagClick()"
-      >
-        Bag
+    </p-accordionTab>
+
+    <!-- Category -->
+    <p-accordionTab header="Category">
+      <div *ngFor="let category of categories">
+        <p-checkbox
+          name="category"
+          [value]="category"
+          [(ngModel)]="selectedCategories"
+          inputId="{{ category }}"
+        ></p-checkbox>
+        <label for="{{ category }}" class="ml-2">{{ category }}</label>
       </div>
-    </div>
-  </div>
-</div> -->
+    </p-accordionTab>
+
+    <!-- Colour -->
+    <p-accordionTab header="Colour">
+      <div *ngFor="let colour of colours">
+        <p-checkbox
+          name="colour"
+          [value]="colour"
+          [(ngModel)]="selectedColours"
+          inputId="{{ colour }}"
+        ></p-checkbox>
+        <label for="{{ colour }}" class="ml-2">{{ colour }}</label>
+      </div>
+    </p-accordionTab>
+
+    <!-- Brand -->
+    <p-accordionTab header="Brand">
+      <div *ngFor="let brand of brands">
+        <p-checkbox
+          name="brand"
+          [value]="brand"
+          [(ngModel)]="selectedBrands"
+          inputId="{{ brand }}"
+        ></p-checkbox>
+        <label for="{{ brand }}" class="ml-2">{{ brand }}</label>
+      </div>
+    </p-accordionTab>
+
+    <!-- Heel Type -->
+    <p-accordionTab header="Heel Type">
+      <div *ngFor="let heel of heelTypes">
+        <p-checkbox
+          name="heel"
+          [value]="heel"
+          [(ngModel)]="selectedHeelTypes"
+          inputId="{{ heel }}"
+        ></p-checkbox>
+        <label for="{{ heel }}" class="ml-2">{{ heel }}</label>
+      </div>
+    </p-accordionTab>
+
+    <!-- Price -->
+    <p-accordionTab header="Price">
+      <div *ngFor="let price of prices">
+        <p-checkbox
+          name="price"
+          [value]="price"
+          [(ngModel)]="selectedPrices"
+          inputId="{{ price }}"
+        ></p-checkbox>
+        <label for="{{ price }}" class="ml-2">{{ price }}</label>
+      </div>
+    </p-accordionTab>
+  </p-accordion>
+</ng-template>

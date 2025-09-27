@@ -28,23 +28,9 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.pipe(takeUntil(this.endSubs$)).subscribe((params) => {
-      if (params['categoryid']) {
-        this._getProducts([params['categoryid']]);
-        this.isCategoryPage = true;
-      } else {
-        this._getProducts();
-        this.isCategoryPage = false;
-      }
-    });
-    this._getCategories();
+    this._getProducts();
 
-    // Check if URL ends with '/products'
-    this.route.url.subscribe((urlSegments) => {
-      this.isProductsPage =
-        urlSegments[urlSegments.length - 1].path === 'products';
-      this.applyResponsiveStyles(); // Apply styles initially
-    });
+    this._getCategories();
   }
 
   ngOnDestroy(): void {
@@ -69,15 +55,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       });
   }
 
-  applyResponsiveStyles() {
-    if (this.isProductsPage && window.innerWidth <= 700) {
-      // Apply styles for URL ending with '/products' and screen less than 700px
-      this.renderer.addClass(document.body, 'responsive-styles');
-    } else {
-      this.renderer.removeClass(document.body, 'responsive-styles');
-    }
-  }
-
   onCategorySelected(category: Event) {
     const selectedCategory = category as Category; // Assuming Category is the correct type
     this.toggleCategorySelection(selectedCategory);
@@ -85,14 +62,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
     this.categoryFilter();
     this.isSectionVisible = true;
-  }
-
-  onShowSectionChange(value: boolean) {
-    if (value === true) {
-      this.isSectionVisible = true;
-    } else {
-      this.isSectionVisible = false;
-    }
   }
 
   toggleCategorySelection(category: Category) {

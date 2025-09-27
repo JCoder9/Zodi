@@ -1,16 +1,28 @@
 .page-container {
-    display: grid;
-    grid-template-columns: 1fr 3fr; /* Define two columns, one quarter and three quarters */
-    grid-template-rows: auto; /* Set rows to adjust to content height */
+    display: flex;
+    // grid-template-columns: 1fr 3fr; /* Define two columns, one quarter and three quarters */
+    // grid-template-rows: auto; /* Set rows to adjust to content height */
   }
   
   .product-filter {
-    grid-column: 1; /* Set to the first column */
-    grid-row: 1; /* Set to the first row */
+    // display: inline-block;
+    // padding: 5px;
+    // flex: 1;
+  }
+
+.p-accordion-header-text, .p-icon {
+  color: #d3a6a5;
+  // color: rgb(163, 116, 154);
+      text-shadow:  1px 1px 1px rgb(255, 255, 255);
+
+}
+
+  .product-list {
+    flex: 5;
   }
   
   .product-list-container {
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    // box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
     grid-column: 2; /* Set to the second column */
     grid-row: 1; /* Set to the first row */
     display: flex;
@@ -19,57 +31,10 @@
   }
   
   .product-item {
-    flex-basis: 33%;
+    flex-basis: 25%;
+    padding: 2px;
     // flex: 1 0 calc(33.33% - 10px); /* Fit three items per row with gap */
     /* Adjust styling for individual product items */
   }
 
-  /* Media query for smaller screens */
-@media screen and (max-width: 700px) {
-    .page-container {
-      grid-template-columns: 1fr; /* Single column layout for smaller screens */
-    }
   
-    .product-filter,
-    .product-list-container {
-      grid-column: auto; /* Reset column layout for stacking */
-      grid-row: auto; /* Reset row layout for stacking */
-      width: 100%; /* Full width for stacking */
-    }
-  
-    .product-filter {
-      order: -1; /* Move product-filter to the top */
-    //   max-height: 200px; /* Limit the height */
-
-    }
-  }
-  
-  /* Media query for smaller screens */
-//   @media screen and (max-width: 700px) {
-//     .page-container {
-//       grid-template-columns: 1fr; /* Single column layout for smaller screens */
-//     }
-  
-//     .product-filter,
-//     .product-list-container {
-//       grid-column: auto; /* Reset column layout for stacking */
-//       grid-row: auto; /* Reset row layout for stacking */
-//       width: 100%; /* Full width for stacking */
-//     }
-  
-//     .product-item {
-//       flex: 1 0 100%; /* Full width for each item on smaller screens */
-//     }
-//   }
-  
-  
-  
-  
-
-// @media only screen and (m-width: 600px) {
-//     .page-container {
-     
-//         flex-direction: column;
-    
-//     }
-// }

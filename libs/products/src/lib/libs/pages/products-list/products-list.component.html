@@ -1,14 +1,12 @@
 <div class="products-page">
   <div class="page-container">
     <div class="product-filter flex-item-1">
-      <!-- <h4>Categories</h4> -->
       <zodi-product-filter
         (categorySelected)="onCategorySelected($event)"
-        (showSectionChange)="onShowSectionChange($event)"
       ></zodi-product-filter>
     </div>
     <div class="product-list flex-item-2">
-      <div class="product-list-container" *ngIf="products && isSectionVisible">
+      <div class="product-list-container" *ngIf="products">
         <div class="product-item" *ngFor="let product of products">
           <zodi-product-item [product]="product"></zodi-product-item>
         </div>
@@ -16,33 +14,3 @@
     </div>
   </div>
 </div>
-
-<!-- <div class="products-page">
-  <div class="grid">
-    <div class="col-3" *ngIf="!isCategoryPage">
-      <h4>Categories</h4>
-      <div class="field-checkbox" *ngFor="let category of categories">
-        <p-checkbox
-          [(ngModel)]="category.checked"
-          [binary]="true"
-          [inputId]="category.id"
-          (onChange)="categoryFilter()"
-        ></p-checkbox> 
-        <label for="{{ category.id }}">{{ category.name }}</label>
-      </div>
-    </div>
-    <div [ngClass]="{ 'col-9': !isCategoryPage, 'col-12': isCategoryPage }">
-      <div class="grid" *ngIf="products">
-        <div
-          [ngClass]="{
-            'col-4': !isCategoryPage,
-            'col-3': isCategoryPage
-          }"
-          *ngFor="let product of products"
-        >
-          <zodi-product-item [product]="product"></zodi-product-item>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->

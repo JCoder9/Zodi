@@ -1,5 +1,5 @@
 .product-filter-container {
-    height: calc(100vh - 98px);
+    // height: calc(100vh - 98px);
 }
 
 .section-container {
@@ -12,11 +12,37 @@ overflow: hidden;
     padding: 0;
     // border: 1px solid white;
     
-    height: calc(100vh - 110px);
+    // height: calc(100vh - 110px);
 
 }
 
+::ng-deep .p-button {
+  background: transparent;
+  color: pink;
+}
 
+@media (max-width: 1024px) {
+
+//   ::ng-deep .p-button {
+// position: absolute; 
+//   }
+  .filterButton .p-button {
+    position: absolute;
+  }
+
+}
+
+::ng-deep .p-accordion .p-accordion-header  .p-accordion-header-link {
+    border: none !important;
+}
+
+::ng-deep .p-accordion p-accordiontab .p-accordion-content {
+    border: none;
+  }
+
+  ::ng-deep .p-checkbox .p-checkbox-box {
+    border-radius: 30px !important;
+  }
 
 .flex-item {
     margin: 0;
