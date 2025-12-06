@@ -44,7 +44,7 @@ export class ProductsService {
                 rating: 4.5,
                 numReviews: 25,
                 isFeatured: true,
-                dateCreated: new Date()
+                dateCreated: new Date().toISOString()
             },
             {
                 id: 'mock-2',
@@ -60,7 +60,7 @@ export class ProductsService {
                 rating: 4.8,
                 numReviews: 42,
                 isFeatured: true,
-                dateCreated: new Date()
+                dateCreated: new Date().toISOString()
             }
         ];
     }
