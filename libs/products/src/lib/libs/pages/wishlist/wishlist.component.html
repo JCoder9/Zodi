@@ -1,0 +1,79 @@
+<div class="wishlist-page page-container">
+  <div class="page-header">
+    <h1>My Wishlist</h1>
+    <p class="subtitle" *ngIf="wishlistItems.length > 0">
+      {{ wishlistItems.length }} item{{ wishlistItems.length === 1 ? '' : 's' }}
+      saved
+    </p>
+    <button
+      *ngIf="wishlistItems.length > 0"
+      mat-outlined-button
+      color="warn"
+      type="button"
+      class="clear-all-button"
+      (click)="clearWishlist()"
+    >
+      <mat-icon>clear</mat-icon>
+      Clear All
+    </button>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="wishlistItems.length === 0" class="empty-wishlist">
+    <div class="empty-content">
+      <mat-icon class="empty-icon">favorite_border</mat-icon>
+      <h3>Your wishlist is empty</h3>
+      <p>
+        Save items you love to your wishlist. Review them anytime and easily
+        move them to your bag.
+      </p>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Start Shopping"
+        routerLink="/products"
+        class="p-button-rounded"
+      ></button>
+    </div>
+  </div>
+
+  <!-- Wishlist Items -->
+  <div *ngIf="wishlistItems.length > 0" class="wishlist-grid">
+    <div *ngFor="let product of wishlistItems" class="wishlist-item">
+      <div class="product-card">
+        <div class="product-image-container">
+          <img
+            [src]="product.image"
+            [alt]="product.name"
+            class="product-image"
+            (click)="navigateToProduct(product.id!)"
+          />
+          <button
+            mat-icon-button
+            class="remove-btn"
+            type="button"
+            (click)="removeFromWishlist(product.id!)"
+            title="Remove from wishlist"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+
+        <div class="product-info">
+          <h4 class="product-name" (click)="navigateToProduct(product.id!)">
+            {{ product.name }}
+          </h4>
+          <p class="product-brand" *ngIf="product.brand">{{ product.brand }}</p>
+          <p class="product-price">
+            {{ product.price | currency : 'USD' : 'symbol' : '1.2-2' }}
+          </p>
+
+          <div class="product-actions">
+            <zodi-product-item [product]="product"></zodi-product-item>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -17,50 +17,16 @@ import { UsersFormComponent } from './pages/users/users-form/users-form.componen
 import { UsersListComponent } from './pages/users/users-list/users-list.component';
 import { OrdersListComponent } from './pages/orders/orders-list/orders-list.component';
 import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 
 import { AuthGuard, JwtInterceptor, UsersModule } from '@zodi/libs/users';
 
-import { CardModule } from 'primeng/card';
-import { ToolbarModule } from 'primeng/toolbar';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
-import { InputTextModule } from 'primeng/inputtext';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
-import { ColorPickerModule } from 'primeng/colorpicker';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { InputSwitchModule } from 'primeng/inputswitch';
-import { DropdownModule } from 'primeng/dropdown';
-import { EditorModule } from 'primeng/editor';
-import { TagModule } from 'primeng/tag';
-import { InputMaskModule } from 'primeng/inputmask';
-import { FieldsetModule } from 'primeng/fieldset';
+import { MaterialModule } from './material.module';
 import { RouterModule, Routes } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { NgxStripeModule } from 'ngx-stripe';
-
-const UX_MODULE = [
-  CardModule,
-  ToolbarModule,
-  ButtonModule,
-  TableModule,
-  InputTextModule,
-  ToastModule,
-  ConfirmDialogModule,
-  ColorPickerModule,
-  InputNumberModule,
-  InputTextareaModule,
-  InputSwitchModule,
-  DropdownModule,
-  EditorModule,
-  TagModule,
-  InputMaskModule,
-  FieldsetModule,
-];
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const routes: Routes = [
   {
@@ -103,6 +69,7 @@ const routes: Routes = [
     UsersListComponent,
     OrdersListComponent,
     OrdersDetailComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -113,16 +80,14 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     UsersModule,
+    MaterialModule,
     RouterModule.forRoot(routes, { initialNavigation: 'enabledNonBlocking' }),
     NgxStripeModule.forRoot(
       'pk_test_51LNGHcCT1CiSMWZ7U1neRYnXdZnIlUtU1xPtNgTf4iCzc1QJcXU051AzVjoALw53LGsCOkRjmQ1M8zYvH9BSAhah00VSq3MsMy'
     ),
-    ...UX_MODULE,
   ],
   providers: [
     CategoriesService,
-    MessageService,
-    ConfirmationService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

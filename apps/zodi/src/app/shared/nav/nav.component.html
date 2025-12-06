@@ -1,35 +1,96 @@
-<!-- <ul class="nav">
-    <li><a routerLink="/">Home</a></li>
-    <li><a routerLink="/products">Products</a></li>
-    <li><a routerLink="/contact">Contact</a></li>
-</ul> -->
+<mat-toolbar color="primary" class="nav-toolbar">
+  <!-- Brand Section -->
+  <button mat-button [routerLink]="['/']" class="brand-button">
+    <span class="brand-logo">Zodi<span class="accent">.</span></span>
+  </button>
 
-<div class="flex nav-container justify-content-center align-content-center p-0">
-  <div
-    class="flex nav-item align-items-center text-white justify-content-center w-2"
-    routerLinkActive="selected"
-    [routerLinkActiveOptions]="{ exact: true }"
-  >
-    <a routerLink="/">
-      <i class="pi pi-home text-xl"></i>
-    </a>
+  <!-- Desktop Navigation Menu -->
+  <div class="nav-menu-desktop">
+    <button
+      mat-button
+      *ngFor="let item of navItems"
+      [routerLink]="item.routerLink"
+      routerLinkActive="active-nav"
+      class="nav-button"
+    >
+      <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
+      {{ item.label }}
+      <mat-icon
+        *ngIf="item.badge"
+        matBadge="{{ item.badge }}"
+        matBadgePosition="after"
+        matBadgeColor="accent"
+      >
+        notifications
+      </mat-icon>
+    </button>
   </div>
-  <div
-    class="flex align-items-center text-white justify-content-center nav-item w-2"
-    routerLinkActive="selected"
-  >
-    <a routerLink="/products">Products</a>
-  </div>
-  <div
-    class="flex align-items-center text-white justify-content-center nav-item w-2"
-    routerLinkActive="selected"
-  >
-    <a routerLink="/contact">Contact</a>
-  </div>
-</div>
 
-<!-- <div
-    class="flex cart align-items-center text-white justify-content-center w-2"
-  >
+  <!-- Spacer -->
+  <span class="nav-spacer"></span>
+
+  <!-- Search -->
+  <zodi-search></zodi-search>
+
+  <!-- User Actions -->
+  <div class="user-actions">
+    <zodi-wishlist-icon></zodi-wishlist-icon>
     <zodi-cart-icon></zodi-cart-icon>
-  </div> -->
+    <button mat-icon-button [matMenuTriggerFor]="userMenu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </div>
+
+  <!-- Mobile Menu Button -->
+  <button mat-icon-button class="nav-menu-button" (click)="toggleMobileMenu()">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+
+<!-- User Menu -->
+<mat-menu #userMenu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>person</mat-icon>
+    <span>Profile</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>settings</mat-icon>
+    <span>Settings</span>
+  </button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item>
+    <mat-icon>logout</mat-icon>
+    <span>Logout</span>
+  </button>
+</mat-menu>
+
+<!-- Mobile Sidenav -->
+<mat-sidenav-container class="sidenav-container" *ngIf="isMobileView">
+  <mat-sidenav
+    #drawer
+    mode="over"
+    [opened]="isMobileMenuOpen"
+    (closed)="isMobileMenuOpen = false"
+  >
+    <mat-toolbar>
+      <span>Navigation</span>
+      <span class="nav-spacer"></span>
+      <button mat-icon-button (click)="drawer.close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <mat-nav-list>
+      <a
+        mat-list-item
+        *ngFor="let item of navItems"
+        [routerLink]="item.routerLink"
+        (click)="drawer.close()"
+      >
+        <mat-icon matListIcon *ngIf="item.icon">{{ item.icon }}</mat-icon>
+        <span matLine>{{ item.label }}</span>
+        <span *ngIf="item.badge" class="mobile-badge">{{ item.badge }}</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+</mat-sidenav-container>

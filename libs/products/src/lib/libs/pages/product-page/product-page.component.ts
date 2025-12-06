@@ -45,6 +45,23 @@ export class ProductPageComponent implements OnInit, OnDestroy {
     this.cartService.setCartItem(cartItem);
   }
 
+  increaseQuantity() {
+    if (this.quantity < 100) {
+      this.quantity++;
+    }
+  }
+
+  decreaseQuantity() {
+    if (this.quantity > 1) {
+      this.quantity--;
+    }
+  }
+
+  getStarArray(rating: number | undefined): number[] {
+    if (!rating) return [];
+    return Array.from({ length: 5 }, (_, i) => i + 1);
+  }
+
   ngOnDestroy(): void {
     this.endSubs$.next();
     this.endSubs$.complete();

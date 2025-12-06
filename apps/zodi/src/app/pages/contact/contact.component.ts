@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import * as L from 'leaflet';
 @Component({
   selector: 'zodi-contact',
@@ -6,29 +6,15 @@ import * as L from 'leaflet';
   styleUrls: ['./contact.component.scss'],
 })
 export class ContactComponent implements AfterViewInit {
-  // @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
-  // @ViewChild(MapInfoWindow, { static: false }) info!: MapInfoWindow;
-
   selectedSocialMedia: string | null = null;
 
   zoom = 19;
-  // center!: google.maps.LatLngLiteral;
-  // options: google.maps.MapOptions = {
-  //   zoomControl: false,
-  //   scrollwheel: false,
-  //   disableDoubleClickZoom: true,
-  //   // mapTypeId: 'hybrid',
-  //   maxZoom: 20,
-  //   minZoom: 8,
-  // };
-  // markers: any = [];
-  // infoContent = '';
 
   ngAfterViewInit() {
-    this.initMap();
+    this.initialiseMap();
   }
 
-  private initMap() {
+  private initialiseMap() {
     const icon = {
       icon: L.icon({
         iconSize: [25, 41],
@@ -48,9 +34,6 @@ export class ContactComponent implements AfterViewInit {
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
 
-    const marker = L.marker(
-      [54.272430218160835, -8.478582887014712],
-      icon
-    ).addTo(map);
+    L.marker([54.272430218160835, -8.478582887014712], icon).addTo(map);
   }
 }

@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrdersService, Order, ORDER_STATUS } from '@zodi/libs/orders';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -18,8 +20,8 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   constructor(
     private ordersService: OrdersService,
     private router: Router,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {

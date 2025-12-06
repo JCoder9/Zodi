@@ -1,15 +1,18 @@
-<div class="products-page">
-  <div class="page-container">
-    <div class="product-filter flex-item-1">
-      <zodi-product-filter
-        (categorySelected)="onCategorySelected($event)"
-      ></zodi-product-filter>
+<div class="products-page page-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>Products</h1>
+      <div class="filter-container">
+        <zodi-product-filter
+          (categorySelected)="onCategorySelected($event)"
+        ></zodi-product-filter>
+      </div>
     </div>
-    <div class="product-list flex-item-2">
-      <div class="product-list-container" *ngIf="products">
-        <div class="product-item" *ngFor="let product of products">
-          <zodi-product-item [product]="product"></zodi-product-item>
-        </div>
+  </div>
+  <div class="product-list">
+    <div class="product-list-container" *ngIf="products">
+      <div class="product-item" *ngFor="let product of products">
+        <zodi-product-item [product]="product"></zodi-product-item>
       </div>
     </div>
   </div>

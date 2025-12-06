@@ -1,0 +1,94 @@
+// Navigation component using Material Design
+.nav-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  
+  .brand-button {
+    font-size: 24px;
+    font-weight: 300;
+    margin-right: 24px;
+    
+    .brand-logo {
+      font-size: 28px;
+      font-weight: 300;
+      color: white;
+      
+      .accent {
+        color: #ff4081;
+      }
+    }
+  }
+}
+
+.nav-menu-desktop {
+  display: flex;
+  gap: 8px;
+  
+  .nav-button {
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.87);
+    
+    &.active-nav {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+    
+    mat-icon {
+      margin-right: 8px;
+    }
+  }
+}
+
+.nav-spacer {
+  flex: 1 1 auto;
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 16px;
+  
+  button {
+    color: rgba(255, 255, 255, 0.87);
+  }
+}
+
+.sidenav-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.mobile-badge {
+  background: #ff4081;
+  color: white;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 12px;
+  margin-left: auto;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .nav-menu-desktop {
+    display: none;
+  }
+  
+  .nav-menu-button {
+    display: block;
+  }
+  
+  .user-actions {
+    margin-left: 8px;
+  }
+}
+
+@media (min-width: 769px) {
+  .nav-menu-button {
+    display: none;
+  }
+}

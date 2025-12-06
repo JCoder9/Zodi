@@ -1,0 +1,108 @@
+footer {
+  background: linear-gradient(135deg, var(--primary-800), var(--primary-900));
+  color: var(--surface-100);
+  padding: 3rem 0 1rem;
+
+  .footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      padding: 0 1rem;
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+  }
+
+  .footer-section {
+    h4 {
+      color: var(--surface-0);
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: var(--font-weight-normal);
+      letter-spacing: -0.01em;
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 0.75rem;
+
+        a {
+          color: var(--surface-300);
+          text-decoration: none;
+          transition: all 0.3s ease;
+          display: inline-block;
+          font-weight: 400;
+
+          &:hover {
+            color: var(--accent-400);
+            transform: translateX(4px);
+          }
+        }
+      }
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+
+      @media (max-width: 480px) {
+        justify-content: center;
+      }
+
+      .social-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--radius-lg);
+        color: var(--surface-300);
+        text-decoration: none;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: var(--accent-500);
+          border-color: var(--accent-500);
+          color: white;
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-lg);
+        }
+
+        i {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+
+  .footer-bottom {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+
+    p {
+      color: var(--surface-400);
+      margin: 0;
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+  }
+}

@@ -3,12 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-
-import { AccordionModule } from 'primeng/accordion';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
 
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
@@ -25,14 +21,11 @@ import { OrdersModule } from '@zodi/libs/orders';
 import { JwtInterceptor, UsersModule } from '@zodi/libs/users';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { GoogleMapsModule } from '@angular/google-maps';
-
-import { RippleModule } from 'primeng/ripple';
-import { ButtonModule } from 'primeng/button';
 
 import { NgxStripeModule } from 'ngx-stripe';
 import { TestingComponent } from './pages/testing/testing.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { MaterialModule } from './shared/material/material.module';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -54,20 +47,16 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    MaterialModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     UiModule,
-    AccordionModule,
     ProductsModule,
     TestingModule,
     OrdersModule,
-    ToastModule,
     UsersModule,
-    RippleModule,
-    ButtonModule,
-    GoogleMapsModule,
     provideFirebaseApp(() => initializeApp({})),
     provideFirestore(() => getFirestore()),
 
@@ -76,7 +65,6 @@ const routes: Routes = [
     ),
   ],
   providers: [
-    MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

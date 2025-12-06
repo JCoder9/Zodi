@@ -1,40 +1,61 @@
 .page-container {
-    display: flex;
-    // grid-template-columns: 1fr 3fr; /* Define two columns, one quarter and three quarters */
-    // grid-template-rows: auto; /* Set rows to adjust to content height */
-  }
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
   
-  .product-filter {
-    // display: inline-block;
-    // padding: 5px;
-    // flex: 1;
+  @media (max-width: 768px) {
+    padding: 1rem;
   }
-
-.p-accordion-header-text, .p-icon {
-  color: #d3a6a5;
-  // color: rgb(163, 116, 154);
-      text-shadow:  1px 1px 1px rgb(255, 255, 255);
-
 }
 
-  .product-list {
-    flex: 5;
-  }
-  
-  .product-list-container {
-    // box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
-    grid-column: 2; /* Set to the second column */
-    grid-row: 1; /* Set to the first row */
-    display: flex;
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
-    align-content:space-evenly;
-  }
-  
-  .product-item {
-    flex-basis: 25%;
-    padding: 2px;
-    // flex: 1 0 calc(33.33% - 10px); /* Fit three items per row with gap */
-    /* Adjust styling for individual product items */
-  }
+.product-filter {
+  background: var(--surface-0);
+  border: 1px solid var(--surface-200);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+}
 
+.p-accordion-header-text, .p-icon {
+  color: var(--accent-600);
+  text-shadow: none;
+  font-weight: var(--font-weight-light);
+}
+
+.product-list {
+  flex: 1;
+}
+
+.product-list-container {
+  padding-top: 2rem;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(1, 1fr);
+  align-items: start;
   
+  @media (max-width: 768px) {
+    gap: 1.5rem;
+  }
+}
+
+/* Medium screens: 2 columns */
+@media (min-width: 700px) {
+  .product-list-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large screens: 4 columns */
+@media (min-width: 1100px) {
+  .product-list-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Ensure each item fills the grid cell */
+.product-item {
+  width: 100%;
+  box-sizing: border-box;
+}
+

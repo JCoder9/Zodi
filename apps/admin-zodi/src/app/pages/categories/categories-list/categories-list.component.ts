@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CategoriesService, Category } from '@zodi/libs/products';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -16,8 +18,8 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
 
   constructor(
     private categoriesService: CategoriesService,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
     private router: Router
   ) {}
 

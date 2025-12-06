@@ -1,20 +1,61 @@
-<div class="product-item" *ngIf="product">
-    <div class="product-item-wrapper">
-        <img
-            [src]="product.image"
-            class="image"
-            alt=""
-            [routerLink]="'/products/' + product.id"
-        />
-        <h4 class="name" [routerLink]="'/products/' + product.id">
-            {{ product.name }}
-        </h4>
-        <h5 class="price">{{ product.price | currency }}</h5>
-        <p-button
-            styleClass="mt-3 add-to-cart"
-            label="Add to cart"
-            icon="pi pi-shopping-cart"
-            (click)="addProductToCart()"
-        ></p-button>
+<mat-card class="product-card" *ngIf="product">
+  <!-- Product Image Section -->
+  <div class="product-image-container" [routerLink]="'/products/' + product.id">
+    <img
+      mat-card-image
+      [src]="product.image"
+      [alt]="product.name"
+      class="product-image"
+    />
+
+    <!-- Wishlist Button -->
+    <button
+      mat-icon-button
+      class="wishlist-button"
+      (click)="toggleWishlist($event)"
+      [class.wishlist-active]="isInWishlist"
+      [color]="isInWishlist ? 'warn' : 'primary'"
+      [attr.aria-label]="
+        isInWishlist ? 'Remove from wishlist' : 'Add to wishlist'
+      "
+    >
+      <mat-icon>
+        {{ isInWishlist ? 'favorite' : 'favorite_border' }}
+      </mat-icon>
+    </button>
+  </div>
+
+  <!-- Product Content -->
+  <mat-card-content>
+    <!-- Product Name -->
+    <mat-card-title
+      [routerLink]="'/products/' + product.id"
+      class="product-name"
+    >
+      {{ product.name }}
+    </mat-card-title>
+
+    <!-- Product Brand -->
+    <mat-card-subtitle *ngIf="product.brand" class="product-brand">
+      {{ product.brand }}
+    </mat-card-subtitle>
+
+    <!-- Product Price -->
+    <div class="product-price">
+      <span class="price-amount">{{ product.price | currency }}</span>
     </div>
-</div>
+  </mat-card-content>
+
+  <!-- Product Actions -->
+  <mat-card-actions align="end">
+    <button
+      mat-raised-button
+      color="primary"
+      class="add-to-cart-button"
+      (click)="addProductToCart()"
+    >
+      <mat-icon>shopping_cart</mat-icon>
+      Add to Cart
+    </button>
+  </mat-card-actions>
+</mat-card>

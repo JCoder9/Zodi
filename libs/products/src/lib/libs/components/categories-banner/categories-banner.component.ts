@@ -48,6 +48,37 @@ export class CategoriesBannerComponent
     this.categorySelected.emit(category);
   }
 
+  getMaterialIcon(primeIcon?: string): string {
+    const iconMap: { [key: string]: string } = {
+      tshirt: 'checkroom',
+      female: 'person',
+      male: 'person_outline',
+      briefcase: 'business_center',
+      crown: 'workspace_premium',
+      heart: 'favorite',
+      star: 'star',
+      tag: 'local_offer',
+      gift: 'card_giftcard',
+      home: 'home',
+      'shopping-bag': 'shopping_bag',
+      palette: 'palette',
+      phone: 'phone',
+      envelope: 'email',
+      user: 'person',
+      search: 'search',
+      plus: 'add',
+      minus: 'remove',
+      check: 'check',
+      times: 'close',
+      'chevron-right': 'chevron_right',
+      'chevron-left': 'chevron_left',
+      'angle-right': 'keyboard_arrow_right',
+      'angle-left': 'keyboard_arrow_left',
+    };
+
+    return iconMap[primeIcon || ''] || 'category';
+  }
+
   ngAfterViewInit() {
     this.checkSectionWidth();
   }

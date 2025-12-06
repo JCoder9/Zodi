@@ -32,3 +32,14 @@
         color: rgb(182, 0, 0);
     }
 }
+
+.search-results{
+    border: solid black 1px;
+width:50vw;
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block; /* optional: removes inline spacing */
+}
+}

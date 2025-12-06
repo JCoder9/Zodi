@@ -3,28 +3,18 @@
 
 .contact-container {
     display: flex;
-    
-flex: 1;
-    div {
-        // border: 1px solid white;
 
-    }
+flex: 1;
   }
 
 .right-item {
     width:100% !important;
-    height: 300px !important;
-
-    .map-container {
-      // width: 500px; 
-      // position: relative; 
-      // overflow: hidden;
-    }
+    height: 60vh !important;
 
   }
   
   .left-column {
-    flex: 3; /* Takes 3/12 of the available space */
+    flex: 1; /* Takes 3/12 of the available space */
     display: flex;
     flex-direction: column;
 
@@ -115,10 +105,6 @@ flex: 1;
     justify-content: space-evenly;
     margin-top: 10px;
 
-    p-button {
-      // background-color: black;
-      // border: 1px solid black;
-    }
 
     ::ng-deep {
       .p-button{
@@ -132,7 +118,8 @@ flex: 1;
   }
   
   .right-column {
-    flex: 9; /* Takes 9/12 of the available space */
+    padding-right: 20px;
+    flex: 8; /* Takes 9/12 of the available space */
     display: flex;
     flex-direction: column;
 

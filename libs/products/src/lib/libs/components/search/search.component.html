@@ -1,0 +1,81 @@
+<div class="search-container">
+  <mat-form-field appearance="outline" class="search-form-field">
+    <mat-label>Search products, brands, colors...</mat-label>
+    <input
+      matInput
+      type="text"
+      (input)="onSearchChange($event)"
+      (focus)="onSearchFocus()"
+      (blur)="onSearchBlur()"
+      [matAutocomplete]="auto"
+      #searchInput
+      [value]="searchQuery"
+    />
+    <mat-icon matPrefix>search</mat-icon>
+    <button
+      mat-icon-button
+      matSuffix
+      *ngIf="searchQuery"
+      (click)="clearSearch()"
+      type="button"
+    ></button>
+  </mat-form-field>
+
+  <!-- Material Autocomplete -->
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-option
+      *ngFor="let result of searchResults; trackBy: trackByResult"
+      [value]="result"
+      (onSelectionChange)="onResultClick(result)"
+      class="search-result-option"
+    >
+      <div class="result-content">
+        <!-- Result Icon -->
+        <mat-icon class="result-icon">
+          <ng-container [ngSwitch]="result.type">
+            <span *ngSwitchCase="'product'">local_offer</span>
+            <span *ngSwitchCase="'brand'">storefront</span>
+            <span *ngSwitchCase="'category'">category</span>
+            <span *ngSwitchCase="'color'">palette</span>
+            <span *ngSwitchDefault>search</span>
+          </ng-container>
+        </mat-icon>
+
+        <!-- Result Text -->
+        <div class="result-text">
+          <span class="result-name">{{ result.name }}</span>
+
+          <!-- Product metadata -->
+          <div class="result-meta" *ngIf="result.type === 'product'">
+            <span *ngIf="result.brand">{{ result.brand }}</span>
+            <span *ngIf="result.brand && result.colour"> • </span>
+            <span *ngIf="result.colour">{{ result.colour }}</span>
+          </div>
+
+          <!-- Other type labels -->
+          <div class="result-meta" *ngIf="result.type !== 'product'">
+            {{ getTypeLabel(result.type) }}
+          </div>
+        </div>
+
+        <!-- Result Badge -->
+        <mat-chip class="result-badge">
+          {{ result.type }}
+        </mat-chip>
+      </div>
+    </mat-option>
+
+    <!-- No results -->
+    <mat-option
+      *ngIf="searchQuery && searchResults.length === 0"
+      [value]="null"
+      disabled
+      class="no-results-option"
+    >
+      <div class="no-results-content">
+        <mat-icon>search_off</mat-icon>
+        <span>No results found for "{{ searchQuery }}"</span>
+      </div>
+    </mat-option>
+  </mat-autocomplete>
+</div>

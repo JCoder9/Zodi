@@ -8,29 +8,49 @@
       <p class="product-description">
         {{ product.description }}
       </p>
-      <div class="product-rating">
-        <p-rating
-          [(ngModel)]="product.rating"
-          [disabled]="true"
-          [cancel]="false"
-        ></p-rating>
+      <div class="product-rating" *ngIf="product.rating">
+        <div class="star-rating">
+          <span
+            *ngFor="let star of getStarArray(product.rating)"
+            class="star"
+            [class.filled]="product.rating && star <= product.rating"
+          >
+            ⭐
+          </span>
+          <span class="rating-text">({{ product.rating }}/5)</span>
+        </div>
       </div>
       <div class="product-price" *ngIf="product.price">
         {{ product.price | currency }}
         <span class="price-before">{{ product.price + 18 | currency }}</span>
       </div>
       <div class="product-quantity">
-        <div class="field col-12 md:col-3 p-0">
+        <div class="quantity-field">
           <label for="quantity">Quantity</label>
-          <p-inputNumber
-            [(ngModel)]="quantity"
-            [showButtons]="true"
-            inputId="quantity"
-            mode="decimal"
-            [min]="1"
-            [max]="100"
-          >
-          </p-inputNumber>
+          <div class="quantity-input">
+            <button
+              type="button"
+              class="qty-btn qty-decrease"
+              (click)="decreaseQuantity()"
+            >
+              -
+            </button>
+            <input
+              type="number"
+              id="quantity"
+              [(ngModel)]="quantity"
+              [min]="1"
+              [max]="100"
+              class="qty-input"
+            />
+            <button
+              type="button"
+              class="qty-btn qty-increase"
+              (click)="increaseQuantity()"
+            >
+              +
+            </button>
+          </div>
         </div>
       </div>
       <div class="product-actions">

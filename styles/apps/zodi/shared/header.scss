@@ -101,8 +101,10 @@ background:  radial-gradient(ellipse at bottom,#ffb6bb, white 70%);
     }
   
     .search {
-      // padding-top: 25px;
-    }
+  // display: flex;
+  // justify-content: center; 
+  /* horizontal */    
+}
   
     .navigation {
       // padding-top: 23px;

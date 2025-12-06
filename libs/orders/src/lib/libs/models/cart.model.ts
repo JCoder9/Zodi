@@ -1,13 +1,13 @@
-export class Cart {
-    items?: CartItem[];
+export interface Cart {
+  items?: CartItem[];
 }
 
-export class CartItem {
-    productId?: string;
-    quantity?: number;
+export interface CartItem {
+  productId?: string;
+  quantity?: number;
 }
 
-export class CartItemDetailed {
-    product?: any;
-    quantity?: number;
+export interface CartItemDetailed {
+  product?: any;
+  quantity?: number;
 }

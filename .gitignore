@@ -38,4 +38,11 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# Database Scripts (contain sensitive connection strings)
+scripts/db/
+*.db.js
+*.mongo.js
+update-products.js
+products.json
+
 .angular

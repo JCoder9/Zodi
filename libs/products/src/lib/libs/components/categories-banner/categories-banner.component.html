@@ -17,7 +17,7 @@
             (click)="onCategorySelected(category)"
           >
             <div class="category-icon">
-              <i class="pi pi-{{ category.icon }}"></i>
+              <mat-icon>{{ getMaterialIcon(category.icon) }}</mat-icon>
             </div>
             <img
               [src]="category.image"
@@ -36,7 +36,7 @@
               (click)="onCategorySelected(category)"
             >
               <div class="category-icon">
-                <i class="pi pi-{{ category.icon }}"></i>
+                <mat-icon>{{ getMaterialIcon(category.icon) }}</mat-icon>
               </div>
               <img
                 [src]="category.image"
@@ -74,7 +74,7 @@
             (click)="onCategorySelected(category)"
           >
             <div class="category-icon">
-              <i class="pi pi-{{ category.icon }}"></i>
+              <mat-icon>{{ getMaterialIcon(category.icon) }}</mat-icon>
             </div>
             <img
               [src]="category.image"
@@ -94,7 +94,7 @@
               (click)="onCategorySelected(category)"
             >
               <div class="category-icon">
-                <i class="pi pi-{{ category.icon }}"></i>
+                <mat-icon>{{ getMaterialIcon(category.icon) }}</mat-icon>
               </div>
               <img
                 [src]="category.image"

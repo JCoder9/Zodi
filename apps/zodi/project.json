@@ -16,7 +16,7 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/zodi/tsconfig.app.json",
         "assets": ["apps/zodi/src/favicon.ico", "apps/zodi/src/assets"],
-        "styles": ["apps/zodi/src/styles.scss",            "node_modules/primeflex/primeflex.css",         "./node_modules/leaflet/dist/leaflet.css"
+        "styles": ["apps/zodi/src/styles.scss",            "./node_modules/leaflet/dist/leaflet.css"
       ],
         "scripts": []
       },
@@ -31,8 +31,8 @@
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumWarning": "8kb",
+              "maximumError": "12kb"
             }
           ],
           "outputHashing": "all"
