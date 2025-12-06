@@ -19,6 +19,7 @@ import { TestingModule } from '@zodi/libs/testing';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { OrdersModule } from '@zodi/libs/orders';
 import { JwtInterceptor, UsersModule } from '@zodi/libs/users';
+import { ErrorInterceptor } from '@zodi/libs/users';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -66,6 +67,7 @@ const routes: Routes = [
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
   exports: [ContactComponent],

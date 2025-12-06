@@ -8,4 +8,5 @@ export * from './lib/libs/models/user.model';
 export * from './lib/libs/services/users.service';
 export * from './lib/libs/services/auth-guard.service';
 export * from './lib/libs/services/jwt.interceptor';
+export * from './lib/libs/services/error.interceptor';
 export * from './lib/libs/services/auth.service';

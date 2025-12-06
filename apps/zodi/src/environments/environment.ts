@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  apiURL: 'https://zodi-backend-16a18d085598.herokuapp.com/api/v1/',
+  // Switch to local backend for development
+  apiURL: 'http://localhost:3000/api/v1/',
+  // Heroku backend (currently down): 'https://zodi-backend-16a18d085598.herokuapp.com/api/v1/'
 };
 
 /*
