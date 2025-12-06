@@ -4,7 +4,9 @@
     <div class="hero-content">
       <h1>Welcome to Zodi</h1>
       <p>Discover the latest in fashion and accessories</p>
-      <button mat-raised-button color="primary" routerLink="/products">Shop Now</button>
+      <button mat-raised-button color="primary" routerLink="/products">
+        Shop Now
+      </button>
     </div>
   </section>
 
@@ -23,7 +25,10 @@
           </mat-card-content>
         </mat-card>
 
-        <mat-card class="nav-card clearance" routerLink="/products?category=clearance">
+        <mat-card
+          class="nav-card clearance"
+          routerLink="/products?category=clearance"
+        >
           <mat-card-header>
             <mat-icon>sell</mat-icon>
             <mat-card-title>Clearance</mat-card-title>
@@ -61,7 +66,11 @@
     <div class="categories-container">
       <h2>Shop by Category</h2>
       <div class="categories-filter">
-        <button mat-raised-button [matMenuTriggerFor]="categoriesMenu" class="categories-filter-button">
+        <button
+          mat-raised-button
+          [matMenuTriggerFor]="categoriesMenu"
+          class="categories-filter-button"
+        >
           <mat-icon>category</mat-icon>
           Browse Categories
           <mat-icon>arrow_drop_down</mat-icon>
@@ -80,7 +89,10 @@
                   <mat-icon>shopping_bag</mat-icon>
                   <span>Handbags</span>
                 </button>
-                <button mat-menu-item routerLink="/products?category=accessories">
+                <button
+                  mat-menu-item
+                  routerLink="/products?category=accessories"
+                >
                   <mat-icon>watch</mat-icon>
                   <span>Accessories</span>
                 </button>
@@ -129,7 +141,7 @@
       <h2>Featured Brands</h2>
       <div class="brands-grid">
         <mat-card class="brand-card" *ngFor="let brand of featuredBrands">
-          <img [src]="brand.logo" [alt]="brand.name" class="brand-logo">
+          <img [src]="brand.logo" [alt]="brand.name" class="brand-logo" />
           <h3>{{ brand.name }}</h3>
         </mat-card>
       </div>

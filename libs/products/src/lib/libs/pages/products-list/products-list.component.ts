@@ -9,83 +9,85 @@ import { ProductsService } from '../../services/products.service';
 @Component({
   selector: 'zodi-list',
   templateUrl: './products-list.component.html',
-  styles: [`
-    .page-header {
-      margin-bottom: 30px;
-    }
+  styles: [
+    `
+      .page-header {
+        margin-bottom: 30px;
+      }
 
-    .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .header-content h1 {
-      margin: 0;
-      color: #333;
-      font-weight: 500;
-    }
-
-    .filter-container {
-      flex-shrink: 0;
-    }
-
-    .product-list {
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .product-list-container {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 24px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .product-item {
-      width: 100%;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .product-item zodi-product-item {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    /* Medium screens (tablets) - 3 products per row */
-    @media (max-width: 1200px) {
-      .product-list-container {
-        grid-template-columns: repeat(3, 1fr);
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
         gap: 20px;
       }
-    }
 
-    /* Small screens (mobile) - 2 products per row */
-    @media (max-width: 768px) {
-      .header-content {
+      .header-content h1 {
+        margin: 0;
+        color: #333;
+        font-weight: 500;
+      }
+
+      .filter-container {
+        flex-shrink: 0;
+      }
+
+      .product-list {
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .product-list-container {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 24px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .product-item {
+        width: 100%;
+        min-width: 0;
+        display: flex;
         flex-direction: column;
-        align-items: flex-start;
       }
 
-      .product-list-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+      .product-item zodi-product-item {
+        width: 100%;
+        height: 100%;
+        display: block;
       }
-    }
 
-    /* Extra small screens */
-    @media (max-width: 480px) {
-      .product-list-container {
-        gap: 12px;
+      /* Medium screens (tablets) - 3 products per row */
+      @media (max-width: 1200px) {
+        .product-list-container {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
+        }
       }
-    }
-  `],
+
+      /* Small screens (mobile) - 2 products per row */
+      @media (max-width: 768px) {
+        .header-content {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .product-list-container {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 15px;
+        }
+      }
+
+      /* Extra small screens */
+      @media (max-width: 480px) {
+        .product-list-container {
+          gap: 12px;
+        }
+      }
+    `,
+  ],
 })
 export class ProductsListComponent implements OnInit, OnDestroy {
   products: Product[] = [];
