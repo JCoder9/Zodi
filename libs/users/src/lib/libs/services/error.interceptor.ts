@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { 
-  HttpInterceptor, 
-  HttpRequest, 
-  HttpHandler, 
-  HttpErrorResponse 
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -14,7 +14,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
         let errorMessage = '';
-        
+
         if (error.error instanceof ErrorEvent) {
           // Client-side error
           errorMessage = `Error: ${error.error.message}`;
@@ -22,8 +22,11 @@ export class ErrorInterceptor implements HttpInterceptor {
           // Server-side error
           switch (error.status) {
             case 0:
-              errorMessage = 'Backend service is currently unavailable. Using local data.';
-              console.warn('Backend connection failed - falling back to mock data');
+              errorMessage =
+                'Backend service is currently unavailable. Using local data.';
+              console.warn(
+                'Backend connection failed - falling back to mock data'
+              );
               break;
             case 401:
               errorMessage = 'Unauthorized access - please login again.';
@@ -41,10 +44,10 @@ export class ErrorInterceptor implements HttpInterceptor {
               errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
           }
         }
-        
+
         // Log error for debugging but don't show intrusive alerts
         console.error('HTTP Error:', errorMessage);
-        
+
         // Re-throw the error so individual services can handle it
         return throwError(() => error);
       })
