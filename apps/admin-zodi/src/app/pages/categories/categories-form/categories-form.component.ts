@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CategoriesService, Category } from '@zodi/libs/products';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { lastValueFrom, timer } from 'rxjs';
@@ -23,7 +24,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private categoriesService: CategoriesService,
-    private messageService: MessageService,
+    private snackBar: MatSnackBar,
     private location: Location,
     private route: ActivatedRoute
   ) {}
@@ -90,20 +91,18 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.endSubs$))
       .subscribe({
         next: () => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Category updated!',
+          this.snackBar.open('Category updated successfully!', 'Close', {
+            duration: 3000,
+            panelClass: ['success-snackbar']
           });
           lastValueFrom(timer(2000)).then(() => {
             this.location.back();
           });
         },
         error: () => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Category not updated!',
+          this.snackBar.open('Error: Category not updated!', 'Close', {
+            duration: 5000,
+            panelClass: ['error-snackbar']
           });
         },
       });
@@ -115,20 +114,18 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.endSubs$))
       .subscribe({
         next: (category: Category) => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: `Category ${category.name} created!`,
+          this.snackBar.open(`Category ${category.name} created successfully!`, 'Close', {
+            duration: 3000,
+            panelClass: ['success-snackbar']
           });
           lastValueFrom(timer(2000)).then(() => {
             this.location.back();
           });
         },
         error: () => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Category not created!',
+          this.snackBar.open('Error: Category not created!', 'Close', {
+            duration: 5000,
+            panelClass: ['error-snackbar']
           });
         },
       });
