@@ -83,13 +83,13 @@ export class OrdersDetailComponent implements OnInit, OnDestroy {
         next: () => {
           this.snackBar.open('Order status updated successfully!', 'Close', {
             duration: 3000,
-            panelClass: ['success-snackbar']
+            panelClass: ['success-snackbar'],
           });
         },
         error: () => {
           this.snackBar.open('Error: Order status not updated!', 'Close', {
             duration: 5000,
-            panelClass: ['error-snackbar']
+            panelClass: ['error-snackbar'],
           });
         },
       });

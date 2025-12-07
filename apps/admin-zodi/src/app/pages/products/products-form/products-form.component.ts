@@ -82,10 +82,14 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.endSubs$))
       .subscribe({
         next: (product: Product) => {
-          this.snackBar.open(`Product ${product.name} created successfully!`, 'Close', {
-            duration: 3000,
-            panelClass: ['success-snackbar']
-          });
+          this.snackBar.open(
+            `Product ${product.name} created successfully!`,
+            'Close',
+            {
+              duration: 3000,
+              panelClass: ['success-snackbar'],
+            }
+          );
           lastValueFrom(timer(2000)).then(() => {
             this.location.back();
           });
@@ -93,7 +97,7 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
         error: () => {
           this.snackBar.open('Error: Product not created!', 'Close', {
             duration: 5000,
-            panelClass: ['error-snackbar']
+            panelClass: ['error-snackbar'],
           });
         },
       });
@@ -107,7 +111,7 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
         next: () => {
           this.snackBar.open('Product updated successfully!', 'Close', {
             duration: 3000,
-            panelClass: ['success-snackbar']
+            panelClass: ['success-snackbar'],
           });
           lastValueFrom(timer(2000)).then(() => {
             this.location.back();
@@ -116,7 +120,7 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
         error: () => {
           this.snackBar.open('Error: Product not updated!', 'Close', {
             duration: 5000,
-            panelClass: ['error-snackbar']
+            panelClass: ['error-snackbar'],
           });
         },
       });

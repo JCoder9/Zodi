@@ -93,7 +93,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
         next: () => {
           this.snackBar.open('Category updated successfully!', 'Close', {
             duration: 3000,
-            panelClass: ['success-snackbar']
+            panelClass: ['success-snackbar'],
           });
           lastValueFrom(timer(2000)).then(() => {
             this.location.back();
@@ -102,7 +102,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
         error: () => {
           this.snackBar.open('Error: Category not updated!', 'Close', {
             duration: 5000,
-            panelClass: ['error-snackbar']
+            panelClass: ['error-snackbar'],
           });
         },
       });
@@ -114,10 +114,14 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.endSubs$))
       .subscribe({
         next: (category: Category) => {
-          this.snackBar.open(`Category ${category.name} created successfully!`, 'Close', {
-            duration: 3000,
-            panelClass: ['success-snackbar']
-          });
+          this.snackBar.open(
+            `Category ${category.name} created successfully!`,
+            'Close',
+            {
+              duration: 3000,
+              panelClass: ['success-snackbar'],
+            }
+          );
           lastValueFrom(timer(2000)).then(() => {
             this.location.back();
           });
@@ -125,7 +129,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
         error: () => {
           this.snackBar.open('Error: Category not created!', 'Close', {
             duration: 5000,
-            panelClass: ['error-snackbar']
+            panelClass: ['error-snackbar'],
           });
         },
       });

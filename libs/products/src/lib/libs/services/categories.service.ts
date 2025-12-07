@@ -9,7 +9,7 @@ import { environment } from '@env/environment';
 })
 export class CategoriesService {
   apiURLCategories = environment.apiURL + 'categories';
-  
+
   constructor(private http: HttpClient) {}
 
   getCategories(): Observable<Category[]> {
