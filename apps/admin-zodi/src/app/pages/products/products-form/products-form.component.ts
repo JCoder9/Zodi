@@ -8,7 +8,7 @@ import {
   Product,
   ProductsService,
 } from '@zodi/libs/products';
-import { MessageService } from 'primeng/api';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { lastValueFrom, Subject, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -31,7 +31,7 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private categoriesService: CategoriesService,
     private productsService: ProductsService,
-    private messageService: MessageService,
+    private snackBar: MatSnackBar,
     private location: Location,
     private route: ActivatedRoute
   ) {}
@@ -82,20 +82,22 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.endSubs$))
       .subscribe({
         next: (product: Product) => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: `Product ${product.name} created!`,
-          });
+          this.snackBar.open(
+            `Product ${product.name} created successfully!`,
+            'Close',
+            {
+              duration: 3000,
+              panelClass: ['success-snackbar'],
+            }
+          );
           lastValueFrom(timer(2000)).then(() => {
             this.location.back();
           });
         },
         error: () => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Product not created!',
+          this.snackBar.open('Error: Product not created!', 'Close', {
+            duration: 5000,
+            panelClass: ['error-snackbar'],
           });
         },
       });
@@ -107,20 +109,18 @@ export class ProductsFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.endSubs$))
       .subscribe({
         next: () => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Product updated!',
+          this.snackBar.open('Product updated successfully!', 'Close', {
+            duration: 3000,
+            panelClass: ['success-snackbar'],
           });
           lastValueFrom(timer(2000)).then(() => {
             this.location.back();
           });
         },
         error: () => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Product not updated!',
+          this.snackBar.open('Error: Product not updated!', 'Close', {
+            duration: 5000,
+            panelClass: ['error-snackbar'],
           });
         },
       });

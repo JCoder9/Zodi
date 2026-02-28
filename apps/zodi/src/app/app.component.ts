@@ -8,7 +8,6 @@ import {
 } from '@angular/router';
 import { LoadingIndicatorService } from '@zodi/libs/ui';
 import { UsersService } from '@zodi/libs/users';
-import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'zodi-root',
@@ -21,7 +20,6 @@ export class AppComponent implements OnInit {
 
   constructor(
     private usersService: UsersService,
-    private primengConfig: PrimeNGConfig,
     private router: Router,
     private loadingIndicatorService: LoadingIndicatorService
   ) {
@@ -44,6 +42,5 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.usersService.initAppSession();
-    this.primengConfig.ripple = true;
   }
 }

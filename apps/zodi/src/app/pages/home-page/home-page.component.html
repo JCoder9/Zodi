@@ -1,7 +1,179 @@
-<div class="home">
-  <!-- <zodi-banner></zodi-banner> -->
-  <!-- <zodi-categories-banner></zodi-categories-banner>
-  <zodi-section></zodi-section> -->
-  <zodi-product-filter></zodi-product-filter>
-  <!-- <zodi-featured-products></zodi-featured-products> -->
+<div class="home page-container">
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <div class="hero-content">
+      <h1>Welcome to Zodi</h1>
+      <p>Discover the latest in fashion and accessories</p>
+      <button mat-raised-button color="primary" routerLink="/products">
+        Shop Now
+      </button>
+    </div>
+  </section>
+
+  <!-- Quick Navigation Cards -->
+  <section class="quick-nav">
+    <div class="nav-container">
+      <h2>Shop by Category</h2>
+      <div class="nav-grid">
+        <mat-card class="nav-card sale" routerLink="/products?category=sale">
+          <mat-card-header>
+            <mat-icon>local_offer</mat-icon>
+            <mat-card-title>Sale</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Up to 70% Off</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card
+          class="nav-card clearance"
+          routerLink="/products?category=clearance"
+        >
+          <mat-card-header>
+            <mat-icon>sell</mat-icon>
+            <mat-card-title>Clearance</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Final Reductions</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="nav-card new-in" routerLink="/new-in">
+          <mat-card-header>
+            <mat-icon>fiber_new</mat-icon>
+            <mat-card-title>New In</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Latest Arrivals</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="nav-card brands" routerLink="/products">
+          <mat-card-header>
+            <mat-icon>business</mat-icon>
+            <mat-card-title>Brands</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Premium Designers</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Filter Section -->
+  <section class="categories-section">
+    <div class="categories-container">
+      <h2>Shop by Category</h2>
+      <div class="categories-filter">
+        <button
+          mat-raised-button
+          [matMenuTriggerFor]="categoriesMenu"
+          class="categories-filter-button"
+        >
+          <mat-icon>category</mat-icon>
+          Browse Categories
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+
+        <mat-menu #categoriesMenu="matMenu" class="categories-menu">
+          <div class="categories-content" (click)="$event.stopPropagation()">
+            <div class="category-section">
+              <h3>Main Categories</h3>
+              <div class="category-list">
+                <button mat-menu-item routerLink="/products?category=shoes">
+                  <mat-icon>style</mat-icon>
+                  <span>Shoes</span>
+                </button>
+                <button mat-menu-item routerLink="/products?category=handbags">
+                  <mat-icon>shopping_bag</mat-icon>
+                  <span>Handbags</span>
+                </button>
+                <button
+                  mat-menu-item
+                  routerLink="/products?category=accessories"
+                >
+                  <mat-icon>watch</mat-icon>
+                  <span>Accessories</span>
+                </button>
+                <button mat-menu-item routerLink="/products?category=clothing">
+                  <mat-icon>checkroom</mat-icon>
+                  <span>Clothing</span>
+                </button>
+              </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="category-section">
+              <h3>Shop by Type</h3>
+              <div class="category-list">
+                <button mat-menu-item routerLink="/products?category=boots">
+                  <mat-icon>hiking</mat-icon>
+                  <span>Boots</span>
+                </button>
+                <button mat-menu-item routerLink="/products?category=sandals">
+                  <mat-icon>beach_access</mat-icon>
+                  <span>Sandals</span>
+                </button>
+                <button mat-menu-item routerLink="/products?category=sneakers">
+                  <mat-icon>directions_run</mat-icon>
+                  <span>Sneakers</span>
+                </button>
+                <button mat-menu-item routerLink="/products?category=formal">
+                  <mat-icon>business_center</mat-icon>
+                  <span>Formal</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </mat-menu>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="featured-section">
+    <zodi-featured-products></zodi-featured-products>
+  </section>
+
+  <!-- Brand Showcase -->
+  <section class="brands-showcase">
+    <div class="brands-container">
+      <h2>Featured Brands</h2>
+      <div class="brands-grid">
+        <mat-card class="brand-card" *ngFor="let brand of featuredBrands">
+          <img [src]="brand.logo" [alt]="brand.name" class="brand-logo" />
+          <h3>{{ brand.name }}</h3>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Promotional Banners -->
+  <section class="promo-banners">
+    <div class="promo-container">
+      <div class="promo-grid">
+        <mat-card class="promo-card seasonal">
+          <mat-card-header>
+            <mat-icon>ac_unit</mat-icon>
+            <mat-card-title>Winter Collection</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Cozy styles for the season</p>
+            <button mat-button color="primary">Shop Winter</button>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="promo-card exclusive">
+          <mat-card-header>
+            <mat-icon>star</mat-icon>
+            <mat-card-title>Exclusive Offers</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Members only deals</p>
+            <button mat-button color="accent">Join Now</button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </section>
 </div>

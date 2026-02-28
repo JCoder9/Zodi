@@ -1,1 +1,29 @@
-<p-toast></p-toast>
+<div class="messages-container">
+  <div
+    *ngFor="let message of messages; trackBy: trackByMessage"
+    class="message"
+    [class.message--success]="message.type === 'success'"
+    [class.message--error]="message.type === 'error'"
+    [class.message--info]="message.type === 'info'"
+    [class.message--warning]="message.type === 'warning'"
+  >
+    <div class="message-content">
+      <i
+        class="fas"
+        [class.fa-check-circle]="message.type === 'success'"
+        [class.fa-exclamation-circle]="message.type === 'warning'"
+        [class.fa-info-circle]="message.type === 'info'"
+        [class.fa-times-circle]="message.type === 'error'"
+      >
+      </i>
+      <span class="message-text">{{ message.text }}</span>
+    </div>
+    <button
+      class="message-close"
+      (click)="removeMessage(message.id)"
+      type="button"
+    >
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+</div>

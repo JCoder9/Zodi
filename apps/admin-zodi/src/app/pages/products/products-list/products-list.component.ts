@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product, ProductsService } from '@zodi/libs/products';
-import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'zodi-products-list',
@@ -17,8 +19,8 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   constructor(
     private productsService: ProductsService,
     private router: Router,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -35,32 +37,35 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   }
 
   deleteProduct(productId: string) {
-    this.confirmationService.confirm({
-      message: 'Do you want to delete this product?',
-      header: 'Delete Product',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: {
+        title: 'Delete Product',
+        message: 'Do you want to delete this product?',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
         this.productsService
           .deleteProduct(productId)
           .pipe(takeUntil(this.endSubs$))
           .subscribe({
             next: () => {
               this._getProducts();
-              this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Product deleted!',
+              this.snackBar.open('Product deleted!', 'Close', {
+                duration: 3000,
+                panelClass: ['success-snackbar'],
               });
             },
             error: () => {
-              this.messageService.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: 'Product not deleted!',
+              this.snackBar.open('Error deleting product', 'Close', {
+                duration: 3000,
+                panelClass: ['error-snackbar'],
               });
             },
           });
-      },
+      }
     });
   }
 

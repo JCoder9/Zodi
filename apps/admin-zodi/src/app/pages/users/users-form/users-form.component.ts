@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService, User } from '@zodi/libs/users';
-import { MessageService } from 'primeng/api';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { lastValueFrom, Subject, takeUntil, timer } from 'rxjs';
 import * as countriesLib from 'i18n-iso-countries';
 
@@ -25,7 +25,7 @@ export class UsersFormComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private usersService: UsersService,
-    private messageService: MessageService,
+    private snackBar: MatSnackBar,
     private location: Location,
     private route: ActivatedRoute
   ) {}
@@ -129,20 +129,18 @@ export class UsersFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.endSubs$))
       .subscribe({
         next: () => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'User updated!',
+          this.snackBar.open('User updated successfully!', 'Close', {
+            duration: 3000,
+            panelClass: ['success-snackbar'],
           });
           lastValueFrom(timer(2000)).then(() => {
             this.location.back();
           });
         },
         error: () => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'User not updated!',
+          this.snackBar.open('Error: User not updated!', 'Close', {
+            duration: 5000,
+            panelClass: ['error-snackbar'],
           });
         },
       });
@@ -154,20 +152,22 @@ export class UsersFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.endSubs$))
       .subscribe({
         next: (user: User) => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: `User ${user.name} created!`,
-          });
+          this.snackBar.open(
+            `User ${user.name} created successfully!`,
+            'Close',
+            {
+              duration: 3000,
+              panelClass: ['success-snackbar'],
+            }
+          );
           lastValueFrom(timer(2000)).then(() => {
             this.location.back();
           });
         },
         error: () => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'User not created!',
+          this.snackBar.open('Error: User not created!', 'Close', {
+            duration: 5000,
+            panelClass: ['error-snackbar'],
           });
         },
       });

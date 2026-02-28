@@ -8,7 +8,7 @@
 @import '~primeicons/primeicons.css';
 @import '~primeng/resources/themes/saga-blue/theme.css';
 @import '~primeng/resources/primeng.min.css';
-@import '~primeflex/primeflex.css';
+
 @import '~animate.css/animate.css';
 
 @import './base/configuration.scss';
@@ -32,6 +32,12 @@ body {
     margin: 0;
     padding: 0;
     width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+
+    color: #c43b7b;
+    text-shadow: 1px 1px 1px rgb(255, 255, 255);
+
     // background-color: var(--surface-200);
     // background-color: #62929e;
     // background-color: #6c757c;
@@ -45,38 +51,41 @@ body {
 // background: linear-gradient(180deg,rgb(111, 18, 18) 0%, #d486b9 100%);
 
 //     background: rgb(188,176,189);
-background: linear-gradient(180deg, #f8d1eb 0%, #ffb6bd 100%);
+// background: linear-gradient(180deg, #f8d1eb 0%, #ffb6bd 100%);
 // background: linear-gradient(180deg, #f8d1eb 0%, #ffb6bd 100%), url('/assets/images/boutique6.png');
+// background: linear-gradient(180deg, #f8d1eb 0%, #ffffff 100%);
+// background-color: #ffebf8;
 
-// background-blend-mode:overlay;
-//   background-size: 90%;
-//   background-position: center center;
-//   background-repeat: no-repeat;
-
-//     background: rgb(188,176,189);
-// background: linear-gradient(180deg, #d486b9 0%, rgb(111, 18, 18) 100%);
-//     background: rgb(188,176,189);
-// background: linear-gradient(180deg, rgb(41, 41, 41) 0%, rgb(111, 18, 18) 100%);
-//     background: rgb(188,176,189);
-// background: linear-gradient(180deg,  rgba(0,0,0,1) 0%, rgba(188,176,189,1) 100%);
-//     background: rgb(188,176,189);
-// background: linear-gradient(180deg, rgba(188,176,189,1) 0%, rgba(0,0,0,1) 100%);
-
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+html {
+    height: 100%;
+    font-size: 16px;
+}
+
+body {
+    min-height: 100%;
+    color: var(--primary-800);
+    background: linear-gradient(135deg, var(--surface-50) 0%, var(--surface-100) 100%);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
 .container {
-    width: 80vw;
-    // width: 100vw;
-    // height: 100vh;
     display: flex;
+    flex: 1;
     flex-direction: column;
-    // flex-grow: 1;
     padding: 0;
     margin: 0 auto;
-    // background-color: var(--surface-400);
-    // background-color: #fff3fb;
-    // background: rgb(202, 177, 204);
-    background: linear-gradient(180deg,  #fff3fb  0%, #ffd6f1 100%);
+    background-color: transparent;
+    min-height: calc(100vh - 160px);
+}
+
     // background: linear-gradient(180deg,  #e6aed2  0%, #7a7478 100%);
     // background: linear-gradient(180deg, #7a7478 0%, #e6aed2  100%);
     // background: rgb(202, 177, 204);
@@ -117,71 +126,14 @@ background: linear-gradient(180deg, #f8d1eb 0%, #ffb6bd 100%);
   height: 100vh; /* Set the height to match the container's height */
 
 //   background: url('/assets/images/boutique6.png');
-  background: url('/assets/images/shoe-wall.png');
-  background-size: 40%; /* Cover the container with the image */
+  // background: url('/assets/images/shoe-wall.png');
+  background-size: 60%; /* Cover the container with the image */
   background-position: center; /* Center the background image */
   background-repeat:repeat;
-  opacity: 30%;
+  opacity: 10%;
 
   --animate-duration: 10s;
 
 
 
-}
-// @keyframes kenburns-slide {
-//     0% {
-//       opacity: 0;
-//       transform: scale(0.5);
-//     }
-  
-//     20% {
-//       opacity: 0.3;
-//       transform: scale(0.7);
-//     }
-  
-//     40% {
-//       opacity: 0.7;
-//       transform: scale(1);
-//     }
-//     60% {
-//       opacity: 0.7;
-//       transform: scale(1);
-//     }
-//     80% {
-//       opacity: 0.3;
-//       transform: scale(0.7);
-//     }
-//     100% {
-//       opacity: 0;
-//       transform: scale(0.5);
-//     }
-   
-//   }
-  
-//   60% {
-//     opacity: 1;
-//     transform: scale(0);
-//   }
-//   80% {
-//     opacity: 1;
-//     transform: scale(0);
-//   }
-//   100% {
-//     opacity: 0;
-//     transform: scale(1);
-//   }
-
-@media (min-width: 300px) and (max-width: 768px) {
-  .container {
-    width: 90%;
-  }
-  
-}
-
-@media screen and (max-width: 300px) {
-  .container {
-    // justify-items: center;
-    width: 100%;
-  }
-  
 }

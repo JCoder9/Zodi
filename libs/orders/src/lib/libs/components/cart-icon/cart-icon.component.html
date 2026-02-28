@@ -1,6 +1,11 @@
-<i
-  class="pi pi-shopping-cart p-text-secondary"
-  pBadge
-  [value]="cartCount.toString()"
+<button
+  mat-icon-button
   routerLink="/cart"
-></i>
+  class="cart-icon-button"
+  [matBadge]="cartCount"
+  [matBadgeHidden]="cartCount <= 0"
+  matBadgeColor="accent"
+  matBadgeSize="small"
+>
+  <mat-icon>shopping_cart</mat-icon>
+</button>

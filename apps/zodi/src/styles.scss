@@ -1,2 +1,568 @@
-/* You can add global styles to this file, and also import other style files */
-@import '../../../styles/zodi.scss';
+/* Zodi App - Angular Material Theme */
+
+// Material Design Core
+@use '@angular/material' as mat;
+
+// Include the common styles for Angular Material
+@include mat.core();
+
+// Define custom typography with thin fonts
+$zodi-typography: mat.define-typography-config(
+  $font-family: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+  $headline-1: mat.define-typography-level(96px, 96px, 300), // thin
+  $headline-2: mat.define-typography-level(60px, 60px, 300), // thin
+  $headline-3: mat.define-typography-level(48px, 50px, 300), // thin
+  $headline-4: mat.define-typography-level(34px, 40px, 300), // thin
+  $headline-5: mat.define-typography-level(24px, 32px, 300), // thin
+  $headline-6: mat.define-typography-level(20px, 32px, 400), // normal
+  $subtitle-1: mat.define-typography-level(16px, 28px, 300), // thin
+  $subtitle-2: mat.define-typography-level(14px, 22px, 300), // thin
+  $body-1: mat.define-typography-level(16px, 24px, 300), // thin
+  $body-2: mat.define-typography-level(14px, 20px, 300), // thin
+  $caption: mat.define-typography-level(12px, 20px, 300), // thin
+  $button: mat.define-typography-level(14px, 14px, 400), // normal
+  $overline: mat.define-typography-level(10px, 16px, 400), // normal
+);
+
+// Define custom color palettes
+$zodi-primary: mat.define-palette(mat.$indigo-palette, 600);
+$zodi-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$zodi-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme
+$zodi-theme: mat.define-light-theme((
+  color: (
+    primary: $zodi-primary,
+    accent: $zodi-accent,
+    warn: $zodi-warn,
+  ),
+  typography: $zodi-typography,
+  density: 0,
+));
+
+// Include all theme styles
+@include mat.all-component-themes($zodi-theme);
+
+// Custom global styles
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 300; // thin
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #fafafa;
+}
+
+/* Global Page Container - Consistent margins for all pages except mix-match */
+.page-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsive padding for page container */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-container {
+    padding: 10px;
+  }
+}
+
+/* Mix-match page exception - no standard container styling */
+.mix-match-page {
+  padding: 0;
+  margin: 0;
+  max-width: none;
+}
+
+.main-content {
+  flex: 1;
+  // padding: 24px;
+  // max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+// Custom Material Design overrides
+.mat-toolbar.mat-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.mat-card {
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+.mat-button, .mat-raised-button, .mat-fab, .mat-mini-fab {
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+// Product grid styling
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  padding: 24px 0;
+}
+
+// Cart and checkout styling
+.cart-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.checkout-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+// Navigation styling
+.nav-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-spacer {
+  flex: 1 1 auto;
+}
+
+.nav-menu-button {
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
+.nav-menu-desktop {
+  display: flex;
+  gap: 16px;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .main-content {
+    padding: 16px;
+  }
+  
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+}
+
+// Form field styling
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+  
+  .mat-form-field-label {
+    font-weight: 300;
+  }
+}
+
+// Search bar specific styling - no border (deep overrides)
+.search-container .mat-form-field,
+.search-container .mat-form-field.mat-form-field-appearance-outline,
+.search-form-field,
+.search-form-field.mat-form-field-appearance-outline {
+  // Control overall height
+  height: 40px !important;
+  max-height: 40px !important;
+  
+  // Remove all outline elements
+  .mat-form-field-outline {
+    display: none !important;
+    opacity: 0 !important;
+    color: transparent !important;
+  }
+  
+  .mat-form-field-outline-start,
+  .mat-form-field-outline-gap,
+  .mat-form-field-outline-end {
+    display: none !important;
+    opacity: 0 !important;
+    border: none !important;
+    color: transparent !important;
+  }
+  
+  .mat-form-field-outline-thick {
+    display: none !important;
+    opacity: 0 !important;
+    color: transparent !important;
+  }
+  
+  // Remove underlines and ripples
+  .mat-form-field-underline {
+    display: none !important;
+    opacity: 0 !important;
+  }
+  
+  .mat-form-field-ripple {
+    display: none !important;
+    opacity: 0 !important;
+  }
+  
+  // Style the wrapper and flex container with height control
+  .mat-form-field-wrapper {
+    padding: 0 !important;
+    margin: 0 !important;
+    background-color: #f5f5f5 !important;
+    border-radius: 30px !important;
+    border: none !important;
+    box-shadow: none !important;
+    height: 40px !important;
+    max-height: 40px !important;
+    overflow: hidden !important;
+  }
+  
+  .mat-form-field-flex {
+    border: none !important;
+    background-color: transparent !important;
+    border-radius: 30px !important;
+    padding: 8px 16px !important;
+    box-shadow: none !important;
+    align-items: center !important;
+    height: 40px !important;
+    max-height: 40px !important;
+    overflow: hidden !important;
+    display: flex !important;
+  }
+  
+  .mat-form-field-infix {
+    border: none !important;
+    padding: 0 !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    height: 24px !important;
+    max-height: 24px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+  
+  // Style the input element with text overflow control
+  .mat-input-element {
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    height: 24px !important;
+    max-height: 24px !important;
+    line-height: 24px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 14px !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+  
+  // Style the label with overflow control
+  .mat-form-field-label {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    max-width: 100% !important;
+    font-size: 14px !important;
+    line-height: 24px !important;
+    height: 24px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    top: 8px !important;
+    transform: translateY(0) !important;
+  }
+  
+  // Control label when focused/floating
+  &.mat-form-field-should-float .mat-form-field-label,
+  &.mat-focused .mat-form-field-label {
+    transform: translateY(-16px) scale(0.85) !important;
+    font-size: 12px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    max-width: 120% !important;
+  }
+  
+  // Style prefix and suffix icons
+  .mat-form-field-prefix,
+  .mat-form-field-suffix {
+    height: 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .mat-icon {
+    height: 20px !important;
+    width: 20px !important;
+    font-size: 20px !important;
+    line-height: 20px !important;
+  }
+  
+  // Target specific appearance types
+  &.mat-form-field-appearance-outline {
+    .mat-form-field-outline,
+    .mat-form-field-outline-start,
+    .mat-form-field-outline-gap,
+    .mat-form-field-outline-end,
+    .mat-form-field-outline-thick {
+      display: none !important;
+      opacity: 0 !important;
+      border: none !important;
+      color: transparent !important;
+    }
+  }
+  
+  &.mat-form-field-appearance-fill {
+    .mat-form-field-underline {
+      display: none !important;
+    }
+  }
+  
+  &.mat-form-field-appearance-standard {
+    .mat-form-field-underline {
+      display: none !important;
+    }
+  }
+  
+  // Remove focus states
+  &.mat-focused {
+    .mat-form-field-outline,
+    .mat-form-field-outline-thick,
+    .mat-form-field-ripple {
+      display: none !important;
+      opacity: 0 !important;
+      color: transparent !important;
+    }
+  }
+}
+
+// Global override for any mat-form-field with search-form-field class
+.search-form-field {
+  * {
+    border: none !important;
+    outline: none !important;
+    overflow: hidden !important;
+  }
+  
+  svg {
+    border: none !important;
+  }
+  
+  // Additional text overflow controls for any nested elements
+  input, span, div {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    max-width: 100% !important;
+  }
+}
+
+// Checkout specific styles
+.checkout-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.checkout-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+  gap: 16px;
+  
+  h1 {
+    margin: 0;
+    font-weight: 300;
+  }
+}
+
+.checkout-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.checkout-form {
+  .form-section {
+    margin-bottom: 32px;
+    
+    h3 {
+      margin: 0 0 16px 0;
+      font-weight: 300;
+      color: rgba(0, 0, 0, 0.87);
+    }
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
+    
+    .full-width {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+.place-order-card {
+  margin-top: 16px;
+  
+  .place-order-button {
+    width: 100%;
+    height: 48px;
+    font-size: 16px;
+    font-weight: 500;
+    
+    mat-icon {
+      margin-right: 8px;
+    }
+  }
+}
+
+// Cart specific styles
+.cart-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cart-header {
+  margin-bottom: 32px;
+  
+  .cart-title {
+    margin: 16px 0;
+    font-weight: 300;
+  }
+  
+  .cart-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 14px;
+    
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+.cart-item-card {
+  margin-bottom: 16px;
+  padding: 20px;
+  border-radius: 20px;
+  
+  .cart-item-content {
+    display: grid;
+    grid-template-columns: 120px 1fr auto auto;
+    gap: 16px;
+    align-items: center;
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+  }
+  
+  .product-image {
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+  }
+  
+  .product-details {
+    .product-name {
+      margin: 0 0 8px 0;
+      font-weight: 400;
+      font-size: 18px;
+    }
+    
+    .product-price {
+      margin: 0;
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.54);
+    }
+  }
+  
+  .quantity-controls {
+    .quantity-input {
+      display: flex;
+      align-items: center;
+      
+      .quantity-field {
+        text-align: center;
+        width: 60px;
+      }
+    }
+  }
+  
+  .item-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    
+    .subtotal {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      
+      .subtotal-label {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.54);
+      }
+      
+      .subtotal-amount {
+        font-size: 18px;
+        font-weight: 500;
+        color: #3f51b5;
+      }
+    }
+  }
+}

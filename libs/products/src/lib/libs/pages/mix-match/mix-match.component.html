@@ -1,0 +1,138 @@
+<div class="mix-match-page">
+  <div class="main-layout">
+    <!-- Left Carousel - Shoes -->
+    <div class="left-carousel">
+      <div class="carousel-header">
+        <mat-icon>style</mat-icon>
+        <h2>Choose Your Shoe</h2>
+      </div>
+      <div class="product-carousel">
+        <div class="carousel-container">
+          <div class="product-scroll">
+            <div
+              *ngFor="let shoe of shoeProducts"
+              class="carousel-item"
+              [class.selected]="isShoeSelected(shoe)"
+              (click)="selectShoe(shoe)"
+            >
+              <mat-card class="product-card">
+                <div class="card-image">
+                  <img
+                    [src]="shoe.image"
+                    [alt]="shoe.name"
+                    class="product-image"
+                  />
+                  <div class="selection-overlay" *ngIf="isShoeSelected(shoe)">
+                    <mat-icon>check_circle</mat-icon>
+                  </div>
+                </div>
+                <mat-card-content>
+                  <h4>{{ shoe.name }}</h4>
+                  <p class="price">{{ shoe.price | currency }}</p>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center Display Area -->
+    <div class="center-display">
+      <div class="selected-items">
+        <!-- Selected Shoe Display -->
+        <div class="selected-item shoe-display">
+          <div *ngIf="selectedShoe; else emptyShoeSlot" class="item-showcase">
+            <img
+              [src]="selectedShoe.image"
+              [alt]="selectedShoe.name"
+              class="showcase-image"
+            />
+            <div class="item-info">
+              <h3>{{ selectedShoe.name }}</h3>
+              <p class="price">{{ selectedShoe.price | currency }}</p>
+            </div>
+          </div>
+          <ng-template #emptyShoeSlot>
+            <div class="empty-showcase">
+              <mat-icon class="empty-icon">style</mat-icon>
+              <p>Select a shoe</p>
+            </div>
+          </ng-template>
+        </div>
+
+        <!-- Selected Handbag Display -->
+        <div class="selected-item bag-display">
+          <div *ngIf="selectedBag; else emptyBagSlot" class="item-showcase">
+            <img
+              [src]="selectedBag.image"
+              [alt]="selectedBag.name"
+              class="showcase-image"
+            />
+            <div class="item-info">
+              <h3>{{ selectedBag.name }}</h3>
+              <p class="price">{{ selectedBag.price | currency }}</p>
+            </div>
+          </div>
+          <ng-template #emptyBagSlot>
+            <div class="empty-showcase">
+              <mat-icon class="empty-icon">shopping_bag</mat-icon>
+              <p>Select a handbag</p>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+
+      <!-- Action Section -->
+      <div class="action-section" *ngIf="selectedShoe && selectedBag">
+        <div class="actions">
+          <button mat-raised-button color="primary" class="add-both-btn">
+            <mat-icon>shopping_cart</mat-icon>
+            Add Both to Cart
+          </button>
+          <button mat-outlined-button class="save-combination-btn">
+            <mat-icon>favorite</mat-icon>
+            Save Combination
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Carousel - Handbags -->
+    <div class="right-carousel">
+      <div class="carousel-header">
+        <mat-icon>shopping_bag</mat-icon>
+        <h2>Choose Your Handbag</h2>
+      </div>
+      <div class="product-carousel">
+        <div class="carousel-container">
+          <div class="product-scroll">
+            <div
+              *ngFor="let bag of bagProducts"
+              class="carousel-item"
+              [class.selected]="isBagSelected(bag)"
+              (click)="selectBag(bag)"
+            >
+              <mat-card class="product-card">
+                <div class="card-image">
+                  <img
+                    [src]="bag.image"
+                    [alt]="bag.name"
+                    class="product-image"
+                  />
+                  <div class="selection-overlay" *ngIf="isBagSelected(bag)">
+                    <mat-icon>check_circle</mat-icon>
+                  </div>
+                </div>
+                <mat-card-content>
+                  <h4>{{ bag.name }}</h4>
+                  <p class="price">{{ bag.price | currency }}</p>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

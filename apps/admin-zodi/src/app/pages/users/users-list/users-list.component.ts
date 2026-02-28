@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 import { User, UsersService } from '@zodi/libs/users';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -16,8 +18,8 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
   constructor(
     private usersService: UsersService,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
     private router: Router
   ) {}
 

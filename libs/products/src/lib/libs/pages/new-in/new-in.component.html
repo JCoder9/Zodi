@@ -1,0 +1,104 @@
+<div class="new-in-container">
+  <div class="hero-section">
+    <h1>✨ New In</h1>
+    <p>Fresh arrivals and latest trends in footwear</p>
+    <div class="highlight-banner">
+      <span class="highlight-text">NEW ARRIVALS WEEKLY</span>
+    </div>
+  </div>
+
+  <div class="filters-section" *ngIf="!loading && newProducts.length > 0">
+    <div class="time-filters">
+      <h4>Show items from:</h4>
+      <div class="filter-buttons">
+        <button
+          type="button"
+          *ngFor="let filter of timeFilters"
+          class="filter-btn"
+          [class.active]="timeFilter === filter.value"
+          (click)="timeFilter = filter.value; onTimeFilterChange()"
+        >
+          {{ filter.label }}
+        </button>
+      </div>
+    </div>
+
+    <div class="controls-bar">
+      <div class="results-info">
+        <h3>{{ newProducts.length }} New Items</h3>
+      </div>
+      <div class="sort-controls">
+        <label for="sort-select">Sort by:</label>
+        <select
+          id="sort-select"
+          [(ngModel)]="sortOption"
+          (change)="onSortChange()"
+          class="sort-select"
+        >
+          <option value="" disabled>Sort by</option>
+          <option *ngFor="let option of sortOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading-state" *ngIf="loading">
+    <p>Loading new arrivals...</p>
+  </div>
+
+  <div class="products-section" *ngIf="!loading">
+    <div class="products-grid" *ngIf="newProducts.length > 0; else noProducts">
+      <div class="new-product-item" *ngFor="let product of newProducts">
+        <div class="arrival-badges">
+          <div class="new-badge" *ngIf="product.isNew">NEW</div>
+          <div class="arrival-date">
+            {{ getArrivalText(product) }}
+          </div>
+        </div>
+        <div class="product-wrapper">
+          <zodi-product-item [product]="product"></zodi-product-item>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noProducts>
+      <div class="no-products">
+        <mat-icon class="empty-icon">star_border</mat-icon>
+        <h3>No new arrivals found</h3>
+        <p>
+          Try adjusting your time filter or check back soon for the latest
+          products!
+        </p>
+        <button
+          type="button"
+          class="btn btn-outlined view-all-btn"
+          (click)="timeFilter = 'all'; onTimeFilterChange()"
+        >
+          View All New Items
+        </button>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="newsletter-section" *ngIf="!loading">
+    <div class="newsletter-content">
+      <h3>Never Miss New Arrivals</h3>
+      <p>
+        Subscribe to get notified about the latest products and exclusive
+        releases.
+      </p>
+      <div class="newsletter-form">
+        <input
+          type="email"
+          placeholder="Enter your email address"
+          class="email-input"
+        />
+        <button type="button" class="btn btn-primary subscribe-btn">
+          Subscribe
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<div class="clearance-container">
+  <div class="hero-section">
+    <h1>🔥 Clearance Sale</h1>
+    <p>Huge savings on premium footwear - Limited time offers!</p>
+    <div class="sale-banner">
+      <span class="sale-text">UP TO 70% OFF</span>
+    </div>
+  </div>
+
+  <div
+    class="controls-section"
+    *ngIf="!loading && clearanceProducts.length > 0"
+  >
+    <div class="results-info">
+      <h3>{{ clearanceProducts.length }} Clearance Items</h3>
+    </div>
+    <div class="sort-controls">
+      <label for="sort-select">Sort by:</label>
+      <select
+        id="sort-select"
+        [(ngModel)]="sortOption"
+        (change)="onSortChange()"
+        class="sort-select"
+      >
+        <option value="" disabled>Sort by</option>
+        <option *ngFor="let option of sortOptions" [value]="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="loading-state" *ngIf="loading">
+    <p>Loading clearance items...</p>
+  </div>
+
+  <div class="products-section" *ngIf="!loading">
+    <div
+      class="products-grid"
+      *ngIf="clearanceProducts.length > 0; else noProducts"
+    >
+      <div
+        class="clearance-product-item"
+        *ngFor="let product of clearanceProducts"
+      >
+        <div class="discount-badge">
+          {{ getDiscountPercentage(product) }}% OFF
+        </div>
+        <div class="product-wrapper">
+          <zodi-product-item [product]="product"></zodi-product-item>
+        </div>
+        <div class="price-info">
+          <div class="current-price">${{ product.price }}</div>
+          <div class="original-price" *ngIf="product.originalPrice">
+            <span class="strikethrough">${{ product.originalPrice }}</span>
+          </div>
+          <div class="savings" *ngIf="product.originalPrice">
+            Save ${{ getSavingsAmount(product) }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noProducts>
+      <div class="no-products">
+        <mat-icon class="empty-icon">local_offer</mat-icon>
+        <h3>No clearance items available</h3>
+        <p>Check back soon for amazing deals and discounts!</p>
+        <p-button
+          label="Shop All Products"
+          styleClass="shop-all-btn"
+          severity="primary"
+          routerLink="/products"
+        ></p-button>
+      </div>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+<div class="brands-container">
+  <div class="hero-section">
+    <h1>Our Brands</h1>
+    <p>Discover premium footwear from the world's leading brands</p>
+  </div>
+
+  <!-- Brand Showcase with Logos -->
+  <div class="brand-showcase" *ngIf="!loading">
+    <div class="showcase-header">
+      <h2>Featured Brands</h2>
+    </div>
+    <div class="brand-logos-grid">
+      <div
+        class="brand-logo-card"
+        *ngFor="let brand of brands"
+        (click)="filterByBrand(brand)"
+        [class.selected]="selectedBrand === brand"
+      >
+        <div class="logo-container">
+          <img
+            [src]="getBrandLogo(brand)"
+            [alt]="brand + ' logo'"
+            class="brand-logo"
+          />
+        </div>
+        <h4>{{ brand }}</h4>
+        <p>{{ getProductCountForBrand(brand) }} products</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="brands-filter" *ngIf="!loading">
+    <div class="filter-header">
+      <h3>Filter by Brand</h3>
+    </div>
+    <div class="brand-chips">
+      <button
+        type="button"
+        class="brand-chip"
+        [class.active]="selectedBrand === ''"
+        (click)="filterByBrand('')"
+      >
+        All Brands
+      </button>
+      <button
+        type="button"
+        class="brand-chip"
+        [class.active]="selectedBrand === brand"
+        *ngFor="let brand of brands"
+        (click)="filterByBrand(brand)"
+      >
+        {{ brand }}
+      </button>
+    </div>
+  </div>
+
+  <div class="loading-state" *ngIf="loading">
+    <p>Loading brands...</p>
+  </div>
+
+  <div class="products-section" *ngIf="!loading">
+    <div class="section-header">
+      <h3 *ngIf="selectedBrand; else allBrandsHeader">
+        {{ selectedBrand }} Products ({{ filteredProducts.length }})
+      </h3>
+      <ng-template #allBrandsHeader>
+        <h3>All Products ({{ filteredProducts.length }})</h3>
+      </ng-template>
+    </div>
+
+    <div
+      class="products-grid"
+      *ngIf="filteredProducts.length > 0; else noProducts"
+    >
+      <zodi-product-item
+        *ngFor="let product of filteredProducts"
+        [product]="product"
+      ></zodi-product-item>
+    </div>
+
+    <ng-template #noProducts>
+      <div class="no-products">
+        <mat-icon class="empty-icon">search</mat-icon>
+        <h3>No products found</h3>
+        <p>
+          Try selecting a different brand or check back later for new arrivals.
+        </p>
+      </div>
+    </ng-template>
+  </div>
+</div>

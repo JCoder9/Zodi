@@ -7,7 +7,7 @@ import {
   ORDER_STATUS,
 } from '@zodi/libs/orders';
 import { Product, ProductsService } from '@zodi/libs/products';
-import { MessageService } from 'primeng/api';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -25,7 +25,7 @@ export class OrdersDetailComponent implements OnInit, OnDestroy {
   constructor(
     private ordersService: OrdersService,
     private route: ActivatedRoute,
-    private messageService: MessageService,
+    private snackBar: MatSnackBar,
     private productsService: ProductsService
   ) {}
 
@@ -81,17 +81,15 @@ export class OrdersDetailComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.endSubs$))
       .subscribe({
         next: () => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Order Status updated!',
+          this.snackBar.open('Order status updated successfully!', 'Close', {
+            duration: 3000,
+            panelClass: ['success-snackbar'],
           });
         },
         error: () => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Order Status not updated!',
+          this.snackBar.open('Error: Order status not updated!', 'Close', {
+            duration: 5000,
+            panelClass: ['error-snackbar'],
           });
         },
       });

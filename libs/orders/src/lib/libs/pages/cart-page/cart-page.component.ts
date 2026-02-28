@@ -64,10 +64,35 @@ export class CartPageComponent implements OnInit, OnDestroy {
   }
 
   updateCartItemQuantity(event: any, cartItem: CartItemDetailed) {
+    const quantity = event.target ? parseInt(event.target.value) : event.value;
+    if (quantity > 0) {
+      this.cartService.setCartItem(
+        {
+          productId: cartItem.product.id,
+          quantity: quantity,
+        },
+        true
+      );
+    }
+  }
+
+  incrementQuantity(cartItem: CartItemDetailed) {
+    const newQuantity = (cartItem.quantity || 0) + 1;
     this.cartService.setCartItem(
       {
         productId: cartItem.product.id,
-        quantity: event.value,
+        quantity: newQuantity,
+      },
+      true
+    );
+  }
+
+  decrementQuantity(cartItem: CartItemDetailed) {
+    const newQuantity = Math.max((cartItem.quantity || 1) - 1, 1);
+    this.cartService.setCartItem(
+      {
+        productId: cartItem.product.id,
+        quantity: newQuantity,
       },
       true
     );

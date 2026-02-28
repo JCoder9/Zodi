@@ -1,67 +1,95 @@
-<div class="cart-page">
-  <div class="left">
-    <zodi-order-summary></zodi-order-summary>
-  </div>
-  <div class="right">
-    <div>
-      <p-button
-        label="Continue Shopping"
-        icon="pi pi-arrow-left"
-        (onClick)="backToShop()"
-      ></p-button>
-    </div>
-    <div>
-      <h4>My Cart: {{ cartCount }} Item(s)</h4>
-    </div>
-    <div class="cart-shipping mb-5">
-      Shipping after payment, Delivery time : 1 to 4 working days
-    </div>
-    <div class="cart-item mb-5" *ngFor="let cartItem of cartItemsDetailed">
-      <div class="grid p-fluid">
-        <div class="col-2 cart-item-image">
-          <img
-            [src]="cartItem.product.image"
-            [attr.alt]="cartItem.product.name"
-          />
-        </div>
-        <div class="col-7">
-          <div class="cart-item-name">
-            {{ cartItem.product.name }}
-          </div>
-          <div class="cart-item-price">
-            {{ cartItem.product.price | currency }}
-          </div>
-          <div class="cart-item-remove">
-            <p-button
-              icon="pi pi-trash"
-              (onClick)="deleteCartItem(cartItem)"
-            ></p-button>
-          </div>
-        </div>
-        <div class="col-3">
-          <div class="field cart-item-quantity">
-            <p-inputNumber
-              [showButtons]="true"
-              [inputId]="cartItem.product.id"
-              mode="decimal"
-              [min]="1"
-              [max]="100"
-              [(ngModel)]="cartItem.quantity"
-              (onInput)="updateCartItemQuantity($event, cartItem)"
-            >
-            </p-inputNumber>
-          </div>
-          <div class="cart-item-subtotal">
-            Subtotal:
-            <span
-              class="cart-item-subtotal-value"
-              *ngIf="cartItem && cartItem.product && cartItem.quantity"
-            >
-              {{ cartItem.product.price * cartItem.quantity | currency }}
-            </span>
-          </div>
-        </div>
+<div class="cart-container page-container">
+  <div class="cart-content">
+    <!-- Cart Header -->
+    <div class="cart-header">
+      <button mat-button class="continue-shopping-btn" (click)="backToShop()">
+        <mat-icon>arrow_back</mat-icon>
+        Continue Shopping
+      </button>
+
+      <h1 class="cart-title">
+        My Cart: {{ cartCount }} Item{{ cartCount !== 1 ? 's' : '' }}
+      </h1>
+
+      <div class="cart-info">
+        <mat-icon>info</mat-icon>
+        <span>Shipping after payment, Delivery time: 1 to 4 working days</span>
       </div>
     </div>
+
+    <!-- Cart Items -->
+    <div class="cart-items">
+      <mat-card
+        *ngFor="let cartItem of cartItemsDetailed"
+        class="cart-item-card"
+      >
+        <div class="cart-item-content">
+          <!-- Product Image -->
+          <div class="product-image">
+            <img [src]="cartItem.product.image" [alt]="cartItem.product.name" />
+          </div>
+
+          <!-- Product Details -->
+          <div class="product-details">
+            <h3 class="product-name">{{ cartItem.product.name }}</h3>
+            <p class="product-price">{{ cartItem.product.price | currency }}</p>
+          </div>
+
+          <!-- Quantity Controls -->
+          <div class="quantity-controls">
+            <mat-form-field appearance="outline">
+              <mat-label>Quantity</mat-label>
+              <div class="quantity-input">
+                <button
+                  mat-icon-button
+                  (click)="decrementQuantity(cartItem)"
+                  [disabled]="(cartItem.quantity || 0) <= 1"
+                >
+                  <mat-icon>remove</mat-icon>
+                </button>
+                <input
+                  matInput
+                  type="number"
+                  [value]="cartItem.quantity"
+                  min="1"
+                  max="100"
+                  (input)="updateCartItemQuantity($event, cartItem)"
+                  class="quantity-field"
+                />
+                <button mat-icon-button (click)="incrementQuantity(cartItem)">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </mat-form-field>
+          </div>
+
+          <!-- Subtotal and Actions -->
+          <div class="item-actions">
+            <div class="subtotal">
+              <span class="subtotal-label">Subtotal:</span>
+              <span class="subtotal-amount">
+                {{
+                  (cartItem.product?.price || 0) * (cartItem.quantity || 0)
+                    | currency
+                }}
+              </span>
+            </div>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="deleteCartItem(cartItem)"
+              matTooltip="Remove item"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- Order Summary -->
+  <div class="order-summary-container">
+    <zodi-order-summary></zodi-order-summary>
   </div>
 </div>
