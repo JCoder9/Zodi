@@ -133,7 +133,7 @@ export class MessagesComponent implements OnInit {
     this.messages = this.messages.filter((m) => m.id !== id);
   }
 
-  trackByMessage(index: number, message: any): number {
+  trackByMessage(index: number, message: { id: number }): number {
     return message.id;
   }
 }
