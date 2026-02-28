@@ -1,51 +1,69 @@
 <mat-toolbar color="primary" class="nav-toolbar">
-  <!-- Brand Section -->
-  <button mat-button [routerLink]="['/']" class="brand-button">
-    <span class="brand-logo">Zodi<span class="accent">.</span></span>
-  </button>
+  <!-- Top Row -->
+  <div class="nav-top-row">
+    <!-- Mobile Menu Button (Left) -->
+    <button mat-icon-button class="nav-menu-button mobile-only" (click)="toggleMobileMenu()" aria-label="Menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    
+    <!-- Brand Section (Centered) -->
+    <button mat-button [routerLink]="['/']" class="brand-button">
+      <span class="brand-logo">Zodi<span class="accent">.</span></span>
+    </button>
 
-  <!-- Desktop Navigation Menu -->
-  <div class="nav-menu-desktop">
-    <button
-      mat-button
-      *ngFor="let item of navItems"
-      [routerLink]="item.routerLink"
-      routerLinkActive="active-nav"
-      class="nav-button"
-    >
-      <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
-      {{ item.label }}
-      <mat-icon
-        *ngIf="item.badge"
-        matBadge="{{ item.badge }}"
-        matBadgePosition="after"
-        matBadgeColor="accent"
+    <!-- Spacer -->
+    <span class="nav-spacer"></span>
+
+    <!-- Desktop Search -->
+    <div class="desktop-search">
+      <zodi-search></zodi-search>
+    </div>
+
+    <!-- User Actions -->
+    <div class="user-actions">
+      <!-- Mobile Search Icon -->
+      <button mat-icon-button class="mobile-only" (click)="toggleSearch()" aria-label="Search">
+        <mat-icon>search</mat-icon>
+      </button>
+      
+      <zodi-cart-icon></zodi-cart-icon>
+      
+      <button mat-icon-button [matMenuTriggerFor]="userMenu" class="user-menu-btn desktop-only" aria-label="Account">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Desktop Navigation Row (Bottom) -->
+  <div class="nav-menu-row desktop-only">
+    <div class="nav-menu-desktop">
+      <button
+        mat-button
+        *ngFor="let item of navItems"
+        [routerLink]="item.routerLink"
+        routerLinkActive="active-nav"
+        class="nav-button"
       >
-        notifications
-      </mat-icon>
-    </button>
+        <mat-icon *ngIf="item.icon">{{ item.icon }}</mat-icon>
+        {{ item.label }}
+      </button>
+    </div>
   </div>
-
-  <!-- Spacer -->
-  <span class="nav-spacer"></span>
-
-  <!-- Search -->
-  <zodi-search></zodi-search>
-
-  <!-- User Actions -->
-  <div class="user-actions">
-    <zodi-wishlist-icon></zodi-wishlist-icon>
-    <zodi-cart-icon></zodi-cart-icon>
-    <button mat-icon-button [matMenuTriggerFor]="userMenu">
-      <mat-icon>account_circle</mat-icon>
-    </button>
-  </div>
-
-  <!-- Mobile Menu Button -->
-  <button mat-icon-button class="nav-menu-button" (click)="toggleMobileMenu()">
-    <mat-icon>menu</mat-icon>
-  </button>
 </mat-toolbar>
+
+<!-- Mobile Search Overlay -->
+<div class="search-overlay" *ngIf="isSearchOpen" (click)="closeSearch()">
+  <div class="search-overlay-content" (click)="$event.stopPropagation()">
+    <div class="search-header">
+      <button mat-icon-button (click)="closeSearch()" aria-label="Close">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <div class="search-wrapper">
+        <zodi-search></zodi-search>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- User Menu -->
 <mat-menu #userMenu="matMenu">
@@ -65,17 +83,18 @@
 </mat-menu>
 
 <!-- Mobile Sidenav -->
-<mat-sidenav-container class="sidenav-container" *ngIf="isMobileView">
+<mat-sidenav-container class="sidenav-container" *ngIf="isMobileView && isMobileMenuOpen">
   <mat-sidenav
     #drawer
     mode="over"
     [opened]="isMobileMenuOpen"
-    (closed)="isMobileMenuOpen = false"
+    (closed)="closeMobileMenu()"
+    position="end"
   >
-    <mat-toolbar>
-      <span>Navigation</span>
+    <mat-toolbar color="primary">
+      <span>Menu</span>
       <span class="nav-spacer"></span>
-      <button mat-icon-button (click)="drawer.close()">
+      <button mat-icon-button (click)="closeMobileMenu()">
         <mat-icon>close</mat-icon>
       </button>
     </mat-toolbar>
@@ -85,7 +104,7 @@
         mat-list-item
         *ngFor="let item of navItems"
         [routerLink]="item.routerLink"
-        (click)="drawer.close()"
+        (click)="closeMobileMenu()"
       >
         <mat-icon matListIcon *ngIf="item.icon">{{ item.icon }}</mat-icon>
         <span matLine>{{ item.label }}</span>
@@ -93,4 +112,5 @@
       </a>
     </mat-nav-list>
   </mat-sidenav>
+  <mat-sidenav-content></mat-sidenav-content>
 </mat-sidenav-container>

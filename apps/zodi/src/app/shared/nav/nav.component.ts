@@ -20,6 +20,7 @@ export class NavComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   isMobileMenuOpen = false;
   isMobileView = false;
+  isSearchOpen = false;
 
   navItems: NavItem[] = [
     {
@@ -89,5 +90,17 @@ export class NavComponent implements OnInit, OnDestroy {
 
   toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  closeMobileMenu(): void {
+    this.isMobileMenuOpen = false;
+  }
+
+  toggleSearch(): void {
+    this.isSearchOpen = !this.isSearchOpen;
+  }
+
+  closeSearch(): void {
+    this.isSearchOpen = false;
   }
 }

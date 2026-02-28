@@ -12,5 +12,10 @@
 
 .main-content {
   flex: 1;
+  padding-top: 112px; /* Account for sticky navigation (64px top row + 48px menu row) */
   padding-bottom: 2rem;
+  
+  @media (max-width: 1024px) {
+    padding-top: 56px; /* Mobile navigation is single row */
+  }
 }

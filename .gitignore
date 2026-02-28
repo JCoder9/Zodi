@@ -39,10 +39,21 @@ testem.log
 Thumbs.db
 
 # Database Scripts (contain sensitive connection strings)
-scripts/db/
+scripts/
 *.db.js
 *.mongo.js
 update-products.js
 products.json
+
+# Documentation and markdown files
+*.md
+
+# Environment variables (if added later)
+.env
+.env.local
+.env.*.local
+
+# Firebase cache
+.firebase/
 
 .angular
