@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, timer, combineLatest } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { Product } from '../models/product.model';
+import { UsersService, UsersFacade } from '@zodi/libs/users';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const WISHLIST_KEY = 'wishlist';
 
@@ -12,12 +15,66 @@ export class WishlistService {
     Product[]
   >([]);
   public wishlist$: Observable<Product[]> = this.wishlistSubject.asObservable();
+  private currentUserId: string | null = null;
+  private isAuthenticated: boolean = false;
 
-  constructor() {
+  constructor(
+    private usersService: UsersService,
+    private usersFacade: UsersFacade,
+    private snackBar: MatSnackBar
+  ) {
     this.initWishlist();
+    this.observeAuthState();
+  }
+
+  private observeAuthState() {
+    combineLatest([
+      this.usersFacade.currentUser$,
+      this.usersFacade.isAuthenticated$
+    ]).subscribe(([user, isAuthenticated]) => {
+      const newUserId = user?.id || null;
+      const wasAuthenticated = this.isAuthenticated;
+      
+      this.isAuthenticated = isAuthenticated;
+      
+      // User logged in - sync localStorage to backend
+      if (newUserId && isAuthenticated && !wasAuthenticated) {
+        this.syncLocalStorageToBackend(newUserId);
+      }
+      
+      // User changed - reload wishlist
+      if (newUserId !== this.currentUserId) {
+        this.currentUserId = newUserId;
+        this.loadWishlist();
+      }
+    });
   }
 
   private initWishlist() {
+    this.loadWishlist();
+  }
+
+  private loadWishlist() {
+    if (this.currentUserId && this.isAuthenticated) {
+      // Authenticated user - load from backend
+      this.usersService.getUserSavedProducts(this.currentUserId).subscribe({
+        next: (products) => {
+          this.wishlistSubject.next(products);
+          // Update localStorage for offline access
+          localStorage.setItem(WISHLIST_KEY, JSON.stringify(products));
+        },
+        error: () => {
+          // Fallback to localStorage if backend fails
+          this.loadFromLocalStorage();
+        },
+      });
+    } else {
+      // Guest user - load from localStorage
+      this.loadFromLocalStorage();
+    }
+  }
+
+  private loadFromLocalStorage() {
     const wishlistJson = localStorage.getItem(WISHLIST_KEY);
     if (wishlistJson) {
       try {
@@ -29,6 +86,29 @@ export class WishlistService {
       }
     } else {
       this.wishlistSubject.next([]);
+    }
+  }
+
+  private syncLocalStorageToBackend(userId: string) {
+    const localWishlist = this.getWishlist();
+    if (localWishlist.length > 0) {
+      // Delay sync by 500ms to ensure token is ready and interceptor is set up
+      timer(500).subscribe(() => {
+        localWishlist.forEach((product) => {
+          if (product.id) {
+            this.usersService
+              .addSavedProduct(userId, product.id)
+              .subscribe({
+                next: () => {
+                  console.log('Product synced successfully:', product.name);
+                },
+                error: (err) => {
+                  console.error('Error syncing product:', product.name, err);
+                },
+              });
+          }
+        });
+      });
     }
   }
 
@@ -45,6 +125,29 @@ export class WishlistService {
     if (!existingProduct) {
       const updatedWishlist = [...currentWishlist, product];
       this.updateWishlist(updatedWishlist);
+
+      // If authenticated, also save to backend
+      if (this.currentUserId && this.isAuthenticated) {
+        this.usersService
+          .addSavedProduct(this.currentUserId, product.id)
+          .subscribe({
+            next: () => {
+              this.snackBar.open('Added to your wishlist!', 'Close', {
+                duration: 2000,
+              });
+            },
+            error: (err) => console.error('Error saving to backend:', err),
+          });
+      } else {
+        // Guest user - show confirmation message
+        this.snackBar.open(
+          'Added to wishlist! Login to sync across devices.',
+          'Close',
+          {
+            duration: 3000,
+          }
+        );
+      }
     }
   }
 
@@ -54,6 +157,25 @@ export class WishlistService {
       (product) => product.id !== productId
     );
     this.updateWishlist(updatedWishlist);
+
+    // If authenticated, also remove from backend
+    if (this.currentUserId && this.isAuthenticated) {
+      this.usersService
+        .removeSavedProduct(this.currentUserId, productId)
+        .subscribe({
+          next: () => {
+            this.snackBar.open('Removed from wishlist', 'Close', {
+              duration: 2000,
+            });
+          },
+          error: (err) => console.error('Error removing from backend:', err),
+        });
+    } else {
+      // Guest user - show confirmation message
+      this.snackBar.open('Removed from wishlist', 'Close', {
+        duration: 2000,
+      });
+    }
   }
 
   isInWishlist(productId: string): boolean {
@@ -73,6 +195,18 @@ export class WishlistService {
 
   clearWishlist(): void {
     this.updateWishlist([]);
+
+    // If authenticated, also clear from backend
+    if (this.currentUserId && this.isAuthenticated) {
+      const currentWishlist = this.getWishlist();
+      currentWishlist.forEach((product) => {
+        if (product.id) {
+          this.usersService
+            .removeSavedProduct(this.currentUserId!, product.id)
+            .subscribe();
+        }
+      });
+    }
   }
 
   getWishlistCount(): Observable<number> {

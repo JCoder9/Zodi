@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject, takeUntil, take } from 'rxjs';
+import { Subject, takeUntil, take, timer, combineLatest } from 'rxjs';
 import { Product } from '../../models/product.model';
 import { ProductsService } from '../../services/products.service';
 import { CategoriesService } from '../../services/categories.service';
@@ -7,6 +7,8 @@ import { Category } from '../../models/category.model';
 import { CartService, CartItem } from '@zodi/libs/orders';
 import { UsersService, UsersFacade } from '@zodi/libs/users';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+const SAVED_COMBOS_KEY = 'savedCombos';
 
 @Component({
   selector: 'zodi-mix-match',
@@ -542,6 +544,10 @@ export class MixMatchComponent implements OnInit, OnDestroy {
   shoeCategory: Category | null = null;
   bagCategory: Category | null = null;
 
+  // User authentication tracking
+  private currentUserId: string | null = null;
+  private isAuthenticated: boolean = false;
+
   // Carousel settings
   carouselOptions = {
     responsiveOptions: [
@@ -574,11 +580,69 @@ export class MixMatchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._getCategories();
+    this.observeAuthState();
   }
 
   ngOnDestroy(): void {
     this.endSubs$.next();
     this.endSubs$.complete();
+  }
+
+  private observeAuthState() {
+    combineLatest([
+      this.usersFacade.currentUser$,
+      this.usersFacade.isAuthenticated$
+    ])
+      .pipe(takeUntil(this.endSubs$))
+      .subscribe(([user, isAuthenticated]) => {
+        const newUserId = user?.id || null;
+        const wasAuthenticated = this.isAuthenticated;
+        
+        this.isAuthenticated = isAuthenticated;
+        
+        // User logged in - sync localStorage combos to backend
+        if (newUserId && isAuthenticated && !wasAuthenticated) {
+          this.syncLocalCombosToBackend(newUserId);
+        }
+        
+        this.currentUserId = newUserId;
+      });
+  }
+
+  private syncLocalCombosToBackend(userId: string) {
+    const localCombosJson = localStorage.getItem(SAVED_COMBOS_KEY);
+    if (localCombosJson) {
+      try {
+        const localCombos = JSON.parse(localCombosJson);
+        if (Array.isArray(localCombos) && localCombos.length > 0) {
+          // Delay sync by 500ms to ensure token is ready
+          timer(500).subscribe(() => {
+            localCombos.forEach((combo: any) => {
+              this.usersService.saveCombo(userId, combo).subscribe({
+                next: () => {
+                  console.log('Combo synced successfully:', combo.name);
+                },
+                error: (err) => {
+                  console.error('Error syncing combo:', combo.name, err);
+                },
+              });
+            });
+            // Show notification after attempts
+            timer(1000).subscribe(() => {
+              this.snackBar.open(
+                `${localCombos.length} saved combination(s) synced to your profile!`,
+                'Close',
+                { duration: 3000 }
+              );
+              // Clear localStorage after sync
+              localStorage.removeItem(SAVED_COMBOS_KEY);
+            });
+          });
+        }
+      } catch (error) {
+        console.error('Error parsing saved combos from localStorage:', error);
+      }
+    }
   }
 
   private _getCategories() {
@@ -708,43 +772,56 @@ export class MixMatchComponent implements OnInit, OnDestroy {
       return;
     }
 
+    const combo = {
+      name: `${this.selectedShoe?.name} + ${this.selectedBag?.name}`,
+      products: [this.selectedShoe!.id!, this.selectedBag!.id!],
+    };
+
     this.usersFacade.isAuthenticated$
       .pipe(take(1))
       .subscribe((isAuthenticated) => {
-        if (!isAuthenticated) {
-          this.snackBar.open('Please login to save combinations!', 'Close', {
-            duration: 3000,
-          });
-          return;
-        }
-
-        this.usersFacade.currentUser$
-          .pipe(take(1))
-          .subscribe((user) => {
-            if (!user?.id) {
-              return;
-            }
-
-            const combo = {
-              name: `${this.selectedShoe?.name} + ${this.selectedBag?.name}`,
-              products: [this.selectedShoe!.id!, this.selectedBag!.id!],
-            };
-
-            this.usersService
-              .saveCombo(user.id, combo)
-              .subscribe({
-                next: () => {
-                  this.snackBar.open('Combination saved to your profile!', 'Close', {
-                    duration: 3000,
-                  });
-                },
-                error: () => {
-                  this.snackBar.open('Error saving combination!', 'Close', {
-                    duration: 3000,
-                  });
-                },
+        if (isAuthenticated && this.currentUserId) {
+          // Authenticated user - save to backend
+          this.usersService.saveCombo(this.currentUserId, combo).subscribe({
+            next: () => {
+              this.snackBar.open(
+                'Combination saved to your profile!',
+                'Close',
+                {
+                  duration: 3000,
+                }
+              );
+            },
+            error: () => {
+              this.snackBar.open('Error saving combination!', 'Close', {
+                duration: 3000,
               });
+            },
           });
+        } else {
+          // Guest user - save to localStorage
+          try {
+            const localCombosJson = localStorage.getItem(SAVED_COMBOS_KEY);
+            let localCombos = [];
+            if (localCombosJson) {
+              localCombos = JSON.parse(localCombosJson);
+            }
+            localCombos.push(combo);
+            localStorage.setItem(SAVED_COMBOS_KEY, JSON.stringify(localCombos));
+            this.snackBar.open(
+              'Combination saved locally! Login to sync across devices.',
+              'Close',
+              {
+                duration: 4000,
+              }
+            );
+          } catch (error) {
+            console.error('Error saving combo to localStorage:', error);
+            this.snackBar.open('Error saving combination!', 'Close', {
+              duration: 3000,
+            });
+          }
+        }
       });
   }
 }

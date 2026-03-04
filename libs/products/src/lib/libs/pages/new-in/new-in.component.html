@@ -46,10 +46,6 @@
     </div>
   </div>
 
-  <div class="loading-state" *ngIf="loading">
-    <p>Loading new arrivals...</p>
-  </div>
-
   <div class="products-section" *ngIf="!loading">
     <div class="products-grid" *ngIf="newProducts.length > 0; else noProducts">
       <div class="new-product-item" *ngFor="let product of newProducts">

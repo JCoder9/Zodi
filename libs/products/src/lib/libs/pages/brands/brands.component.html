@@ -31,10 +31,6 @@
     </div>
   </div>
 
-  <div class="loading-state" *ngIf="loading">
-    <p>Loading brands...</p>
-  </div>
-
   <div class="products-section" *ngIf="!loading">
     <div class="section-header">
       <h3 *ngIf="selectedBrand; else allBrandsHeader">
