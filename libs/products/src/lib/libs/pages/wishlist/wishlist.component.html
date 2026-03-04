@@ -1,79 +1,102 @@
 <div class="wishlist-page page-container">
-  <div class="page-header">
-    <h1>My Wishlist</h1>
-    <p class="subtitle" *ngIf="wishlistItems.length > 0">
-      {{ wishlistItems.length }} item{{ wishlistItems.length === 1 ? '' : 's' }}
-      saved
-    </p>
-    <button
-      *ngIf="wishlistItems.length > 0"
-      mat-outlined-button
-      color="warn"
-      type="button"
-      class="clear-all-button"
-      (click)="clearWishlist()"
-    >
-      <mat-icon>clear</mat-icon>
-      Clear All
-    </button>
-  </div>
+  <h1 class="page-title">My Wishlist</h1>
 
-  <!-- Empty State -->
-  <div *ngIf="wishlistItems.length === 0" class="empty-wishlist">
-    <div class="empty-content">
-      <mat-icon class="empty-icon">favorite_border</mat-icon>
-      <h3>Your wishlist is empty</h3>
-      <p>
-        Save items you love to your wishlist. Review them anytime and easily
-        move them to your bag.
-      </p>
+  <!-- Saved Products Section -->
+  <mat-card class="saved-items-card">
+    <mat-card-header>
+      <mat-card-title>Saved Products</mat-card-title>
       <button
-        pButton
-        pRipple
+        *ngIf="wishlistItems.length > 0"
+        mat-icon-button
+        color="warn"
         type="button"
-        label="Start Shopping"
-        routerLink="/products"
-        class="p-button-rounded"
-      ></button>
-    </div>
-  </div>
-
-  <!-- Wishlist Items -->
-  <div *ngIf="wishlistItems.length > 0" class="wishlist-grid">
-    <div *ngFor="let product of wishlistItems" class="wishlist-item">
-      <div class="product-card">
-        <div class="product-image-container">
-          <img
-            [src]="product.image"
-            [alt]="product.name"
+        (click)="clearWishlist()"
+        matTooltip="Clear all products"
+      >
+        <mat-icon>delete_sweep</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="saved-products-grid" *ngIf="wishlistItems.length > 0; else noSavedProducts">
+        <div class="product-card" *ngFor="let product of wishlistItems">
+          <img 
+            [src]="product.image" 
+            [alt]="product.name" 
             class="product-image"
             (click)="navigateToProduct(product.id!)"
           />
-          <button
-            mat-icon-button
-            class="remove-btn"
-            type="button"
-            (click)="removeFromWishlist(product.id!)"
-            title="Remove from wishlist"
-          >
-            <mat-icon>close</mat-icon>
-          </button>
-        </div>
-
-        <div class="product-info">
-          <h4 class="product-name" (click)="navigateToProduct(product.id!)">
-            {{ product.name }}
-          </h4>
-          <p class="product-brand" *ngIf="product.brand">{{ product.brand }}</p>
-          <p class="product-price">
-            {{ product.price | currency : 'USD' : 'symbol' : '1.2-2' }}
-          </p>
-
-          <div class="product-actions">
-            <zodi-product-item [product]="product"></zodi-product-item>
+          <div class="product-info">
+            <h3 (click)="navigateToProduct(product.id!)">{{ product.name }}</h3>
+            <p class="product-price">{{ product.price | currency }}</p>
+            <button mat-icon-button color="warn" (click)="removeFromWishlist(product.id!)">
+              <mat-icon>delete</mat-icon>
+            </button>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+      <ng-template #noSavedProducts>
+        <div class="empty-state">
+          <mat-icon class="empty-icon">favorite_border</mat-icon>
+          <p>No saved products yet</p>
+          <button mat-raised-button color="primary" routerLink="/products">
+            Browse Products
+          </button>
+        </div>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Saved Combos Section -->
+  <mat-card class="saved-items-card">
+    <mat-card-header>
+      <mat-card-title>Mix & Match Combos</mat-card-title>
+      <div class="header-actions">
+        <button mat-raised-button color="primary" routerLink="/mix-match">
+          <mat-icon>add</mat-icon>
+          Create Combo
+        </button>
+        <button
+          *ngIf="savedCombos.length > 0"
+          mat-icon-button
+          color="warn"
+          type="button"
+          (click)="clearCombos()"
+          matTooltip="Clear all combos"
+        >
+          <mat-icon>delete_sweep</mat-icon>
+        </button>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="combos-list" *ngIf="savedCombos.length > 0; else noSavedCombos">
+        <div class="combo-card" *ngFor="let combo of savedCombos; let i = index">
+          <div class="combo-header">
+            <h3>{{ combo.name }}</h3>
+            <button mat-icon-button color="warn" (click)="removeCombo(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <div class="combo-products">
+            <div class="combo-product" *ngFor="let product of combo.products">
+              <img 
+                [src]="product.image" 
+                [alt]="product.name"
+                (click)="navigateToProduct(product.id!)"
+              />
+              <span>{{ product.name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #noSavedCombos>
+        <div class="empty-state">
+          <mat-icon class="empty-icon">palette</mat-icon>
+          <p>No saved combos yet</p>
+          <button mat-raised-button color="primary" routerLink="/mix-match">
+            Create Your First Combo
+          </button>
+        </div>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
 </div>

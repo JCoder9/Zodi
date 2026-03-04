@@ -71,6 +71,7 @@
   <section class="brands-showcase">
     <div class="brands-container">
       <h2>Featured Brands</h2>
+      <zodi-cold-start-loader *ngIf="loading" message="Loading brands and products..."></zodi-cold-start-loader>
       <div class="brand-logos-grid" *ngIf="!loading">
         <div
           class="brand-logo-card"
@@ -87,9 +88,6 @@
           <h4>{{ brand.name }}</h4>
           <p>{{ getProductCountForBrand(brand.name) }} products</p>
         </div>
-      </div>
-      <div class="loading-state" *ngIf="loading">
-        <p>Loading brands...</p>
       </div>
     </div>
   </section>
