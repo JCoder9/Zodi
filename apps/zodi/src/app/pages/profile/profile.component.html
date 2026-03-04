@@ -1,0 +1,140 @@
+<div class="profile-container page-container">
+  <div class="profile-content">
+    <h1 class="page-title">My Profile</h1>
+
+    <!-- Profile Form Section -->
+    <mat-card class="profile-card">
+      <mat-card-header>
+        <mat-card-title>Account Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+          <div class="form-grid">
+            <!-- Name -->
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name" />
+              <mat-error *ngIf="profileFormControls['name'].hasError('required')">
+                Name is required
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Email -->
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" formControlName="email" />
+              <mat-error *ngIf="profileFormControls['email'].hasError('required')">
+                Email is required
+              </mat-error>
+              <mat-error *ngIf="profileFormControls['email'].hasError('email')">
+                Please enter a valid email
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Phone -->
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Phone</mat-label>
+              <input matInput formControlName="phone" />
+            </mat-form-field>
+
+            <!-- Street -->
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Street Address</mat-label>
+              <input matInput formControlName="street" />
+            </mat-form-field>
+
+            <!-- Apartment -->
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Apartment/Suite</mat-label>
+              <input matInput formControlName="apartment" />
+            </mat-form-field>
+
+            <!-- City -->
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>City</mat-label>
+              <input matInput formControlName="city" />
+            </mat-form-field>
+
+            <!-- Zip -->
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Zip Code</mat-label>
+              <input matInput formControlName="zip" />
+            </mat-form-field>
+
+            <!-- Country -->
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Country</mat-label>
+              <input matInput formControlName="country" />
+            </mat-form-field>
+          </div>
+
+          <div class="form-actions">
+            <button mat-raised-button color="primary" type="submit">
+              Update Profile
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Saved Products Section -->
+    <mat-card class="saved-items-card">
+      <mat-card-header>
+        <mat-card-title>Saved Products</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="saved-products-grid" *ngIf="savedProducts.length > 0; else noSavedProducts">
+          <div class="product-card" *ngFor="let product of savedProducts">
+            <img [src]="product.image" [alt]="product.name" class="product-image" />
+            <div class="product-info">
+              <h3>{{ product.name }}</h3>
+              <p class="product-price">{{ product.price | currency }}</p>
+              <button mat-icon-button color="warn" (click)="removeSavedProduct(product.id!)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <ng-template #noSavedProducts>
+          <p class="empty-state">No saved products yet</p>
+        </ng-template>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Saved Combos Section -->
+    <mat-card class="saved-items-card">
+      <mat-card-header>
+        <mat-card-title>Mix & Match Combos</mat-card-title>
+        <button mat-raised-button color="primary" routerLink="/mix-match">
+          <mat-icon>add</mat-icon>
+          Create Combo
+        </button>
+      </mat-card-header>
+      <mat-card-content>
+        <!-- Saved Combos List -->
+        <div class="combos-list" *ngIf="savedCombos.length > 0; else noSavedCombos">
+          <div class="combo-card" *ngFor="let combo of savedCombos">
+            <div class="combo-header">
+              <h3>{{ combo.name }}</h3>
+              <button mat-icon-button color="warn" (click)="removeCombo(combo._id!)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            <div class="combo-products">
+              <div class="combo-product" *ngFor="let product of combo.products">
+                <img [src]="product.image" [alt]="product.name" />
+                <span>{{ product.name }}</span>
+              </div>
+            </div>
+            <p class="combo-date" *ngIf="combo.createdAt">
+              Created: {{ combo.createdAt | date }}
+            </p>
+          </div>
+        </div>
+        <ng-template #noSavedCombos>
+          <p class="empty-state">No saved combos yet</p>
+        </ng-template>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

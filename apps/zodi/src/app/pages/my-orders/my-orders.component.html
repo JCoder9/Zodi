@@ -1,0 +1,101 @@
+<div class="my-orders-container page-container">
+  <div class="orders-content">
+    <div class="page-header">
+      <h1 class="page-title">My Orders</h1>
+      <p class="page-subtitle">View and track your order history</p>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-state" *ngIf="isLoading">
+      <mat-spinner></mat-spinner>
+      <p>Loading your orders...</p>
+    </div>
+
+    <!-- Orders List -->
+    <div class="orders-list" *ngIf="!isLoading && orders.length > 0">
+      <mat-card class="order-card" *ngFor="let order of orders">
+        <mat-card-header>
+          <div class="order-header">
+            <div class="order-number">
+              <mat-icon>receipt</mat-icon>
+              <span>Order #{{ order.id?.slice(-8) }}</span>
+            </div>
+            <mat-chip [style.background-color]="getStatusInfo(order.status!).color">
+              {{ getStatusInfo(order.status!).label }}
+            </mat-chip>
+          </div>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="order-details">
+            <!-- Date and Total -->
+            <div class="order-summary">
+              <div class="summary-item">
+                <mat-icon>calendar_today</mat-icon>
+                <div>
+                  <span class="label">Order Date</span>
+                  <span class="value">{{ order.dateOrdered | date: 'medium' }}</span>
+                </div>
+              </div>
+
+              <div class="summary-item">
+                <mat-icon>shopping_bag</mat-icon>
+                <div>
+                  <span class="label">Items</span>
+                  <span class="value">{{ getTotalItems(order) }}</span>
+                </div>
+              </div>
+
+              <div class="summary-item">
+                <mat-icon>attach_money</mat-icon>
+                <div>
+                  <span class="label">Total</span>
+                  <span class="value price">{{ order.totalPrice | currency }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Order Items -->
+            <div class="order-items" *ngIf="order.orderItems && order.orderItems.length > 0">
+              <h4>Order Items:</h4>
+              <div class="items-grid">
+                <div class="order-item" *ngFor="let item of order.orderItems">
+                  <img 
+                    [src]="item.product?.image" 
+                    [alt]="item.product?.name"
+                    class="item-image"
+                  />
+                  <div class="item-details">
+                    <p class="item-name">{{ item.product?.name }}</p>
+                    <p class="item-quantity">Qty: {{ item.quantity }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Shipping Address -->
+            <div class="shipping-address" *ngIf="order.shippingAddress1">
+              <h4>Shipping Address:</h4>
+              <p>
+                {{ order.shippingAddress1 }}<br />
+                <span *ngIf="order.shippingAddress2">{{ order.shippingAddress2 }}<br /></span>
+                {{ order.city }}, {{ order.zip }}<br />
+                {{ order.country }}
+              </p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!isLoading && orders.length === 0">
+      <mat-icon>shopping_cart</mat-icon>
+      <h2>No Orders Yet</h2>
+      <p>You haven't placed any orders yet. Start shopping to see your orders here!</p>
+      <button mat-raised-button color="primary" routerLink="/products">
+        Start Shopping
+      </button>
+    </div>
+  </div>
+</div>

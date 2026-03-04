@@ -7,8 +7,7 @@
     </div>
   </div>
 
-  <div
-    class="controls-section"
+  <div class="controls-section"
     *ngIf="!loading && clearanceProducts.length > 0"
   >
     <div class="results-info">
@@ -30,9 +29,7 @@
     </div>
   </div>
 
-  <div class="loading-state" *ngIf="loading">
-    <p>Loading clearance items...</p>
-  </div>
+  <zodi-cold-start-loader *ngIf="loading" message="Loading clearance items..."></zodi-cold-start-loader>
 
   <div class="products-section" *ngIf="!loading">
     <div

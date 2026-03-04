@@ -1,8 +1,10 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, take } from 'rxjs';
 import { CartItem, CartService } from '@zodi/libs/orders';
 import { Product } from '../../models/product.model';
 import { WishlistService } from '../../services/wishlist.service';
+import { UsersService, UsersFacade } from '@zodi/libs/users';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'zodi-product-item',
@@ -58,6 +60,42 @@ import { WishlistService } from '../../services/wishlist.service';
         background: rgba(255, 255, 255, 0.95);
       }
 
+      .product-badges {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        z-index: 1;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .sale-badge {
+        background: #ff5722;
+        color: white;
+      }
+
+      .clearance-badge {
+        background: #f44336;
+        color: white;
+      }
+
+      .discount-badge {
+        background: #4caf50;
+        color: white;
+      }
+
       mat-card-content {
         flex: 1;
         padding: 16px;
@@ -94,10 +132,24 @@ import { WishlistService } from '../../services/wishlist.service';
         margin-top: auto;
       }
 
+      .price-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
       .price-amount {
         font-size: 18px;
         font-weight: 600;
         color: #2c5aa0;
+      }
+
+      .original-price {
+        font-size: 14px;
+        color: #999;
+        text-decoration: line-through;
+        font-weight: 400;
       }
 
       mat-card-actions {
@@ -181,7 +233,10 @@ export class ProductItemComponent implements OnInit, OnDestroy {
 
   constructor(
     private cartService: CartService,
-    private wishlistService: WishlistService
+    private wishlistService: WishlistService,
+    private usersService: UsersService,
+    private usersFacade: UsersFacade,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -213,10 +268,62 @@ export class ProductItemComponent implements OnInit, OnDestroy {
 
     if (!this.product.id) return;
 
-    if (this.isInWishlist) {
+    const wasInWishlist = this.isInWishlist;
+
+    // Toggle in wishlist service for immediate UI feedback
+    if (wasInWishlist) {
       this.wishlistService.removeFromWishlist(this.product.id);
     } else {
       this.wishlistService.addToWishlist(this.product);
     }
+
+    // Save to user's profile if logged in
+    this.usersFacade.isAuthenticated$
+      .pipe(take(1))
+      .subscribe((isAuthenticated) => {
+        if (!isAuthenticated || !this.product.id) {
+          return;
+        }
+
+        this.usersFacade.currentUser$
+          .pipe(take(1))
+          .subscribe((user) => {
+            if (!user?.id || !this.product.id) {
+              return;
+            }
+
+            if (wasInWishlist) {
+              // Remove from user's saved products
+              this.usersService
+                .removeSavedProduct(user.id, this.product.id!)
+                .subscribe({
+                  next: () => {
+                    this.snackBar.open('Removed from favorites', 'Close', {
+                      duration: 2000,
+                    });
+                  },
+                  error: () => {
+                    // Revert wishlist change on error
+                    this.wishlistService.addToWishlist(this.product);
+                  },
+                });
+            } else {
+              // Add to user's saved products
+              this.usersService
+                .addSavedProduct(user.id, this.product.id!)
+                .subscribe({
+                  next: () => {
+                    this.snackBar.open('Added to favorites!', 'Close', {
+                      duration: 2000,
+                    });
+                  },
+                  error: () => {
+                    // Revert wishlist change on error
+                    this.wishlistService.removeFromWishlist(this.product.id!);
+                  },
+                });
+            }
+          });
+      });
   }
 }

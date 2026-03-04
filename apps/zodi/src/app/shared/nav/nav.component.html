@@ -28,7 +28,7 @@
       
       <zodi-cart-icon></zodi-cart-icon>
       
-      <button mat-icon-button [matMenuTriggerFor]="userMenu" class="user-menu-btn desktop-only" aria-label="Account">
+      <button mat-icon-button [matMenuTriggerFor]="userMenu" class="user-menu-btn" aria-label="Account">
         <mat-icon>account_circle</mat-icon>
       </button>
     </div>
@@ -67,19 +67,34 @@
 
 <!-- User Menu -->
 <mat-menu #userMenu="matMenu">
-  <button mat-menu-item>
-    <mat-icon>person</mat-icon>
-    <span>Profile</span>
-  </button>
-  <button mat-menu-item>
-    <mat-icon>settings</mat-icon>
-    <span>Settings</span>
-  </button>
-  <mat-divider></mat-divider>
-  <button mat-menu-item>
-    <mat-icon>logout</mat-icon>
-    <span>Logout</span>
-  </button>
+  <!-- Logged In Menu -->
+  <ng-container *ngIf="isUserLoggedIn">
+    <button mat-menu-item routerLink="/profile">
+      <mat-icon>person</mat-icon>
+      <span>Profile</span>
+    </button>
+    <button mat-menu-item routerLink="/orders">
+      <mat-icon>receipt_long</mat-icon>
+      <span>My Orders</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="onLogout()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </ng-container>
+  
+  <!-- Not Logged In Menu -->
+  <ng-container *ngIf="!isUserLoggedIn">
+    <button mat-menu-item (click)="onLogin()">
+      <mat-icon>login</mat-icon>
+      <span>Sign In</span>
+    </button>
+    <button mat-menu-item (click)="onRegister()">
+      <mat-icon>person_add</mat-icon>
+      <span>Sign Up</span>
+    </button>
+  </ng-container>
 </mat-menu>
 
 <!-- Mobile Sidenav -->

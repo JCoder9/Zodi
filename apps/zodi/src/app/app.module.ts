@@ -26,11 +26,16 @@ import { NgxStripeModule } from 'ngx-stripe';
 import { TestingComponent } from './pages/testing/testing.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { MaterialModule } from './shared/material/material.module';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { MyOrdersComponent } from './pages/my-orders/my-orders.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'testing', component: TestingComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'orders', component: MyOrdersComponent },
 ];
 
 @NgModule({
@@ -43,11 +48,15 @@ const routes: Routes = [
     MessagesComponent,
     TestingComponent,
     ContactComponent,
+    ProfileComponent,
+    MyOrdersComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
     StoreModule.forRoot({}),

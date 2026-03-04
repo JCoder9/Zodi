@@ -1,9 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, take } from 'rxjs';
 import { Product } from '../../models/product.model';
 import { ProductsService } from '../../services/products.service';
 import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../models/category.model';
+import { CartService, CartItem } from '@zodi/libs/orders';
+import { UsersService, UsersFacade } from '@zodi/libs/users';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'zodi-mix-match',
@@ -562,7 +565,11 @@ export class MixMatchComponent implements OnInit, OnDestroy {
 
   constructor(
     private productsService: ProductsService,
-    private categoriesService: CategoriesService
+    private categoriesService: CategoriesService,
+    private cartService: CartService,
+    private usersService: UsersService,
+    private usersFacade: UsersFacade,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -671,5 +678,73 @@ export class MixMatchComponent implements OnInit, OnDestroy {
 
   isBagSelected(product: Product): boolean {
     return this.selectedBag?.id === product.id;
+  }
+
+  addBothToCart(): void {
+    if (this.selectedShoe && this.selectedBag) {
+      const shoeCartItem: CartItem = {
+        productId: this.selectedShoe.id!,
+        quantity: 1,
+      };
+      const bagCartItem: CartItem = {
+        productId: this.selectedBag.id!,
+        quantity: 1,
+      };
+      
+      this.cartService.setCartItem(shoeCartItem);
+      this.cartService.setCartItem(bagCartItem);
+      
+      this.snackBar.open('Both items added to cart!', 'Close', {
+        duration: 3000,
+      });
+    }
+  }
+
+  saveCombination(): void {
+    if (!this.selectedShoe || !this.selectedBag) {
+      this.snackBar.open('Please select both a shoe and a bag!', 'Close', {
+        duration: 3000,
+      });
+      return;
+    }
+
+    this.usersFacade.isAuthenticated$
+      .pipe(take(1))
+      .subscribe((isAuthenticated) => {
+        if (!isAuthenticated) {
+          this.snackBar.open('Please login to save combinations!', 'Close', {
+            duration: 3000,
+          });
+          return;
+        }
+
+        this.usersFacade.currentUser$
+          .pipe(take(1))
+          .subscribe((user) => {
+            if (!user?.id) {
+              return;
+            }
+
+            const combo = {
+              name: `${this.selectedShoe?.name} + ${this.selectedBag?.name}`,
+              products: [this.selectedShoe!.id!, this.selectedBag!.id!],
+            };
+
+            this.usersService
+              .saveCombo(user.id, combo)
+              .subscribe({
+                next: () => {
+                  this.snackBar.open('Combination saved to your profile!', 'Close', {
+                    duration: 3000,
+                  });
+                },
+                error: () => {
+                  this.snackBar.open('Error saving combination!', 'Close', {
+                    duration: 3000,
+                  });
+                },
+              });
+          });
+      });
   }
 }

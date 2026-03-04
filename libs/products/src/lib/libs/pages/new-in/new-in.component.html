@@ -1,11 +1,13 @@
 <div class="new-in-container">
   <div class="hero-section">
-    <h1>✨ New In</h1>
+    <h1>New In</h1>
     <p>Fresh arrivals and latest trends in footwear</p>
     <div class="highlight-banner">
       <span class="highlight-text">NEW ARRIVALS WEEKLY</span>
     </div>
   </div>
+
+  <zodi-cold-start-loader *ngIf="loading" message="Loading new arrivals..."></zodi-cold-start-loader>
 
   <div class="filters-section" *ngIf="!loading && newProducts.length > 0">
     <div class="time-filters">

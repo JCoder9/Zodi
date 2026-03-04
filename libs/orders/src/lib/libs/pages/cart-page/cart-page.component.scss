@@ -64,7 +64,7 @@
     
     span {
       color: #1976d2;
-      font-size: 0.95rem;
+  font-size: 0.95rem;
     }
   }
 }
@@ -167,18 +167,6 @@
       text-align: center;
       font-weight: 600;
       font-size: 1rem;
-
-      // Remove number input arrows
-      &::-webkit-outer-spin-button,
-      &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-
-      // Firefox
-      &[type=number] {
-        -moz-appearance: textfield;
-      }
     }
     
     button {
