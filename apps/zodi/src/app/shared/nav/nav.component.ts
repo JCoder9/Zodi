@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { LocalstorageService, AuthService } from '@zodi/libs/users';
 
 interface NavItem {
   label: string;
@@ -21,6 +22,7 @@ export class NavComponent implements OnInit, OnDestroy {
   isMobileMenuOpen = false;
   isMobileView = false;
   isSearchOpen = false;
+  isUserLoggedIn = false;
 
   navItems: NavItem[] = [
     {
@@ -57,10 +59,15 @@ export class NavComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private localstorageService: LocalstorageService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    // Check if user is logged in
+    this._checkAuthStatus();
+
     // Monitor mobile breakpoint
     this.breakpointObserver
       .observe([Breakpoints.HandsetPortrait, Breakpoints.HandsetLandscape])
@@ -80,12 +87,30 @@ export class NavComponent implements OnInit, OnDestroy {
       )
       .subscribe(() => {
         this.isMobileMenuOpen = false;
+        this._checkAuthStatus(); // Re-check auth on route changes
       });
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  private _checkAuthStatus(): void {
+    this.isUserLoggedIn = this.localstorageService.isValidToken();
+  }
+
+  onLogin(): void {
+    this.router.navigate(['/login']);
+  }
+
+  onRegister(): void {
+    this.router.navigate(['/register']);
+  }
+
+  onLogout(): void {
+    this.authService.logout();
+    this.isUserLoggedIn = false;
   }
 
   toggleMobileMenu(): void {

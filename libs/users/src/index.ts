@@ -10,3 +10,4 @@ export * from './lib/libs/services/auth-guard.service';
 export * from './lib/libs/services/jwt.interceptor';
 export * from './lib/libs/services/error.interceptor';
 export * from './lib/libs/services/auth.service';
+export * from './lib/libs/services/localstorage.service';

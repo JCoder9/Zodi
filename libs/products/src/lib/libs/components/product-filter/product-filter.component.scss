@@ -10,32 +10,75 @@
   justify-content: space-between;
 }
 
+// Override Material menu panel styles for proper containment
+::ng-deep .mat-menu-panel {
+  max-width: 95vw !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+::ng-deep .mat-menu-content {
+  overflow: hidden !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+}
+
+::ng-deep .mat-menu-panel.filter-menu {
+  max-width: 370px !important;
+  width: auto !important;
+}
+
+// Force all child elements to inherit box-sizing
+::ng-deep .mat-menu-panel *,
+::ng-deep .mat-menu-content * {
+  box-sizing: border-box !important;
+}
+
 .filter-content {
-  width: 350px;
+  width: 350px !important;
+  max-width: 100% !important;
   max-height: 500px;
   overflow-y: auto;
+  overflow-x: hidden !important;
   padding: 16px;
+  box-sizing: border-box !important;
 }
 
 .filter-sections {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 .filter-panel {
   box-shadow: none !important;
   border: 1px solid #e0e0e0 !important;
   border-radius: 8px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
 }
 
 .filter-panel:not(.mat-expanded) {
   margin-bottom: 8px;
 }
 
+.filter-panel .mat-expansion-panel-body {
+  padding: 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
 .filter-panel .mat-expansion-panel-header {
   height: 48px;
   padding: 0 16px;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
 }
 
 .filter-panel .mat-expansion-panel-header-title {
@@ -43,6 +86,9 @@
   align-items: center;
   gap: 10px;
   font-weight: 500;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .filter-panel .mat-expansion-panel-header-title mat-icon {
@@ -55,19 +101,43 @@
 .filter-options {
   padding: 16px;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-height: 200px;
-  overflow-y: auto;
+  flex-direction: column !important;
+  gap: 8px;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 .filter-option {
   display: flex;
   align-items: center;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
 }
 
 .filter-option mat-checkbox {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.filter-option mat-checkbox ::ng-deep .mat-checkbox-label {
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  max-width: 100% !important;
+  line-height: 1.4;
   width: 100%;
+  box-sizing: border-box !important;
+}
+
+.filter-count {
+  color: #999;
+  font-size: 0.9em;
+  margin-left: 4px;
 }
 
 .clear-filters-section {
@@ -79,6 +149,7 @@
 
 .clear-filters-section button {
   min-width: 200px;
+  max-width: 100%;
 }
 
 /* Custom scrollbar for filter options */
@@ -100,169 +171,38 @@
   background: #555;
 }
 
-/* Responsive design */
+/* Disabled filter styling */
+::ng-deep .mat-checkbox-disabled {
+  opacity: 0.4;
+  cursor: not-allowed !important;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
+  ::ng-deep .mat-menu-panel.filter-menu {
+    max-width: 95vw !important;
+    width: auto !important;
+  }
+  
   .filter-content {
-    width: 280px;
+    width: 280px !important;
+    max-width: 90vw !important;
     max-height: 400px;
   }
   
   .filter-options {
     max-height: 150px;
-  }
-}
-
-.some-class {
-    text-align: center;
-    cursor: pointer;
-    overflow: hidden;
-    display: flex;
-
-    color: white;
-    justify-content: center;
-  
-    // flex: 1;
-}
-
-.borderDiv {
-    border: 1px solid white;
-}
-  
-.flex-item-1 {
-    background-image: url('/assets/images/shoe-shadow.png');
-        background-size: 80%;
-    background-position: center center;
-    background-repeat: no-repeat;
-
-    // border-top: 1px solid white;
-    // border-left: 1px solid lightgrey;
-    // border-bottom: 1px solid white;
-
-    // border: 1px solid white ;
-    // border: 1px solid #9a56b2 ;
-    // border: 1px solid lightcyan ;
-    // border: 1px solid rgb(181, 152, 193) ;
-    // border: 2px solid rgb(164, 122, 180) ;
-    // border: 1px solid rgb(140, 140, 140);
-    // box-shadow: inset 5px 5px 10px 0 rgba(0, 0, 0, 0.3);
-    // border-radius: 10px;
-    transition: flex-grow 1s, box-shadow 1s, background-image 1s;
-
-
-
-    flex-grow: 1;
-
-    --animate-duration: 2s;
-}
-
-.flex-item-2 {
-
-    background-image: url('/assets/images/bag-shadow.png');
-    // box-shadow: inset 5px 5px 10px 0 rgba(0, 0, 0, 0.3);
-
-    background-size: 80%;
-    background-position: center center;
-    background-repeat: no-repeat;
-
-    // border-top: 1px solid white;
-    // border-right: 1px solid lightgrey;
-    // border-bottom: 1px solid white;
-    --animate-duration: 2.5s;
-
-
-
-
-
-    // border: 1px solid white;
-    // border: 1px solid #9a56b2;
-    // border: 1px solid lightcyan;
-    // border: 1px solid rgb(181, 152, 193) ;
-    // border: 2px solid rgb(164, 122, 180) ;
-    // border: 1px solid rgb(140, 140, 140);
-    // border-radius: 10px;
-
-    transition: flex-grow 1s, box-shadow 1s, background-image 1s;
-
-    // animation: flickerAnimation 5s infinite; /* 5s duration, infinite loop */
-
-
-    flex-grow: 1;
-}
-
-
-// @keyframes flickerAnimation {
-//     0% { background-image: url('/assets/images/bag-shadow.png'); }
-//     80% { background-image: url('/assets/images/bag-shadow.png'); }
-//     82% { background-image: url('/assets/images/bagWithoutBoutique.png'); }
-//     84% { background-image: url('/assets/images/bag-shadow.png'); }
-//     86% { background-image: url('/assets/images/bagWithoutBoutique.png'); }
-//     91% { background-image: url('/assets/images/bagWithoutBoutique.png'); }
-//     93% { background-image: url('/assets/images/bag-shadow.png'); }
-//     95% { background-image: url('/assets/images/bagWithoutBoutique.png'); }
-//     100% { background-image: url('/assets/images/bag-shadow.png'); }
-//   }
-
-
-.flex-item-1:hover {
-    flex-grow: 2;
-    // box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
-    // filter: blur(3px);
-    // background-image: url('/assets/images/shoeWithBackground.png');
-    // background-image: url('/assets/images/shoeWithBoutique.png');
-    background-image: url('/assets/images/shoeWithLightBoutique.png');
-    background-size: 80%;
-    background-position: center center;
-    background-repeat: no-repeat;
-
-
+    padding: 12px;
   }
   
-.flex-item-2:hover {
-    flex-grow: 2;
-    // box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
-    // filter: blur(3px);
-    // background-image: url('/assets/images/bagWithBoutique.png');
-    background-image: url('/assets/images/bagWithLightBoutique.png');
-
-
-    background-size: 80%;
-    background-position: center center;
-    background-repeat: no-repeat;
-
+  .filter-button {
+    min-width: 120px;
+    font-size: 14px;
   }
   
-
-  .column-layout  {
-    flex-direction: column;
+  .clear-filters-section button {
+    min-width: 150px;
   }
-  .row-layout  {
-    flex-direction: row;
-  }
-
-  .reduce-height {
-    height: 200px
-  }
-
-  .view-height {
-    height: calc(100vh - 110px);    /* Or adjust this to your specific view height */
-  }
-  
-// @media screen and (max-width: 700px) {
-//     // .product-filter-container {
-//     //     height: 200px;
-//     // }
-
-//     // .section-container {
-//     //     height: 200px;
-//     // }
-//     .product-filter-container  {
-//         height: 200px;
-//         }
-//     .section-container  {
-//         height: 200px;
-//         }
-// }
-
-
+}
 
 

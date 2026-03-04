@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { BrandsService, Brand, ProductsService, Product } from '@zodi/libs/products';
+import { Subject, takeUntil, forkJoin } from 'rxjs';
+import { Router } from '@angular/router';
 
-interface Brand {
+interface BrandDisplay extends Brand {
   name: string;
   logo: string;
 }
@@ -204,7 +207,7 @@ interface Brand {
       }
 
       .brands-showcase {
-        padding: 40px 20px;
+        padding: 60px 20px;
         background: #f8f9fa;
       }
 
@@ -215,38 +218,68 @@ interface Brand {
 
       .brands-container h2 {
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 40px;
         color: #333;
+        font-size: 2rem;
         font-weight: 500;
       }
 
-      .brands-grid {
+      .brand-logos-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
+        gap: 2rem;
       }
 
-      .brand-card {
+      .brand-logo-card {
         text-align: center;
-        padding: 20px;
-        transition: transform 0.3s ease;
+        padding: 1.5rem;
+        border-radius: 12px;
+        background: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
       }
 
-      .brand-card:hover {
-        transform: scale(1.05);
+      .brand-logo-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        border-color: #667eea;
+      }
+
+      .logo-container {
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80px;
       }
 
       .brand-logo {
-        width: 80px;
-        height: 80px;
+        max-width: 80px;
+        max-height: 80px;
         object-fit: contain;
-        margin-bottom: 15px;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
       }
 
-      .brand-card h3 {
-        margin: 0;
+      .brand-logo-card h4 {
         color: #333;
-        font-weight: 500;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 0 0 0.5rem 0;
+      }
+
+      .brand-logo-card p {
+        color: #666;
+        font-size: 0.9rem;
+        margin: 0;
+      }
+
+      .loading-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: #666;
+        font-size: 1.2rem;
       }
 
       .promo-banners {
@@ -284,6 +317,20 @@ interface Brand {
         height: 2.5rem;
       }
 
+      .coming-soon-badge {
+        display: inline-block;
+        padding: 8px 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-size: 0.95rem;
+        font-weight: 600;
+        border-radius: 25px;
+        margin-top: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      }
+
       @media (max-width: 768px) {
         .hero-content h1 {
           font-size: 2rem;
@@ -294,9 +341,9 @@ interface Brand {
           gap: 15px;
         }
 
-        .brands-grid {
+        .brand-logos-grid {
           grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-          gap: 15px;
+          gap: 1.5rem;
         }
 
         .promo-grid {
@@ -307,55 +354,45 @@ interface Brand {
     `,
   ],
 })
-export class HomePageComponent {
-  featuredBrands: Brand[] = [
-    {
-      name: 'Zodi',
-      logo: 'https://logo.clearbit.com/nike.com?size=200', // Using Nike as placeholder for Zodi
-    },
-    {
-      name: 'Nike',
-      logo: 'https://logos-world.net/wp-content/uploads/2020/04/Nike-Logo.png',
-    },
-    {
-      name: 'Adidas',
-      logo: 'https://logos-world.net/wp-content/uploads/2020/04/Adidas-Logo.png',
-    },
-    {
-      name: 'Gucci',
-      logo: 'https://logos-world.net/wp-content/uploads/2020/04/Gucci-Logo.png',
-    },
-    {
-      name: 'Prada',
-      logo: 'https://logos-world.net/wp-content/uploads/2020/04/Prada-Logo.png',
-    },
-    {
-      name: 'Louis Vuitton',
-      logo: 'https://logos-world.net/wp-content/uploads/2020/04/Louis-Vuitton-Logo.png',
-    },
-    {
-      name: 'Chanel',
-      logo: 'https://logos-world.net/wp-content/uploads/2020/04/Chanel-Logo.png',
-    },
-    {
-      name: 'Coach',
-      logo: 'https://logos-world.net/wp-content/uploads/2020/04/Coach-Logo.png',
-    },
-    {
-      name: 'Michael Kors',
-      logo: 'https://logos-world.net/wp-content/uploads/2020/04/Michael-Kors-Logo.png',
-    },
-    {
-      name: 'Jimmy Choo',
-      logo: 'https://logos-world.net/wp-content/uploads/2020/04/Jimmy-Choo-Logo.png',
-    },
-    {
-      name: 'Converse',
-      logo: 'https://logos-world.net/wp-content/uploads/2020/04/Converse-Logo.png',
-    },
-    {
-      name: 'Dr. Martens',
-      logo: 'https://www.drmartens.com/on/demandware.static/Sites-GB-Site/-/default/dw3c8b4c6b/images/logos/logo.svg',
-    },
-  ];
+export class HomePageComponent implements OnInit, OnDestroy {
+  featuredBrands: BrandDisplay[] = [];
+  products: Product[] = [];
+  loading = true;
+  endSubs$: Subject<void> = new Subject();
+
+  constructor(
+    private brandsService: BrandsService,
+    private productsService: ProductsService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this._loadFeaturedBrands();
+  }
+
+  ngOnDestroy(): void {
+    this.endSubs$.next();
+    this.endSubs$.complete();
+  }
+
+  private _loadFeaturedBrands() {
+    forkJoin({
+      brands: this.brandsService.getFeaturedBrands(),
+      products: this.productsService.getProducts()
+    })
+      .pipe(takeUntil(this.endSubs$))
+      .subscribe(({ brands, products }) => {
+        this.featuredBrands = brands;
+        this.products = products;
+        this.loading = false;
+      });
+  }
+
+  getProductCountForBrand(brandName: string): number {
+    return this.products.filter((product) => product.brand === brandName).length;
+  }
+
+  onBrandClick(brandName: string) {
+    this.router.navigate(['/brands'], { queryParams: { brand: brandName } });
+  }
 }

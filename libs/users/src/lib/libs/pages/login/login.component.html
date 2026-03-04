@@ -1,71 +1,72 @@
 <div class="login-register">
   <div class="login-register-panel">
-    <div class="grid m-0">
-      <div class="image col-6">
-        <img src="assets/images/zodi-exterior-login.jpg" alt="" />
+    <h3>Welcome Back!</h3>
+    <h2>Sign In</h2>
+    <form [formGroup]="loginFormGroup">
+      <div class="form-field">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">
+            <i class="pi pi-envelope"></i>
+          </span>
+          <input
+            type="text"
+            formControlName="email"
+            pInputText
+            placeholder="Email"
+          />
+        </div>
+        <small
+          *ngIf="loginForm['email'].invalid && isSubmitted"
+          class="p-error"
+        >
+          <span *ngIf="loginFormGroup.get('email')?.hasError('required')"
+            >Email is required</span
+          >
+          <span *ngIf="loginFormGroup.get('email')?.hasError('email')"
+            >Email is invalid</span
+          >
+        </small>
       </div>
-      <div class="col-6 p-5">
-        <h3>Welcome!</h3>
-        <h2>Login Page</h2>
-        <form [formGroup]="loginFormGroup">
-          <div class="grid mt-6">
-            <div class="col-12">
-              <div class="p-inputgroup">
-                <span class="p-inputgroup-addon"
-                  ><i class="pi pi-user"></i
-                ></span>
-                <input
-                  type="text"
-                  formControlName="email"
-                  pInputText
-                  placeholder="Email"
-                />
-              </div>
-              <small
-                *ngIf="loginForm['email'].invalid && isSubmitted"
-                class="p-error"
-              >
-                <span *ngIf="loginFormGroup.get('email')?.hasError('required')"
-                  >Email is required</span
-                >
-                <span *ngIf="loginFormGroup.get('email')?.hasError('email')"
-                  >Email is invalid</span
-                >
-              </small>
-            </div>
-            <div class="col-12">
-              <div class="p-inputgroup">
-                <span class="p-inputgroup-addon"
-                  ><i class="pi pi-lock"></i
-                ></span>
-                <input
-                  type="password"
-                  formControlName="password"
-                  pInputText
-                  placeholder="Password"
-                />
-              </div>
-              <small
-                *ngIf="loginForm['password'].invalid && isSubmitted"
-                class="p-error"
-                >Password is required
-              </small>
-            </div>
-            <div class="col-12">
-              <button
-                type="submit"
-                class="btn btn-primary full-btn"
-                (click)="onSubmit()"
-              >
-                Submit
-              </button>
-            </div>
-            <div class="col-12" *ngIf="isSubmitted && authError">
-              <small class="p-error">{{ authMessage }}</small>
-            </div>
-          </div>
-        </form>
+
+      <div class="form-field">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">
+            <i class="pi pi-lock"></i>
+          </span>
+          <input
+            type="password"
+            formControlName="password"
+            pInputText
+            placeholder="Password"
+          />
+        </div>
+        <small
+          *ngIf="loginForm['password'].invalid && isSubmitted"
+          class="p-error"
+          >Password is required
+        </small>
       </div>
-    </div>
+
+      <div class="form-field" *ngIf="isSubmitted && authError">
+        <small class="p-error">{{ authMessage }}</small>
+      </div>
+
+      <div class="form-field">
+        <button
+          type="submit"
+          class="btn btn-primary full-btn"
+          (click)="onSubmit()"
+        >
+          Sign In
+        </button>
+      </div>
+
+      <div class="form-field text-center">
+        <small>
+          Don't have an account? 
+          <a routerLink="/register">Sign Up</a>
+        </small>
+      </div>
+    </form>
   </div>
 </div>

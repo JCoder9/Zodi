@@ -1,19 +1,30 @@
 <div class="products-page page-container">
   <div class="page-header">
     <div class="header-content">
-      <h1>Products</h1>
+      <h1>Products ({{ products.length }})</h1>
       <div class="filter-container">
         <zodi-product-filter
+          [products]="allProducts"
           (categorySelected)="onCategorySelected($event)"
+          (filtersChanged)="onFiltersChanged($event)"
         ></zodi-product-filter>
       </div>
     </div>
   </div>
-  <div class="product-list">
-    <div class="product-list-container" *ngIf="products">
+
+  <zodi-cold-start-loader *ngIf="loading" message="Loading products..."></zodi-cold-start-loader>
+
+  <div class="product-list" *ngIf="!loading">
+    <div class="product-list-container" *ngIf="products && products.length > 0; else noProducts">
       <div class="product-item" *ngFor="let product of products">
         <zodi-product-item [product]="product"></zodi-product-item>
       </div>
     </div>
+    <ng-template #noProducts>
+      <div style="padding: 60px 20px; text-align: center; color: #666;">
+        <p style="font-size: 18px;">No products match your filters.</p>
+        <p>Try adjusting your filter selection.</p>
+      </div>
+    </ng-template>
   </div>
 </div>

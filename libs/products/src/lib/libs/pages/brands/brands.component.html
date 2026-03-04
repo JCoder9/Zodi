@@ -4,30 +4,7 @@
     <p>Discover premium footwear from the world's leading brands</p>
   </div>
 
-  <!-- Brand Showcase with Logos -->
-  <div class="brand-showcase" *ngIf="!loading">
-    <div class="showcase-header">
-      <h2>Featured Brands</h2>
-    </div>
-    <div class="brand-logos-grid">
-      <div
-        class="brand-logo-card"
-        *ngFor="let brand of brands"
-        (click)="filterByBrand(brand)"
-        [class.selected]="selectedBrand === brand"
-      >
-        <div class="logo-container">
-          <img
-            [src]="getBrandLogo(brand)"
-            [alt]="brand + ' logo'"
-            class="brand-logo"
-          />
-        </div>
-        <h4>{{ brand }}</h4>
-        <p>{{ getProductCountForBrand(brand) }} products</p>
-      </div>
-    </div>
-  </div>
+  <zodi-cold-start-loader *ngIf="loading" message="Loading brands..."></zodi-cold-start-loader>
 
   <div class="brands-filter" *ngIf="!loading">
     <div class="filter-header">
@@ -45,11 +22,11 @@
       <button
         type="button"
         class="brand-chip"
-        [class.active]="selectedBrand === brand"
+        [class.active]="selectedBrand === brand.name"
         *ngFor="let brand of brands"
-        (click)="filterByBrand(brand)"
+        (click)="filterByBrand(brand.name)"
       >
-        {{ brand }}
+        {{ brand.name }}
       </button>
     </div>
   </div>

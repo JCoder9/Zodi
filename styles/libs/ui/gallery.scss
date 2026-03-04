@@ -1,27 +1,27 @@
 .gallery {
-    // position: absolute;
-    // left: 10px;
-    // right: 0;
-    // transform: translateX(-50%);
-
+    width: 100%;
+    max-width: 600px;
 
     .main-image {
-        // display: table-cell; 
-        // vertical-align: middle;
-        background-color: var(--surface-800);
-        box-shadow: 6px 6px 2px 1px rgba(255, 92, 92, 0.2);
+        background-color: #f8f9fa;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         line-height: 500px;
         text-align: center;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
         height: 500px;
-        border-radius: 20px;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: box-shadow 0.3s ease;
 
-        
+        &:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
 
         img {
             vertical-align: middle;
             max-width: 100%;
             max-height: 100%;
+            object-fit: contain;
         }
     }
 
@@ -30,16 +30,51 @@
             display: flex;
             margin: 0;
             padding: 0;
-            justify-content: center;
-            // background-color: var(--surface-600);
+            justify-content: flex-start;
+            gap: 12px;
+            flex-wrap: wrap;
 
             li {
                 background-size: cover;
-                width: 100px;
-                height: 100px;
+                background-position: center;
+                width: 90px;
+                height: 90px;
                 display: block;
-                margin-right: 15px;
+                border-radius: 8px;
+                cursor: pointer;
+                border: 3px solid transparent;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+                &:hover {
+                    border-color: #667eea;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+                }
+
+                &.selected {
+                    border-color: #667eea;
+                    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+                }
+
+                &:active {
+                    transform: translateY(0);
+                }
             }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        max-width: 100%;
+
+        .main-image {
+            height: 350px;
+            line-height: 350px;
+        }
+
+        .images ul li {
+            width: 70px;
+            height: 70px;
         }
     }
 }

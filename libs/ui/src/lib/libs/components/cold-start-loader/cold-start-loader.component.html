@@ -1,0 +1,20 @@
+<div class="cold-start-loader">
+  <div class="spinner-container">
+    <div class="spinner"></div>
+  </div>
+  
+  <div class="loading-text">
+    <p class="primary-message">{{ message }}</p>
+    
+    <div class="cold-start-notice" *ngIf="showColdStartMessage">
+      <p class="notice-icon">⏳</p>
+      <p class="notice-text">
+        The backend is waking up from sleep mode.<br>
+        This may take up to 30 seconds on first load.
+      </p>
+      <p class="notice-subtext">
+        (Free tier hosting auto-sleeps after inactivity)
+      </p>
+    </div>
+  </div>
+</div>

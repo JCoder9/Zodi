@@ -8,6 +8,15 @@
       class="product-image"
     />
 
+    <!-- Sale/Clearance Badges -->
+    <div class="product-badges">
+      <span class="badge sale-badge" *ngIf="product.onSale">SALE</span>
+      <span class="badge clearance-badge" *ngIf="product.isClearance">CLEARANCE</span>
+      <span class="badge discount-badge" *ngIf="product.discountPercentage && product.discountPercentage > 0">
+        -{{product.discountPercentage}}%
+      </span>
+    </div>
+
     <!-- Wishlist Button -->
     <button
       mat-icon-button
@@ -42,7 +51,12 @@
 
     <!-- Product Price -->
     <div class="product-price">
-      <span class="price-amount">{{ product.price | currency }}</span>
+      <div class="price-container">
+        <span class="price-amount">{{ product.price | currency }}</span>
+        <span class="original-price" *ngIf="product.originalPrice && product.originalPrice > (product.price || 0)">
+          {{ product.originalPrice | currency }}
+        </span>
+      </div>
     </div>
   </mat-card-content>
 

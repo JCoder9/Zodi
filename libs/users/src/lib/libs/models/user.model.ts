@@ -11,4 +11,11 @@ export class User {
     zip?: string;
     city?: string;
     country?: string;
+    savedProducts?: string[];
+    savedCombos?: Array<{
+        _id?: string;
+        name: string;
+        products: string[];
+        createdAt?: Date;
+    }>;
 }

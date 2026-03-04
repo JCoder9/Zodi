@@ -1,0 +1,137 @@
+<div class="login-register">
+  <div class="login-register-panel">
+    <h3>Join Us!</h3>
+    <h2>Create Account</h2>
+    <form [formGroup]="registerFormGroup">
+      <div class="form-field">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">
+            <i class="pi pi-user"></i>
+          </span>
+          <input
+            type="text"
+            formControlName="name"
+            pInputText
+            placeholder="Full Name"
+          />
+        </div>
+        <small
+          *ngIf="registerForm['name'].invalid && isSubmitted"
+          class="p-error"
+        >
+          Name is required
+        </small>
+      </div>
+
+      <div class="form-field">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">
+            <i class="pi pi-envelope"></i>
+          </span>
+          <input
+            type="email"
+            formControlName="email"
+            pInputText
+            placeholder="Email"
+          />
+        </div>
+        <small
+          *ngIf="registerForm['email'].invalid && isSubmitted"
+          class="p-error"
+        >
+          <span *ngIf="registerFormGroup.get('email')?.hasError('required')"
+            >Email is required</span
+          >
+          <span *ngIf="registerFormGroup.get('email')?.hasError('email')"
+            >Email is invalid</span
+          >
+        </small>
+      </div>
+
+      <div class="form-field">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">
+            <i class="pi pi-phone"></i>
+          </span>
+          <input
+            type="tel"
+            formControlName="phone"
+            pInputText
+            placeholder="Phone (Optional)"
+          />
+        </div>
+      </div>
+
+      <div class="form-field">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">
+            <i class="pi pi-lock"></i>
+          </span>
+          <input
+            type="password"
+            formControlName="password"
+            pInputText
+            placeholder="Password"
+          />
+        </div>
+        <small
+          *ngIf="registerForm['password'].invalid && isSubmitted"
+          class="p-error"
+        >
+          <span *ngIf="registerFormGroup.get('password')?.hasError('required')"
+            >Password is required</span
+          >
+          <span *ngIf="registerFormGroup.get('password')?.hasError('minlength')"
+            >Password must be at least 6 characters</span
+          >
+        </small>
+      </div>
+
+      <div class="form-field">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">
+            <i class="pi pi-lock"></i>
+          </span>
+          <input
+            type="password"
+            formControlName="confirmPassword"
+            pInputText
+            placeholder="Confirm Password"
+          />
+        </div>
+        <small
+          *ngIf="registerForm['confirmPassword'].invalid && isSubmitted"
+          class="p-error"
+        >
+          <span *ngIf="registerFormGroup.get('confirmPassword')?.hasError('required')"
+            >Please confirm your password</span
+          >
+          <span *ngIf="registerFormGroup.get('confirmPassword')?.hasError('passwordMismatch')"
+            >Passwords do not match</span
+          >
+        </small>
+      </div>
+
+      <div class="form-field" *ngIf="isSubmitted && authError">
+        <small class="p-error">{{ authMessage }}</small>
+      </div>
+
+      <div class="form-field">
+        <button
+          type="submit"
+          class="btn btn-primary full-btn"
+          (click)="onSubmit()"
+        >
+          Sign Up
+        </button>
+      </div>
+
+      <div class="form-field text-center">
+        <small>
+          Already have an account? 
+          <a routerLink="/login">Sign In</a>
+        </small>
+      </div>
+    </form>
+  </div>
+</div>

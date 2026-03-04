@@ -86,11 +86,11 @@
       <!-- Action Section -->
       <div class="action-section" *ngIf="selectedShoe && selectedBag">
         <div class="actions">
-          <button mat-raised-button color="primary" class="add-both-btn">
+          <button mat-raised-button color="primary" class="add-both-btn" (click)="addBothToCart()">
             <mat-icon>shopping_cart</mat-icon>
             Add Both to Cart
           </button>
-          <button mat-outlined-button class="save-combination-btn">
+          <button mat-outlined-button class="save-combination-btn" (click)="saveCombination()">
             <mat-icon>favorite</mat-icon>
             Save Combination
           </button>

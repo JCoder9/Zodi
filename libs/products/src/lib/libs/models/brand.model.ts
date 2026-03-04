@@ -1,5 +1,9 @@
 export interface Brand {
-  id: string;
+  id?: string;
   name: string;
-  logo?: string;
+  logo: string;
+  description?: string;
+  featured?: boolean;
+  order?: number;
+  dateCreated?: Date;
 }

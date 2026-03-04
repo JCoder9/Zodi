@@ -15,7 +15,8 @@
                 </p-toolbar>
             </div>
         </div>
-        <div class="grid">
+        <zodi-cold-start-loader *ngIf="loading" message="Loading products..."></zodi-cold-start-loader>
+        <div class="grid" *ngIf="!loading">
             <div class="col-12">
                 <p-table
                     [paginator]="true"

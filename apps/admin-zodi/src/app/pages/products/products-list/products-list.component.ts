@@ -15,6 +15,7 @@ import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-d
 export class ProductsListComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   endSubs$: Subject<void> = new Subject();
+  loading = true;
 
   constructor(
     private productsService: ProductsService,
@@ -70,11 +71,13 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   }
 
   private _getProducts() {
+    this.loading = true;
     this.productsService
       .getProducts()
       .pipe(takeUntil(this.endSubs$))
       .subscribe((products) => {
         this.products = products;
+        this.loading = false;
       });
   }
 }

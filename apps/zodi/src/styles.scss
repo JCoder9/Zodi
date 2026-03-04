@@ -43,6 +43,15 @@ $zodi-theme: mat.define-light-theme((
 // Include all theme styles
 @include mat.all-component-themes($zodi-theme);
 
+// Import base variables and colors
+@import '../../../styles/base/colors.scss';
+
+// Import custom library styles
+@import '../../../styles/libs/users/users.scss';
+@import '../../../styles/libs/products/products.scss';
+@import '../../../styles/libs/ui/ui.scss';
+@import '../../../styles/libs/orders/orders.scss';
+
 // Custom global styles
 html, body {
   height: 100%;

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '@zodi/libs/orders';
+import { skip } from 'rxjs/operators';
 
 @Component({
   selector: 'zodi-messages',
@@ -114,7 +115,9 @@ export class MessagesComponent implements OnInit {
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.cartService.cart$.subscribe(() => {
+    // Skip the initial emission (BehaviorSubject emits current value immediately)
+    // Only show message on actual cart changes
+    this.cartService.cart$.pipe(skip(1)).subscribe(() => {
       this.showMessage('success', 'Product added to cart successfully!');
     });
   }

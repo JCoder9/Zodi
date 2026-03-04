@@ -7,7 +7,6 @@
   >
     <mat-icon>filter_list</mat-icon>
     Filters
-    <mat-icon>arrow_drop_down</mat-icon>
   </button>
 
   <mat-menu #filterMenu="matMenu" class="filter-menu">
@@ -20,6 +19,55 @@
 <!-- Filter Template -->
 <ng-template #filters>
   <div class="filter-sections">
+    <!-- Sale & Clearance Section -->
+    <mat-expansion-panel class="filter-panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>local_offer</mat-icon>
+          Special Offers
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="filter-options">
+        <div class="filter-option">
+          <mat-checkbox
+            [(ngModel)]="selectedOnSale"
+            (change)="onFilterChange()"
+          >
+            Sale <span class="filter-count">({{ getOnSaleCount() }})</span>
+          </mat-checkbox>
+        </div>
+        <div class="filter-option">
+          <mat-checkbox
+            [(ngModel)]="selectedIsClearance"
+            (change)="onFilterChange()"
+          >
+            Clearance <span class="filter-count">({{ getClearanceCount() }})</span>
+          </mat-checkbox>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Product Type Section -->
+    <mat-expansion-panel class="filter-panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>shopping_bag</mat-icon>
+          Product Type
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="filter-options">
+        <div *ngFor="let type of productTypes" class="filter-option">
+          <mat-checkbox
+            [id]="'type-' + type"
+            [checked]="isProductTypeSelected(type)"
+            (change)="toggleProductType(type, $event.checked)"
+          >
+            {{ type }} <span class="filter-count">({{ getProductTypeCount(type) }})</span>
+          </mat-checkbox>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
     <!-- Size Section -->
     <mat-expansion-panel class="filter-panel">
       <mat-expansion-panel-header>
@@ -32,11 +80,10 @@
         <div *ngFor="let size of sizes" class="filter-option">
           <mat-checkbox
             [id]="'size-' + size"
-            [value]="size"
-            [(ngModel)]="selectedSizes"
-            (change)="onFilterChange()"
+            [checked]="isSizeSelected(size)"
+            (change)="toggleSize(size, $event.checked)"
           >
-            {{ size }}
+            {{ size }} <span class="filter-count">({{ getSizeCount(size) }})</span>
           </mat-checkbox>
         </div>
       </div>
@@ -53,12 +100,12 @@
       <div class="filter-options">
         <div *ngFor="let category of categories" class="filter-option">
           <mat-checkbox
-            [id]="'category-' + category"
-            [value]="category"
-            [(ngModel)]="selectedCategories"
-            (change)="onFilterChange()"
+            *ngIf="category.id"
+            [id]="'category-' + category.id"
+            [checked]="isCategorySelected(category.id)"
+            (change)="toggleCategory(category.id, $event.checked)"
           >
-            {{ category }}
+            {{ category.name }} <span class="filter-count">({{ getCategoryCount(category.id) }})</span>
           </mat-checkbox>
         </div>
       </div>
@@ -76,11 +123,10 @@
         <div *ngFor="let colour of colours" class="filter-option">
           <mat-checkbox
             [id]="'colour-' + colour"
-            [value]="colour"
-            [(ngModel)]="selectedColours"
-            (change)="onFilterChange()"
+            [checked]="isColourSelected(colour)"
+            (change)="toggleColour(colour, $event.checked)"
           >
-            {{ colour }}
+            {{ colour }} <span class="filter-count">({{ getColourCount(colour) }})</span>
           </mat-checkbox>
         </div>
       </div>
@@ -97,12 +143,11 @@
       <div class="filter-options">
         <div *ngFor="let brand of brands" class="filter-option">
           <mat-checkbox
-            [id]="'brand-' + brand"
-            [value]="brand"
-            [(ngModel)]="selectedBrands"
-            (change)="onFilterChange()"
+            [id]="'brand-' + brand.id"
+            [checked]="isBrandSelected(brand.name)"
+            (change)="toggleBrand(brand.name, $event.checked)"
           >
-            {{ brand }}
+            {{ brand.name }} <span class="filter-count">({{ getBrandCount(brand.name) }})</span>
           </mat-checkbox>
         </div>
       </div>
@@ -120,11 +165,10 @@
         <div *ngFor="let heel of heelTypes" class="filter-option">
           <mat-checkbox
             [id]="'heel-' + heel"
-            [value]="heel"
-            [(ngModel)]="selectedHeelTypes"
-            (change)="onFilterChange()"
+            [checked]="isHeelTypeSelected(heel)"
+            (change)="toggleHeelType(heel, $event.checked)"
           >
-            {{ heel }}
+            {{ heel }} <span class="filter-count">({{ getHeelTypeCount(heel) }})</span>
           </mat-checkbox>
         </div>
       </div>
@@ -139,14 +183,13 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div class="filter-options">
-        <div *ngFor="let price of prices" class="filter-option">
+        <div *ngFor="let price of priceRanges" class="filter-option">
           <mat-checkbox
             [id]="'price-' + price"
-            [value]="price"
-            [(ngModel)]="selectedPrices"
-            (change)="onFilterChange()"
+            [checked]="isPriceRangeSelected(price)"
+            (change)="togglePriceRange(price, $event.checked)"
           >
-            {{ price }}
+            {{ price }} <span class="filter-count">({{ getPriceRangeCount(price) }})</span>
           </mat-checkbox>
         </div>
       </div>

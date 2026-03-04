@@ -1,29 +1,77 @@
 <div class="product-page" *ngIf="product">
   <div class="overview">
-    <div class="image" *ngIf="product.images">
-      <zodi-gallery class="gallery" [images]="product.images"></zodi-gallery>
+    <div class="image">
+      <zodi-gallery class="gallery" [images]="productImages"></zodi-gallery>
     </div>
     <div class="product">
       <h2 class="product-name">{{ product.name }}</h2>
+      
+      <!-- Sale/Clearance Badges -->
+      <div class="product-badges" *ngIf="product.onSale || product.isClearance || (product.discountPercentage && product.discountPercentage > 0)">
+        <span class="badge sale-badge" *ngIf="product.onSale">SALE</span>
+        <span class="badge clearance-badge" *ngIf="product.isClearance">CLEARANCE</span>
+        <span class="badge discount-badge" *ngIf="product.discountPercentage && product.discountPercentage > 0">
+          -{{product.discountPercentage}}% OFF
+        </span>
+      </div>
+      
+      <!-- Brand -->
+      <div class="product-brand" *ngIf="product.brand">
+        <strong>Brand:</strong> {{ product.brand }}
+      </div>
+      
       <p class="product-description">
         {{ product.description }}
       </p>
-      <div class="product-rating" *ngIf="product.rating">
-        <div class="star-rating">
-          <span
-            *ngFor="let star of getStarArray(product.rating)"
-            class="star"
-            [class.filled]="product.rating && star <= product.rating"
-          >
-            ⭐
-          </span>
-          <span class="rating-text">({{ product.rating }}/5)</span>
-        </div>
-      </div>
+      
       <div class="product-price" *ngIf="product.price">
         {{ product.price | currency }}
-        <span class="price-before">{{ product.price + 18 | currency }}</span>
+        <span class="price-before" *ngIf="product.originalPrice">{{ product.originalPrice | currency }}</span>
       </div>
+      
+      <!-- Product Details Section -->
+      <div class="product-details">
+        <!-- Category -->
+        <div class="detail-row" *ngIf="product.category">
+          <strong>Category:</strong> {{ product.category.name }}
+        </div>
+        
+        <!-- Product Type -->
+        <div class="detail-row" *ngIf="product.productType">
+          <strong>Type:</strong> {{ product.productType }}
+        </div>
+        
+        <!-- Colour -->
+        <div class="detail-row" *ngIf="product.colour">
+          <strong>Colour:</strong> {{ product.colour }}
+        </div>
+        
+        <!-- Heel Type (for shoes) -->
+        <div class="detail-row" *ngIf="product.heelType">
+          <strong>Heel Type:</strong> {{ product.heelType }}
+        </div>
+        
+        <!-- Available Sizes -->
+        <div class="detail-row" *ngIf="product.size && product.size.length > 0">
+          <strong>Available Sizes:</strong>
+          <div class="size-options">
+            <span class="size-badge" *ngFor="let size of product.size">{{ size }}</span>
+          </div>
+        </div>
+        
+        <!-- Stock Status -->
+        <div class="detail-row stock-status">
+          <strong>Availability:</strong> 
+          <span [class.in-stock]="product.inStock !== false && (product.countInStock === undefined || product.countInStock > 0)" 
+                [class.out-of-stock]="product.inStock === false || product.countInStock === 0">
+            {{ (product.inStock !== false && (product.countInStock === undefined || product.countInStock > 0)) ? 'In Stock' : 'Out of Stock' }}
+          </span>
+          <span *ngIf="product.countInStock !== undefined && product.countInStock > 0" class="stock-count">
+            ({{ product.countInStock }} available)
+          </span>
+        </div>
+      </div>
+      
       <div class="product-quantity">
         <div class="quantity-field">
           <label for="quantity">Quantity</label>
@@ -53,26 +101,22 @@
           </div>
         </div>
       </div>
+      
       <div class="product-actions">
         <button
-          pButton
-          pRipple
+          mat-raised-button
+          color="primary"
           type="button"
-          label="Buy Now"
-          class="p-button-rounded mr-2"
-        ></button>
-        <button
-          pButton
-          pRipple
-          type="button"
-          label="Add to Cart"
-          class="p-button-rounded"
+          class="add-to-cart-btn"
           (click)="addProductToCart()"
-        ></button>
+        >
+          <mat-icon>shopping_cart</mat-icon>
+          Add to Cart
+        </button>
       </div>
     </div>
   </div>
-  <div class="grid product-rich-description">
+  <div class="grid product-rich-description" *ngIf="product.richDescription">
     <div class="col-12">
       <div [innerHTML]="product.richDescription"></div>
     </div>

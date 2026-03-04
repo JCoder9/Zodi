@@ -26,7 +26,7 @@ export class UsersService {
   }
 
   createUser(user: User): Observable<User> {
-    return this.http.post<User>(this.apiURLUsers, user);
+    return this.http.post<User>(`${this.apiURLUsers}/register`, user);
   }
 
   updateUser(user: User): Observable<User> {
@@ -72,5 +72,31 @@ export class UsersService {
 
   isCurrentUserAuthenticated() {
     return this.usersFacade.isAuthenticated$;
+  }
+
+  // Saved Products Methods
+  getUserSavedProducts(userId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiURLUsers}/${userId}/saved-products`);
+  }
+
+  addSavedProduct(userId: string, productId: string): Observable<User> {
+    return this.http.post<User>(`${this.apiURLUsers}/${userId}/saved-products`, { productId });
+  }
+
+  removeSavedProduct(userId: string, productId: string): Observable<User> {
+    return this.http.delete<User>(`${this.apiURLUsers}/${userId}/saved-products/${productId}`);
+  }
+
+  // Saved Combos Methods
+  getUserSavedCombos(userId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiURLUsers}/${userId}/saved-combos`);
+  }
+
+  saveCombo(userId: string, combo: { name: string; products: string[] }): Observable<User> {
+    return this.http.post<User>(`${this.apiURLUsers}/${userId}/saved-combos`, combo);
+  }
+
+  removeCombo(userId: string, comboId: string): Observable<User> {
+    return this.http.delete<User>(`${this.apiURLUsers}/${userId}/saved-combos/${comboId}`);
   }
 }
