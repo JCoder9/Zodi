@@ -23,6 +23,7 @@ interface BrandDisplay extends Brand {
         padding: 80px 20px;
         text-align: center;
         margin-bottom: 40px;
+        border-radius: 10px
       }
 
       .hero-content h1 {
@@ -39,7 +40,6 @@ interface BrandDisplay extends Brand {
 
       .quick-nav {
         padding: 40px 20px;
-        background: #f8f9fa;
       }
 
       .nav-container {
@@ -52,6 +52,7 @@ interface BrandDisplay extends Brand {
         margin-bottom: 30px;
         color: #333;
         font-weight: 500;
+
       }
 
       .nav-grid {
@@ -203,12 +204,10 @@ interface BrandDisplay extends Brand {
 
       .featured-section {
         padding: 40px 20px;
-        background: white;
       }
 
       .brands-showcase {
         padding: 60px 20px;
-        background: #f8f9fa;
       }
 
       .brands-container {
@@ -284,7 +283,6 @@ interface BrandDisplay extends Brand {
 
       .promo-banners {
         padding: 40px 20px;
-        background: white;
       }
 
       .promo-container {

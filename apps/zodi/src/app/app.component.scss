@@ -14,8 +14,24 @@
   flex: 1;
   padding-top: 112px; /* Account for sticky navigation (64px top row + 48px menu row) */
   padding-bottom: 2rem;
+  position: relative;
   
   @media (max-width: 1024px) {
     padding-top: 56px; /* Mobile navigation is single row */
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/assets/images/shoesbags.png');
+    background-repeat: repeat-y;
+    background-size: 100% auto;
+    background-position: top center;
+    opacity: 0.2;
+    z-index: -1;
   }
 }
