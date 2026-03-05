@@ -180,28 +180,72 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   ::ng-deep .mat-menu-panel.filter-menu {
-    max-width: 95vw !important;
+    max-width: 90vw !important;
     width: auto !important;
   }
   
   .filter-content {
-    width: 280px !important;
-    max-width: 90vw !important;
-    max-height: 400px;
+    width: auto !important;
+    max-width: 85vw !important;
+    max-height: 70vh;
   }
   
   .filter-options {
-    max-height: 150px;
     padding: 12px;
   }
   
   .filter-button {
+    min-width: 100px;
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+  
+  .clear-filters-section button {
     min-width: 120px;
     font-size: 14px;
   }
   
-  .clear-filters-section button {
-    min-width: 150px;
+  .filter-panel .mat-expansion-panel-header {
+    padding: 0 12px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  ::ng-deep .mat-menu-panel.filter-menu {
+    max-width: 92vw !important;
+  }
+  
+  .filter-content {
+    max-width: 90vw !important;
+    max-height: 75vh;
+    padding: 12px;
+  }
+  
+  .filter-options {
+    padding: 10px;
+  }
+  
+  .filter-button {
+    min-width: 90px;
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+  
+  .filter-panel .mat-expansion-panel-header {
+    padding: 0 10px;
+    height: 40px;
+  }
+  
+  .filter-panel .mat-expansion-panel-header-title {
+    font-size: 14px;
+    gap: 6px;
+  }
+  
+  .filter-panel .mat-expansion-panel-header-title mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
   }
 }
 

@@ -10,7 +10,6 @@ import { ProductsService } from '../../services/products.service';
     `
       .featured-products {
         padding: 40px 0;
-        background: white;
       }
 
       .featured-header {
@@ -67,10 +66,10 @@ import { ProductsService } from '../../services/products.service';
         }
       }
 
-      /* Small screens - 2 products visible */
+      /* Small screens - 1 product visible */
       @media (max-width: 768px) {
         .products-scroll {
-          grid-auto-columns: calc(100% / 2);
+          grid-auto-columns: 100%;
           gap: 15px;
           padding: 0 15px;
         }

@@ -17,11 +17,12 @@ flex: 1;
     flex: 1; /* Takes 3/12 of the available space */
     display: flex;
     flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
 
   }
 
   .left-item {
-
     &-1 {
           display: flex;
 
@@ -64,6 +65,8 @@ flex: 1;
     }
 
     &-1:hover {
+      border-radius: 10px;
+
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       // filter: blur(3px);
       // background-image: url('/assets/images/instagram-logo-fill.png');
@@ -76,6 +79,8 @@ flex: 1;
     }
     
     &-2:hover {
+      border-radius: 10px;
+
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       // filter: blur(3px);
       // background-image: url('/assets/images/facebook-logo-fill.png');

@@ -161,6 +161,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: block;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 1);
     
     .accent {
       color: #ff4081;
@@ -197,10 +198,11 @@
   .nav-button {
     font-weight: 300;
     color: rgba(255, 255, 255, 0.95);
-    font-size: 14px;
+    font-size: 16px;
     padding: 6px 16px;
     white-space: nowrap;
     flex-shrink: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 1);
     
     &.active-nav {
       background-color: rgba(255, 255, 255, 0.15);

@@ -68,7 +68,7 @@ import { ProductFilters } from '../../components/product-filter/product-filter.c
         }
       }
 
-      /* Small screens (mobile) - 2 products per row */
+      /* Small screens (mobile) - 1 product per row */
       @media (max-width: 768px) {
         .header-content {
           flex-direction: column;
@@ -76,7 +76,7 @@ import { ProductFilters } from '../../components/product-filter/product-filter.c
         }
 
         .product-list-container {
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: 1fr;
           gap: 15px;
         }
       }
