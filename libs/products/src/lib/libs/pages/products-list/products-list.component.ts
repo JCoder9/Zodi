@@ -99,6 +99,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   isProductsPage = false;
   loading = true;
   activeFilters: ProductFilters | null = null;
+  pendingQueryParams: any = null; // Store query params to apply after products load
 
   isSectionVisible = true;
 
@@ -113,15 +114,15 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     this.route.queryParams
       .pipe(takeUntil(this.endSubs$))
       .subscribe((params) => {
+        // Store query params if any filters are present
+        if (params['brand'] || params['category'] || params['color'] || params['sale'] || params['clearance']) {
+          this.pendingQueryParams = params;
+        } else {
+          this.pendingQueryParams = null;
+        }
+        
         this._getProducts();
         this._getCategories();
-
-        // Apply filters from search results or sale/clearance
-        if (params['brand'] || params['category'] || params['color'] || params['sale'] || params['clearance']) {
-          setTimeout(() => {
-            this.applySearchFilters(params);
-          }, 100);
-        }
       });
   }
 
@@ -148,8 +149,13 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         this.products = products;
         this.loading = false;
         
+        // Apply pending query param filters if any
+        if (this.pendingQueryParams) {
+          this.applySearchFilters(this.pendingQueryParams);
+          this.pendingQueryParams = null; // Clear after applying
+        }
         // Reapply filters if any were active
-        if (this.activeFilters) {
+        else if (this.activeFilters) {
           this.applyFilters(this.activeFilters);
         }
       });
